@@ -32,7 +32,7 @@ Zevix Cybersecurity és una empresa (simulada) d'auditories de seguretat inform�
 
 ## 🖥️ Landing page
 
-La portada té un efecte **Scroll World**: un món 3D (Three.js) on el scroll fa volar la càmera per les 4 fases d'una auditoria.
+Tota la portada és un efecte **Scroll World**: un món 3D (Three.js) on el scroll fa volar la càmera per les 4 fases d'una auditoria. Si veieu una versió antiga, recarregueu amb **Ctrl+Shift+R**.
 
 Pàgines: Inici · Serveis · Equip · Sobre nosaltres · Tarifes (Bàsic / Professional / Avançat) · Notícies · Contacte · Login · Registre · Portal de clients · Portal d'administradors.
 

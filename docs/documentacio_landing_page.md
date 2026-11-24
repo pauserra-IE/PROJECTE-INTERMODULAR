@@ -32,7 +32,7 @@ Pàgines que inclou:
 
 | Pàgina | Contingut |
 |---|---|
-| Inici | Navbar (logo, menú, botons *Accedir* i *Registrar-se*), hero amb proposta de valor, resum de serveis, metodologia, avantatges, crida a l'acció i footer amb logos de clients i xarxes socials |
+| Inici | Navbar (logo, menú, botons *Accedir* i *Registrar-se*) i un **recorregut 3D (Scroll World)** que ocupa tota la portada: presentació amb la proposta de valor, les 4 fases de l'auditoria (que expliquen els serveis) i crida a l'acció final. Acaba amb el footer (logos de clients, xarxes socials i butlletí) |
 | Serveis | Detall de cada servei (OSINT, escaneig de ports, SSH, SMB, web/DNS/FTP, pla de millora): en què consisteix i per què és important |
 | Equip | Membres, càrrec, estudis, descripció i gustos, amb fotografia |
 | Sobre nosaltres | Història, finalitat de l'empresa, missió/visió/valors i estàndards |
@@ -90,26 +90,49 @@ Nivells:
 
 Abans de programar es va fer el següent esquema (wireframe) de la pàgina d'inici i del login. Paleta: fons fosc `#070b14`, cian `#22d3ee` i blau `#3b82f6`, per transmetre tecnologia i confiança.
 
+La portada és una sola pantalla fixa (el món 3D) on el contingut canvia a mesura que es fa scroll. Cada requadre és un "fotograma" del recorregut:
+
 ```
+NAVBAR (sempre visible)
 ┌──────────────────────────────────────────────────────────────────────┐
 │ [LOGO] ZEVIX   Inici Serveis Equip Sobre Tarifes Notícies Contacte  [Accedir][Registrar-se] │
-├──────────────────────────────────────────────────────────────────────┤
-│  ● Auditories de seguretat per a pimes      ┌──────────────────────┐ │
-│  Trobem les teves vulnerabilitats           │ ● ● ●  terminal      │ │
-│  abans que ho faci un atacant.              │ $ docker run zevix.. │ │
-│  [Sol·licitar auditoria] [Veure serveis]    │ [!] CRÍTIC root SSH  │ │
-│  7 mòduls · 48h informe · 100% confidencial └──────────────────────┘ │
-├──────────────────────────────────────────────────────────────────────┤
-│  QUÈ FEM:  [OSINT] [Ports] [SSH] [SMB] [Web/DNS] [Pla de millora]    │
-├──────────────────────────────────────────────────────────────────────┤
-│  COM TREBALLEM: 01 Contracte → 02 Escaneig → 03 Riscos → 04 Informe  │
-├──────────────────────────────────────────────────────────────────────┤
-│  PER QUÈ ZEVIX: [Docker] [Telegram] [Confidencial] [Portal clients]  │
-├──────────────────────────────────────────────────────────────────────┤
-│  CTA: Saps quantes portes té obertes la teva xarxa? [Veure tarifes]  │
-├──────────────────────────────────────────────────────────────────────┤
+└──────────────────────────────────────────────────────────────────────┘
+
+0 %  ·  INTRO — vista general del món 3D
+┌──────────────────────────────────────────────────────────────────────┐
+│              ● Auditories de seguretat per a pimes            OSINT ○ │
+│        Trobem les teves vulnerabilitats abans que ho          Xarxa ○ │
+│                   faci un atacant.                            CPD   ○ │
+│          [Sol·licitar auditoria]  [Veure serveis]         Protecció ○ │
+│                       fes scroll ↓                                    │
+│▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔ barra de progrés ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔│
+└──────────────────────────────────────────────────────────────────────┘
+
+7–27 %  ·  FASE 01 — la càmera envolta el globus
+┌──────────────────────────────────────────────────────────────────────┐
+│                     (globus 3D amb satèl·lits)                OSINT ● │
+│ ┌─────────────────────────────┐                               Xarxa ○ │
+│ │ FASE 01 · INTERNET          │                               CPD   ○ │
+│ │ Reconeixement OSINT         │                           Protecció ○ │
+│ │ [Shodan] [theHarvester]     │                                       │
+│ └─────────────────────────────┘                                       │
+└──────────────────────────────────────────────────────────────────────┘
+
+27–53 %  FASE 02 — sobrevola la ciutat de servidors     (mateixa estructura)
+53–76 %  FASE 03 — entra al passadís de racks del CPD   (mateixa estructura)
+76–93 %  FASE 04 — arriba a la cúpula-escut             (mateixa estructura)
+
+93–100 %  ·  FINAL — la càmera s'allunya
+┌──────────────────────────────────────────────────────────────────────┐
+│               // La teva xarxa, protegida                             │
+│        Saps quantes portes té obertes la teva xarxa?                  │
+│         [Veure tarifes]  [Crear compte de client]                     │
+└──────────────────────────────────────────────────────────────────────┘
+
+FOOTER
+┌──────────────────────────────────────────────────────────────────────┐
 │  Empreses que confien: EbreLogistics · DeltaAgro · Clínica Montsià…  │
-│  FOOTER: logo + xarxes socials | Empresa | Serveis | Butlletí        │
+│  logo + xarxes socials | Empresa | Serveis | Butlletí                 │
 └──────────────────────────────────────────────────────────────────────┘
 
 LOGIN
@@ -154,9 +177,9 @@ PROJECTE-INTERMODULAR/
 | Fitxer | Responsabilitat |
 |---|---|
 | `assets/css/style.css` | Tot el disseny. Els colors es defineixen com a variables a `:root`, de manera que canviar la imatge corporativa només requereix editar unes línies. |
-| `assets/js/main.js` | Comportament de la web pública: menú hamburguesa, animacions `reveal`, terminal animada, commutador mensual/anual de tarifes, filtre del blog i validació del formulari de contacte (`validateForm`). |
+| `assets/js/main.js` | Comportament de la web pública: menú hamburguesa, animacions `reveal` en fer scroll, commutador mensual/anual de tarifes, filtre del blog i validació del formulari de contacte (`validateForm`). |
 | `assets/js/auth.js` | Objecte `ZevixAuth` amb `login()`, `register()`, `logout()`, `currentUser()` i `require(roles)`. Guarda la sessió a `sessionStorage` i protegeix les pàgines privades redirigint al login si no hi ha sessió o el rol no és vàlid. |
-| `assets/js/scroll-world.js` | Crea l'escena 3D (globus OSINT, ciutat de servidors, passadís del CPD i cúpula-escut), calcula el progrés del scroll dins la secció `#world` (0 → 1) i mou la càmera per una corba `CatmullRomCurve3`. També activa el text de cada fase i només renderitza quan la secció és visible. |
+| `assets/js/scroll-world.js` | Crea l'escena 3D (globus OSINT, ciutat de servidors, passadís del CPD i cúpula-escut), calcula el progrés del scroll dins la secció `#world` (0 → 1) i mou la càmera seguint uns fotogrames clau (`KEYS`). Mostra el text de cada etapa segons els atributs `data-from` / `data-to` de l'HTML, actualitza la barra i els punts de progrés i només renderitza quan la secció és visible. |
 | `portal-client.html` | Llegeix `informes_auditoria/informe_ebrelogistics_2026.json` amb `fetch()` i genera dinàmicament els comptadors per gravetat, la barra de risc, la taula de vulnerabilitats i el pla de millora. Permet descarregar l'informe en HTML i JSON. |
 | `portal-admin.html` | Només accessible amb rol `admin`. Llista de clients, estat dels mòduls de l'eina, formulari de pujada d'informes (simulat) i registre d'activitat. |
 | `informes_auditoria/*.json` | Format d'informe que exportarà l'eina d'auditoria en Python. És el "contracte" de dades entre l'eina i la plataforma web. |
@@ -165,24 +188,33 @@ PROJECTE-INTERMODULAR/
 
 ### 6.1 Disseny
 - **Tema fosc amb blau i cian:** estètica habitual al sector de la ciberseguretat que transmet tecnologia i professionalitat.
-- **Terminal animada al hero:** mostra de manera visual què fa la nostra eina, en lloc de només explicar-ho.
+- **Portada com a recorregut 3D:** en lloc d'una portada amb molts blocs de text, el visitant "viatja" per les fases de l'auditoria. Així s'explica el servei de manera visual i memorable amb molt poc text.
 - **Mobile-first i responsive:** tota la web s'adapta a mòbil, tauleta i escriptori.
 - **Accessibilitat:** etiquetes `label` als formularis, `aria-label` a les icones, contrast alt i respecte a `prefers-reduced-motion`.
 - **Plans de preus en 3 nivells** (senzill, mitjà, fort), tal com indica l'enunciat, amb el pla mitjà destacat com a "més popular".
 
 ### 6.2 Efecte Scroll World
-La portada inclou una secció *"El viatge d'una auditoria"*: en fer scroll, una càmera vola **sense talls** per un petit món 3D i entra a cada escena, que correspon a una fase del servei:
+Tota la portada és un recorregut 3D: en fer scroll, una càmera vola **sense talls** per un petit món i entra a cada escena. Cada escena és una fase del servei:
 
-| Fase | Escena 3D | Missatge |
-|---|---|---|
-| 01 · Internet | Globus amb satèl·lits i punts de serveis exposats | Reconeixement OSINT (Shodan, theHarvester) |
-| 02 · La xarxa | Ciutat de servidors connectats, paquets de dades i anell d'escaneig | Descobriment d'hosts i ports (Nmap) |
-| 03 · El CPD | Passadís de racks amb LEDs, alertes vermelles i pla d'escaneig | Anàlisi de vulnerabilitats (SSH, SMB...) |
-| 04 · Protecció | Cúpula-escut verda amb un check | Informe i pla de millora |
+| Scroll | Etapa | Escena 3D | Missatge |
+|---|---|---|---|
+| 0–7 % | Intro | Vista general de tot el món | Proposta de valor i botons d'acció |
+| 7–27 % | 01 · Internet | Globus amb satèl·lits i punts de serveis exposats | Reconeixement OSINT (Shodan, theHarvester) |
+| 27–53 % | 02 · La xarxa | Ciutat de servidors connectats, paquets de dades i anell d'escaneig | Descobriment d'hosts i ports (Nmap) |
+| 53–76 % | 03 · El CPD | Passadís de racks amb LEDs, alertes vermelles i pla d'escaneig | Anàlisi de vulnerabilitats (SSH, SMB...) |
+| 76–93 % | 04 · Protecció | Cúpula-escut verda amb un check | Informe i pla de millora |
+| 93–100 % | Final | La càmera s'allunya | Crida a l'acció: tarifes i registre |
 
-**Com funciona:** la secció fa 600vh d'alt i conté un `canvas` *sticky*. El percentatge de scroll dins la secció (0 → 1) es fa servir com a "temps": la càmera segueix una corba `CatmullRomCurve3` de Three.js i mira cap a una segona corba. Així el scroll només controla on és la càmera, com a les pàgines de producte d'Apple.
+**Com funciona:**
+1. La secció `#world` fa **750vh** d'alt i dins hi ha un contenidor `position: sticky` d'una pantalla amb el `canvas`. Mentre es baixa, el canvas es queda fix i només canvia el que es veu.
+2. El JavaScript calcula el **progrés** (0 → 1) segons quanta part de la secció s'ha recorregut. Es suavitza a cada fotograma perquè el moviment sigui fluid.
+3. La càmera segueix una llista de **fotogrames clau** (`KEYS`): cada un indica en quin percentatge de scroll la càmera ha d'estar en una posició i mirant a un punt. Entre fotogrames la posició s'interpola amb una corba `CatmullRomCurve3` i un suavitzat *smoothstep*. Així cada fase té el seu tram i el text sempre coincideix amb l'escena.
+4. Els textos (`.world-stage`) tenen `data-from` i `data-to` a l'HTML i el JS els mostra quan el progrés és dins del seu rang. També s'actualitzen la **barra de progrés** i els **punts** de la dreta, que es poden clicar per saltar a una fase.
+5. Per estalviar bateria, només es renderitza quan la secció és visible (`IntersectionObserver`). En mòbil es redueixen les partícules i s'obre el camp de visió.
 
-**Decisió:** la tècnica s'inspira en la skill [scroll-world](https://github.com/oso95/scroll-world), però aquesta genera els vols amb vídeos d'IA de pagament (Monid/Higgsfield). Nosaltres renderitzem l'escena en temps real amb WebGL: és gratuït, ocupa uns pocs KB i funciona a GitHub Pages. Si el navegador no té WebGL, les 4 fases es mostren com a targetes estàtiques.
+**Decisió:** la tècnica s'inspira en la skill [scroll-world](https://github.com/oso95/scroll-world), però aquesta genera els vols amb vídeos d'IA de pagament (Monid/Higgsfield). Nosaltres renderitzem l'escena en temps real amb WebGL: és gratuït, ocupa uns pocs KB i funciona a GitHub Pages. Si el navegador no té WebGL, tot el contingut es mostra com a seccions estàtiques.
+
+**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (`style.css?v=3`, `scroll-world.js?v=3`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
 
 ### 6.3 Justificació de tecnologies
 
