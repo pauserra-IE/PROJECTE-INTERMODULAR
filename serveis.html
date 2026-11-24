@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=5">
+  <link rel="stylesheet" href="assets/css/style.css?v=6">
 </head>
 <body>
 <header class="navbar">
@@ -39,7 +39,7 @@
 <main>
 <section class="page-header">
   <div class="container">
-    <div class="doc-strip"><span>DOC ZVX-WEB-002</span><span>Classificació: públic</span><span>Rev. 5</span><span>Zevix Cybersecurity</span></div>
+    <div class="doc-strip"><span>DOC ZVX-WEB-002</span><span>Classificació: públic</span><span>Rev. 6</span><span>Zevix Cybersecurity</span></div>
     <div class="breadcrumb">~/zevix/serveis</div>
     <h1>Serveis</h1>
     <p>Cada servei correspon a un mòdul de la nostra eina d'auditoria en Python. Es poden contractar per separat o dins d'un dels nostres plans.</p>
@@ -105,22 +105,17 @@
       <p>Aplicació d'escriptori pròpia en Python amb interfície gràfica (tkinter). Cada pestanya llança una eina del sistema en un fil separat (<code>threading</code> + <code>subprocess</code>) i en mostra la sortida en temps real, sense bloquejar la finestra.</p>
     </div>
     <div class="tool-grid reveal">
-      <div class="app-window" aria-label="Recreació de la interfície de l'eina">
-        <div class="app-title"><i></i><i></i><i></i><span>Eina d'Auditoria de Seguretat de Xarxa, Web i OSINT</span></div>
-        <div class="app-tabs"><span class="on">OSINT (theHarvester)</span><span>Nmap (Escaneig de Xarxa)</span><span>Nikto (Auditoria Web)</span><span>Utilitats de Xarxa (Ping / DNS / Whois)</span></div>
-        <div class="app-form">
-          <label>Domini Objectiu (ex: iesebre.cat):</label><span class="app-input">ebrelogistics.cat</span>
-          <label>Font de Dades (Data Source):</label><span class="app-input">all ▾</span>
-          <label class="app-check">☑ Guardar resultats en un fitxer (HTML/XML)</label>
-          <label>Nom del Fitxer (sense extensió):</label><span class="app-input">resultat</span>
-          <span></span><span class="app-btn">Cerca OSINT amb theHarvester</span>
-        </div>
-        <div class="app-console"><div class="app-console-label">Sortida de la Consola</div><pre>[+] Executant comanda: theHarvester -d ebrelogistics.cat -b all -l 500 -f resultat
-----------------------------------------------------------------------
-<span class="dim">· · · sortida de theHarvester en temps real · · ·</span>
-
-[+] Procés finalitzat.
-======================================================================</pre></div>
+      <div class="tool-shots">
+        <figure class="shot">
+          <div class="shot-bar"><i></i><i></i><i></i><span>Eina d'Auditoria de Seguretat de Xarxa, Web i OSINT</span></div>
+          <img src="assets/img/eina/eina-nmap.png" alt="Captura de l'eina: pestanya Nmap amb un escaneig ràpid de scanme.nmap.org" width="900" height="700" loading="lazy">
+          <figcaption>Pestanya Nmap · escaneig ràpid (<code>-F</code>) de <code>scanme.nmap.org</code></figcaption>
+        </figure>
+        <figure class="shot">
+          <div class="shot-bar"><i></i><i></i><i></i><span>Eina d'Auditoria de Seguretat de Xarxa, Web i OSINT</span></div>
+          <img src="assets/img/eina/eina-dig.png" alt="Captura de l'eina: pestanya d'utilitats de xarxa amb una consulta dig de iesebre.com" width="900" height="700" loading="lazy">
+          <figcaption>Utilitats de xarxa · consulta DNS (<code>dig</code>) de <code>iesebre.com</code></figcaption>
+        </figure>
       </div>
       <div class="app-cli" aria-label="Menú del mòdul de Shodan">
         <div class="app-console-label">shodan_recon.py</div>
@@ -141,7 +136,7 @@ Ports oberts i serveis detectats:
 ==================================================</pre>
       </div>
     </div>
-    <p class="caption reveal">Recreació de la interfície i dels menús reals de l'eina (Python 3 · tkinter · subprocess · threading · python3-shodan). Les dades de sortida s'han omès.</p>
+    <p class="caption reveal">Captures reals de l'eina executant-se (Python 3 · tkinter · subprocess · threading). Objectius de prova: <code>scanme.nmap.org</code>, el servidor que el projecte Nmap ofereix per fer proves, i una consulta DNS pública. El menú de Shodan és una reproducció del text del programa, sense dades.</p>
   </div>
 </section>
 <section class="section">
@@ -252,7 +247,7 @@ Ports oberts i serveis detectats:
   </div>
 </footer>
 <button class="back-top" aria-label="Tornar amunt">↑</button>
-<script src="assets/js/auth.js?v=5"></script>
-<script src="assets/js/main.js?v=5"></script>
+<script src="assets/js/auth.js?v=6"></script>
+<script src="assets/js/main.js?v=6"></script>
 </body>
 </html>

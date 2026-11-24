@@ -701,3 +701,15 @@ table.compare thead th { font-family: var(--mono); font-size: .74rem; text-trans
 .pending { color: var(--warn); font-style: normal; font-family: var(--mono); font-size: .8rem; }
 @media (max-width: 900px) { .tool-grid { grid-template-columns: 1fr; } }
 @media (max-width: 520px) { .app-form { grid-template-columns: 1fr; } .app-tabs span:nth-child(n+3) { display: none; } }
+
+/* Captures reals de l'eina */
+.tool-grid { grid-template-columns: 1fr; }
+.tool-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.shot { margin: 0; border: 1px solid #3a3e44; border-radius: 4px; overflow: hidden; background: #dcdad5; }
+.shot-bar { display: flex; align-items: center; gap: 6px; background: #2d2f33; color: #d6d3cc; padding: 7px 10px; font-size: .74rem; font-family: Helvetica, Arial, sans-serif; }
+.shot-bar i { width: 10px; height: 10px; border-radius: 50%; background: #555; display: block; }
+.shot-bar span { margin-left: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.shot img { display: block; width: 100%; height: auto; }
+.shot figcaption { background: var(--surface-2); color: var(--muted); font-family: var(--mono); font-size: .72rem; padding: 8px 12px; border-top: 1px solid var(--border); }
+.app-cli { max-width: 720px; }
+@media (max-width: 900px) { .tool-shots { grid-template-columns: 1fr; } }
