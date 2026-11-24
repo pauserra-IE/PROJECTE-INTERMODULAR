@@ -34,7 +34,7 @@ Pàgines que inclou:
 | Pàgina | Contingut |
 |---|---|
 | Inici | Navbar (logo, menú, botons *Accedir* i *Registrar-se*) i un **recorregut 3D (Scroll World)** que ocupa tota la portada: presentació amb la proposta de valor, les 4 fases de l'auditoria (que expliquen els serveis) i crida a l'acció final. Acaba amb el footer (logos de clients, xarxes socials i butlletí) |
-| Serveis | Fitxa de cada mòdul de l'eina (OSINT amb Shodan i theHarvester, Nmap, Nikto, DNS/Whois, SSH/SMB en desenvolupament i pla de millora) amb el seu estat, **captures reals de l'eina** (tkinter) executant Nmap i dig, el menú de Shodan, i la nostra **anàlisi de riscos** del cas EbreLogistics (model INCIBE) |
+| Serveis | Fitxa de cada mòdul de l'eina (OSINT amb Shodan i theHarvester, Nmap, Nikto, DNS/Whois, SSH/SMB en desenvolupament i pla de millora) amb el seu estat, **captures reals de la versió 2 de l'eina** (tkinter) executant Nmap i dig, el menú de Shodan, i la nostra **anàlisi de riscos** del cas EbreLogistics (model INCIBE) |
 | Equip | Membres, càrrec, estudis, descripció i gustos, amb fotografia |
 | Sobre nosaltres | Història, finalitat de l'empresa, missió/visió/valors i estàndards |
 | Tarifes | 3 plans (**Bàsic**, **Professional** i **Avançat**, és a dir senzill, mitjà i fort), comparativa i FAQ |
@@ -176,6 +176,7 @@ PROJECTE-INTERMODULAR/
 │   ├── js/auth.js           Mòdul d'autenticació i control d'accés per rols (prototip)
 │   ├── js/scroll-world.js   Efecte Scroll World: món 3D amb Three.js controlat pel scroll
 │   └── img/                 Logo, favicon i fotos de l'equip (img/equip/*.jpg)
+├── auditoria/               Eina d'auditoria en Python v2 (zevix_audit.py, shodan_audit.py)
 ├── informes_auditoria/      Informes d'exemple que genera l'eina Python (.json / .html)
 ├── docs/                    Documentació del projecte
 ├── .nojekyll                Indica a GitHub Pages que serveixi els fitxers tal qual
@@ -236,7 +237,7 @@ Tota la portada és un recorregut 3D: en fer scroll, una càmera vola **sense ta
 
 **Decisió:** la tècnica s'inspira en el projecte [scroll-world](https://github.com/oso95/scroll-world), però aquesta genera els vols amb vídeos pre-renderitzats en serveis de pagament (Monid/Higgsfield). Nosaltres renderitzem l'escena en temps real amb WebGL: és gratuït, ocupa uns pocs KB i funciona a GitHub Pages. Si el navegador no té WebGL, tot el contingut es mostra com a seccions estàtiques.
 
-**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=6`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
+**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=7`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
 
 ### 6.3 Justificació de tecnologies
 
@@ -334,5 +335,5 @@ Les indicacions del projecte permeten fer servir IA sempre que es justifiqui el 
 
 **Formularis (`assets/js/main.js`).** La funció `validateForm()` recorre els camps obligatoris, comprova que no estiguin buits, que el correu tingui un format vàlid i la longitud mínima, i marca en vermell els camps incorrectes. Com que la web és estàtica, l'enviament es simula.
 
-**Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=6` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
+**Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=7` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
 

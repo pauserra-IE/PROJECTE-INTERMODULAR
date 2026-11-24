@@ -76,12 +76,13 @@ Estructura basada en el document del Moodle *Punts bàsics presentació sprint* 
 "Aquests tres són els primers que auditarem."
 
 ## 9. L'aplicació · Iker
-- Aplicació d'escriptori en Python amb **tkinter**.
-- Pestanyes: OSINT (theHarvester), Nmap, Nikto i utilitats de xarxa (ping, dig, whois).
-- Cada eina s'executa en un **fil separat** (`threading` + `subprocess`), i per això la finestra no es bloqueja i la sortida surt en temps real.
-- Abans d'executar, comprova que l'eina estigui instal·lada (`shutil.which`).
+- Aplicació d'escriptori en Python amb **tkinter** (versió 2, amb el disseny de Zevix).
+- Pestanyes: OSINT (theHarvester i Shodan), Nmap, Nikto i utilitats de xarxa (ping, dig, whois).
+- Cada eina s'executa en un **fil separat** (`threading` + `subprocess`) i la sortida passa per una **cua** fins a la consola, amb colors per a ports oberts, avisos i errors.
+- Valida les dades abans d'executar, permet **aturar** l'escaneig i **exporta** els resultats a TXT i JSON.
+- La clau de Shodan es llegeix d'una **variable d'entorn**, no del codi.
 
-"A la captura veieu un escaneig ràpid de scanme.nmap.org, el servidor que el projecte Nmap ofereix per fer proves."
+"A la captura veieu un escaneig de serveis i versions de scanme.nmap.org, el servidor que el projecte Nmap ofereix per fer proves."
 
 > Si podeu, feu una demo en directe d'1 minut amb l'escaneig ràpid.
 
@@ -100,8 +101,8 @@ Estructura basada en el document del Moodle *Punts bàsics presentació sprint* 
 
 ## 13. Problemes i solucions · Valle
 "Hem tingut problemes reals i els hem resolt així:"
-- La clau de l'API de Shodan era dins del codi → la passem a una variable d'entorn.
-- El navegador mostrava el CSS antic → versionat dels fitxers (`?v=6`).
+- La clau de l'API de Shodan era dins del codi → ara es llegeix d'una variable d'entorn (versió 2 de l'eina).
+- El navegador mostrava el CSS antic → versionat dels fitxers (`?v=7`).
 - Configurar el domini propi va deixar la web sense accés → hem tret el `CNAME` fins que el DNS estigui a punt.
 - Dos membres pujant a GitHub alhora → `git pull` / `rebase` abans de fer `push`.
 - La IA va proposar dades que no eren nostres (rols, eines) → ho vam contrastar amb els nostres documents.
@@ -109,7 +110,7 @@ Estructura basada en el document del Moodle *Punts bàsics presentació sprint* 
 > Aquesta diapositiva puntua molt: demostra que enteneu el projecte.
 
 ## 14. Possibles millores · Iker
-- Integrar Shodan com una pestanya més de l'eina.
+- Mòduls d'auditoria SSH (ssh-audit) i enumeració SMB (enum4linux), per al 15/12.
 - Exportar resultats en JSON perquè el portal de clients els mostri directament.
 - Backend real (Django) amb usuaris a base de dades.
 - Domini propi amb HTTPS.

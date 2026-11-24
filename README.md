@@ -27,7 +27,7 @@ Zevix Cybersecurity és una empresa (simulada) d'auditories de seguretat inform�
 
 - **Web (Sprint 1):** HTML5, CSS3, JavaScript, Three.js (efecte Scroll World), desplegat a GitHub Pages
 - **Plataforma (fase 2):** Django (Python) o LAMP
-- **Eina d'auditoria:** Python + tkinter (GUI) amb theHarvester, Shodan API, Nmap, Nikto, ping/dig/whois · en desenvolupament: ssh-audit, enum4linux, Docker i bot de Telegram
+- **Eina d'auditoria (v2, carpeta [auditoria/](auditoria/)):** Python + tkinter amb theHarvester, Shodan, Nmap, Nikto i ping/dig/whois · en desenvolupament: ssh-audit, enum4linux, Docker i bot de Telegram
 - **Infraestructura auditada:** Proxmox VE, alta disponibilitat (IP flotant), Apache, vsftpd, Bind9, Samba, SSH
 
 ## Landing page
@@ -56,6 +56,7 @@ python3 -m http.server 8000
 ```
 ├── *.html                 Pàgines de la web i del portal
 ├── assets/css, js, img    Estils, scripts i imatges
+├── auditoria/             Eina d'auditoria en Python (v2)
 ├── informes_auditoria/    Informes d'exemple (JSON / HTML)
 └── docs/                  Documentació del projecte
 ```

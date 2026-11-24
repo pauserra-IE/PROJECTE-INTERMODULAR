@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=6">
+  <link rel="stylesheet" href="assets/css/style.css?v=7">
 </head>
 <body>
 <header class="navbar">
@@ -39,7 +39,7 @@
 <main>
 <section class="page-header">
   <div class="container">
-    <div class="doc-strip"><span>DOC ZVX-WEB-002</span><span>Classificació: públic</span><span>Rev. 6</span><span>Zevix Cybersecurity</span></div>
+    <div class="doc-strip"><span>DOC ZVX-WEB-002</span><span>Classificació: públic</span><span>Rev. 7</span><span>Zevix Cybersecurity</span></div>
     <div class="breadcrumb">~/zevix/serveis</div>
     <h1>Serveis</h1>
     <p>Cada servei correspon a un mòdul de la nostra eina d'auditoria en Python. Es poden contractar per separat o dins d'un dels nostres plans.</p>
@@ -102,23 +102,23 @@
     <div class="section-head reveal">
       <span class="eyebrow">// L'eina</span>
       <h2>La nostra eina d'auditoria</h2>
-      <p>Aplicació d'escriptori pròpia en Python amb interfície gràfica (tkinter). Cada pestanya llança una eina del sistema en un fil separat (<code>threading</code> + <code>subprocess</code>) i en mostra la sortida en temps real, sense bloquejar la finestra.</p>
+      <p>Aplicació d'escriptori pròpia en Python amb interfície gràfica (tkinter). Cada pestanya llança una eina en un fil separat (<code>threading</code> + <code>subprocess</code>) i la sortida arriba a la consola a través d'una cua, amb colors per a ports oberts, avisos i errors. Valida les dades abans d'executar, permet aturar l'escaneig i exporta els resultats a TXT i JSON. El codi és a la carpeta <a href="https://github.com/pauserra-IE/PROJECTE-INTERMODULAR/tree/main/auditoria">auditoria/</a> del repositori.</p>
     </div>
     <div class="tool-grid reveal">
       <div class="tool-shots">
         <figure class="shot">
-          <div class="shot-bar"><i></i><i></i><i></i><span>Eina d'Auditoria de Seguretat de Xarxa, Web i OSINT</span></div>
-          <img src="assets/img/eina/eina-nmap.png" alt="Captura de l'eina: pestanya Nmap amb un escaneig ràpid de scanme.nmap.org" width="900" height="700" loading="lazy">
-          <figcaption>Pestanya Nmap · escaneig ràpid (<code>-F</code>) de <code>scanme.nmap.org</code></figcaption>
+          <div class="shot-bar"><i></i><i></i><i></i><span>Zevix · Eina d'Auditoria de Seguretat · v2</span></div>
+          <img src="assets/img/eina/eina-nmap.png" alt="Captura de l'eina: pestanya Nmap amb un escaneig de serveis i versions de scanme.nmap.org" width="1000" height="720" loading="lazy">
+          <figcaption>Pestanya Nmap · serveis i versions (<code>-sV</code>) de <code>scanme.nmap.org</code></figcaption>
         </figure>
         <figure class="shot">
-          <div class="shot-bar"><i></i><i></i><i></i><span>Eina d'Auditoria de Seguretat de Xarxa, Web i OSINT</span></div>
-          <img src="assets/img/eina/eina-dig.png" alt="Captura de l'eina: pestanya d'utilitats de xarxa amb una consulta dig de iesebre.com" width="900" height="700" loading="lazy">
+          <div class="shot-bar"><i></i><i></i><i></i><span>Zevix · Eina d'Auditoria de Seguretat · v2</span></div>
+          <img src="assets/img/eina/eina-dig.png" alt="Captura de l'eina: pestanya d'utilitats de xarxa amb una consulta dig de iesebre.com" width="1000" height="720" loading="lazy">
           <figcaption>Utilitats de xarxa · consulta DNS (<code>dig</code>) de <code>iesebre.com</code></figcaption>
         </figure>
       </div>
       <div class="app-cli" aria-label="Menú del mòdul de Shodan">
-        <div class="app-console-label">shodan_recon.py</div>
+        <div class="app-console-label">shodan_audit.py · també integrat com a pestanya de l'eina</div>
 <pre>=== EINA DE RECONEIXEMENT PASSIU (SHODAN) ===
 1. Consulta d'Host i Identificació de Serveis (IP Lookup)
 2. Cerca global de Serveis Específics
@@ -136,7 +136,7 @@ Ports oberts i serveis detectats:
 ==================================================</pre>
       </div>
     </div>
-    <p class="caption reveal">Captures reals de l'eina executant-se (Python 3 · tkinter · subprocess · threading). Objectius de prova: <code>scanme.nmap.org</code>, el servidor que el projecte Nmap ofereix per fer proves, i una consulta DNS pública. El menú de Shodan és una reproducció del text del programa, sense dades.</p>
+    <p class="caption reveal">Captures reals de la versió 2 de l'eina (Python 3 · tkinter · subprocess · threading · queue). Objectius de prova: <code>scanme.nmap.org</code>, el servidor que el projecte Nmap ofereix per fer proves, i una consulta DNS pública. El menú de Shodan és una reproducció del text del programa, sense dades.</p>
   </div>
 </section>
 <section class="section">
@@ -247,7 +247,7 @@ Ports oberts i serveis detectats:
   </div>
 </footer>
 <button class="back-top" aria-label="Tornar amunt">↑</button>
-<script src="assets/js/auth.js?v=6"></script>
-<script src="assets/js/main.js?v=6"></script>
+<script src="assets/js/auth.js?v=7"></script>
+<script src="assets/js/main.js?v=7"></script>
 </body>
 </html>
