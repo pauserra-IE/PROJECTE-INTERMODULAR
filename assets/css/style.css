@@ -790,9 +790,11 @@ table.compare td.mono { white-space: nowrap; }
 :root[data-theme="light"] .logo-cursor { background: #F5A524; }
 :root[data-theme="light"] .map-box iframe { filter: none; }
 :root[data-theme="light"] .redacted { background: #16181B; }
-/* La portada 3D i els elements de consola es queden sempre foscos */
-:root[data-theme="light"] .world {
-  --bg: #0b0c0d; --bg-2: #101113; --surface: #141518; --surface-2: #1a1c20; --border: #2a2d32;
-  --text: #e8e6e1; --muted: #8d9096; --primary: #f5a524; color: var(--text); background: var(--bg);
-}
+/* Portada 3D en tema clar: capes de text clares sobre el món */
+:root[data-theme="light"] .world-vignette { background: radial-gradient(ellipse at center, transparent 55%, rgba(241, 241, 238, .85) 100%); }
+:root[data-theme="light"] .world-docbar { background: rgba(246, 246, 244, .92); }
+:root[data-theme="light"] .world-intro,
+:root[data-theme="light"] .world-outro { background: rgba(255, 255, 255, .92); }
+:root[data-theme="light"] .world-cap { background: rgba(255, 255, 255, .95); }
 .nav-toggle { order: 4; }
+:root[data-theme="light"] .world-progress li span { background: rgba(255, 255, 255, .85); padding: 1px 6px; }

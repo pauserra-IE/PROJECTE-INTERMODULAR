@@ -36,8 +36,12 @@
   // Paleta: estil "informe" (línies de plànol en blanc trencat + colors de gravetat).
   // La portada original (index-original.html) conserva la paleta cian/blau.
   const ORIGINAL = document.body.classList.contains("theme-original");
+  const CLAR = document.documentElement.dataset.theme === "light";
   const COL = ORIGINAL
     ? { cyan: 0x22d3ee, blue: 0x3b82f6, violet: 0xa78bfa, red: 0xf87171, green: 0x34d399, amber: 0xfbbf24, bg: 0x070b14, grid1: 0x1e3a5f, grid2: 0x13213a, dots: 0.6, solid: 0x0f1a2e }
+    : CLAR
+    // Tema clar: plànol en gris fosc sobre fons clar
+    ? { cyan: 0x3a3d42, blue: 0x9aa0a6, violet: 0xc77d00, red: 0xdc2626, green: 0x15803d, amber: 0xc77d00, bg: 0xf1f1ee, grid1: 0xc9c9c4, grid2: 0xdededa, dots: 0.35, solid: 0xfafaf8 }
     : { cyan: 0xd6d3cc, blue: 0x5b6068, violet: 0xf5a524, red: 0xef4444, green: 0x22c55e, amber: 0xf5a524, bg: 0x0b0c0d, grid1: 0x2a2d32, grid2: 0x17191c, dots: 0.3, solid: 0x16181b };
 
   /* ---------- Renderer, escena i càmera ---------- */
@@ -48,7 +52,7 @@
   scene.fog = new THREE.FogExp2(COL.bg, 0.011);
   const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 400);
 
-  scene.add(new THREE.AmbientLight(0x6688aa, 0.7));
+  scene.add(new THREE.AmbientLight(CLAR ? 0xffffff : 0x6688aa, CLAR ? 1.6 : 0.7));
   const sun = new THREE.DirectionalLight(0xffffff, 0.7);
   sun.position.set(10, 25, 10);
   scene.add(sun);

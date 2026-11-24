@@ -51,6 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const nou = document.documentElement.dataset.theme === "light" ? "dark" : "light";
       document.documentElement.dataset.theme = nou;
       try { localStorage.setItem("zevix_theme", nou); } catch (e) {}
+      // El món 3D de la portada tria els colors en carregar-se: es torna a carregar
+      if (document.getElementById("world") && window.THREE) location.reload();
     });
   }
 
