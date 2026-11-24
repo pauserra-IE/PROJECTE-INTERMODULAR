@@ -304,12 +304,12 @@ Les indicacions del projecte permeten fer servir IA sempre que es justifiqui el 
 | Eina | Per a què l'hem fet servir |
 |---|---|
 | **Gemini** (Google) | Planificació inicial del projecte: anàlisi de l'enunciat i del calendari de lliuraments, idees d'estructura del repositori i de la landing page, comparativa de tecnologies (estàtic, LAMP, Django, Laravel) i opcions de desplegament. |
-| **Claude Code** (Anthropic) | Generació del codi de la web (HTML, CSS i JavaScript), de l'efecte 3D amb Three.js i d'aquesta documentació, a partir de les nostres indicacions. Els commits on ha participat porten la línia `Co-Authored-By: Claude` a l'historial de Git. |
+| **Claude Code** (Anthropic) | Generació del codi de la web (HTML, CSS i JavaScript), de l'efecte 3D amb Three.js i d'aquesta documentació, a partir de les nostres indicacions. També la **versió 2 de l'eina d'auditoria** (`auditoria/`): nou disseny, Shodan integrat, validació de dades i exportació, a partir del codi de la nostra v1. Els commits on ha participat porten la línia `Co-Authored-By: Claude` a l'historial de Git. |
 
 ### 9.2 Què ha fet l'equip
 
 - **Decisions de projecte:** nom i identitat de l'empresa (Zevix Cybersecurity), client auditat (EbreLogistics S.L.), rols Scrum, pàgines que havia de tenir la web segons l'enunciat i els tres plans de preus (senzill, mitjà i fort).
-- **Contingut propi:** el contracte simbòlic, l'anàlisi de riscos (model INCIBE) i el codi de l'eina d'auditoria en Python (theHarvester, Shodan, Nmap, Nikto i utilitats de xarxa). La web reutilitza aquest material: la taula de riscos de Serveis, els mòduls i la recreació de la interfície de l'eina.
+- **Contingut propi:** el contracte simbòlic, l'anàlisi de riscos (model INCIBE) i la **primera versió** de l'eina d'auditoria en Python (theHarvester, Shodan, Nmap, Nikto i utilitats de xarxa). Vam decidir quines millores calia fer a la v2, com treure la clau de Shodan del codi seguint la nostra pròpia anàlisi de riscos. La web reutilitza aquest material: la taula de riscos de Serveis, els mòduls i la recreació de la interfície de l'eina.
 - **Direcció del disseny:** vam demanar l'efecte Scroll World, el vam fer refer quan el resultat no ens convencia i vam escollir l'estil "informe d'auditoria" entre diverses propostes. Abans del canvi d'estil vam guardar una còpia de seguretat (etiqueta `disseny-original`).
 - **Revisió i proves:** comprovació de totes les pàgines, del login amb els dos rols, del portal de clients i de la versió mòbil, i correcció dels errors trobats (per exemple, la memòria cau del navegador, que mostrava el CSS antic).
 - **Desplegament:** pujada al repositori amb Git i activació de GitHub Pages.
@@ -334,6 +334,8 @@ Les indicacions del projecte permeten fer servir IA sempre que es justifiqui el 
 5. Només es dibuixa quan la secció és visible (`IntersectionObserver`), per no gastar bateria.
 
 **Formularis (`assets/js/main.js`).** La funció `validateForm()` recorre els camps obligatoris, comprova que no estiguin buits, que el correu tingui un format vàlid i la longitud mínima, i marca en vermell els camps incorrectes. Com que la web és estàtica, l'enviament es simula.
+
+**Eina d'auditoria (`auditoria/zevix_audit.py`).** L'explicació pas a pas (validació, fil secundari, cua de missatges, exportació) i la taula de canvis respecte a la v1 són a [auditoria/README.md](../auditoria/README.md).
 
 **Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=7` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
 
