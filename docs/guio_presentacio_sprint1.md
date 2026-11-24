@@ -81,6 +81,7 @@ Estructura basada en el document del Moodle *Punts bàsics presentació sprint* 
 - Cada eina s'executa en un **fil separat** (`threading` + `subprocess`) i la sortida passa per una **cua** fins a la consola, amb colors per a ports oberts, avisos i errors.
 - Valida les dades abans d'executar, permet **aturar** l'escaneig i **exporta** els resultats a TXT i JSON.
 - La clau de Shodan es llegeix d'una **variable d'entorn**, no del codi.
+- La pestanya **Informe** converteix els escanejos en un informe (base de regles de riscos) que l'administrador puja a la web i el client veu al seu portal. **Demo recomanada:** escaneig → Genera informe → pujar-lo com a admin → vista client.
 
 "A la captura veieu un escaneig de serveis i versions de scanme.nmap.org, el servidor que el projecte Nmap ofereix per fer proves."
 
@@ -102,7 +103,7 @@ Estructura basada en el document del Moodle *Punts bàsics presentació sprint* 
 ## 13. Problemes i solucions · Valle
 "Hem tingut problemes reals i els hem resolt així:"
 - La clau de l'API de Shodan era dins del codi → ara es llegeix d'una variable d'entorn (versió 2 de l'eina).
-- El navegador mostrava el CSS antic → versionat dels fitxers (`?v=8`).
+- El navegador mostrava el CSS antic → versionat dels fitxers (`?v=9`).
 - Configurar el domini propi va deixar la web sense accés → hem tret el `CNAME` fins que el DNS estigui a punt.
 - Dos membres pujant a GitHub alhora → `git pull` / `rebase` abans de fer `push`.
 - La IA va proposar dades que no eren nostres (rols, eines) → ho vam contrastar amb els nostres documents.
@@ -111,7 +112,7 @@ Estructura basada en el document del Moodle *Punts bàsics presentació sprint* 
 
 ## 14. Possibles millores · Iker
 - Mòduls d'auditoria SSH (ssh-audit) i enumeració SMB (enum4linux), per al 15/12.
-- Exportar resultats en JSON perquè el portal de clients els mostri directament.
+- Guardar els informes al servidor (Django) perquè cada client vegi els seus des de qualsevol equip.
 - Backend real (Django) amb usuaris a base de dades.
 - Domini propi amb HTTPS.
 

@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=8">
+  <link rel="stylesheet" href="assets/css/style.css?v=9">
 </head>
 <body>
 <header class="navbar">
@@ -85,7 +85,7 @@
       <form id="upload-form" class="form" novalidate>
         <div class="form-row">
           <div class="field"><label for="u-client">Client</label><select id="u-client" required><option value="">Selecciona</option></select><div class="error">Selecciona un client.</div></div>
-          <div class="field"><label for="u-file">Fitxer (.json / .html)</label><input id="u-file" type="file" accept=".json,.html" required><div class="error">Selecciona un fitxer.</div></div>
+          <div class="field"><label for="u-file">Informe JSON generat per l'eina</label><input id="u-file" type="file" accept=".json,application/json" required><div class="error">Selecciona un fitxer.</div></div>
         </div>
         <div id="upload-msg" class="alert alert-info" role="status"></div>
         <button class="btn btn-primary" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 21V9M7 14l5-5 5 5M4 4h16"/></svg> Pujar informe</button>
@@ -134,18 +134,31 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!validateForm(e.target)) return;
     const f = document.getElementById("u-file").files[0];
     const c = document.getElementById("u-client").value;
-    const now = new Date().toISOString().replace("T", " ").slice(0, 19);
-    el.textContent += `\n${now} [INFO]  Informe '${f.name}' assignat a ${c} (simulació)`;
     const m = document.getElementById("upload-msg");
-    m.textContent = "Simulació: en la versió amb backend (Django/LAMP) el fitxer es desarà a REPORTS_DIR i quedarà disponible al portal del client.";
-    m.classList.add("show");
-    e.target.reset();
+    const now = new Date().toISOString().replace("T", " ").slice(0, 19);
+    const reader = new FileReader();
+    reader.onload = () => {
+      let d;
+      try { d = JSON.parse(reader.result); } catch (err) { d = null; }
+      if (!d || !Array.isArray(d.vulnerabilitats) || !d.resum) {
+        m.className = "alert alert-err show";
+        m.textContent = "El fitxer no té el format d'informe de l'eina (falten 'resum' o 'vulnerabilitats'). Genera'l des de la pestanya Informe de zevix_audit.py.";
+        return;
+      }
+      // Prototip: l'informe es guarda en aquest navegador. A la fase 2 es desarà al servidor (REPORTS_DIR).
+      localStorage.setItem("zevix_informe", JSON.stringify(d));
+      el.textContent += `\n${now} [INFO]  Informe ${d.auditoria} (${d.vulnerabilitats.length} troballes) assignat a ${c}`;
+      m.className = "alert alert-ok show";
+      m.innerHTML = `Informe <strong>${d.auditoria}</strong> carregat: ${d.vulnerabilitats.length} troballes, risc global ${d.resum.nivell_risc_global}. <a href="portal-client.html">Obre la vista de client</a> per veure'l.`;
+      e.target.reset();
+    };
+    reader.readAsText(f);
   });
 });
 </script>
 </main>
 
-<script src="assets/js/auth.js?v=8"></script>
-<script src="assets/js/main.js?v=8"></script>
+<script src="assets/js/auth.js?v=9"></script>
+<script src="assets/js/main.js?v=9"></script>
 </body>
 </html>

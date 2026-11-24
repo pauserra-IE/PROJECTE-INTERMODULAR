@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=8">
+  <link rel="stylesheet" href="assets/css/style.css?v=9">
 </head>
 <body>
 <header class="navbar">
@@ -49,7 +49,7 @@
   </aside>
   <div class="portal-main">
     <div class="portal-top" id="resum">
-      <div><h1>Hola, <span id="u-name">client</span></h1><p>Auditoria <code>ZVX-AUD-2026-01</code> · Contracte <code>ZVX-CONT-2026-01</code></p></div>
+      <div><h1>Hola, <span id="u-name">client</span></h1><p>Auditoria <code id="r-aud">ZVX-AUD-2026-01</code> · Contracte <code id="r-cont">ZVX-CONT-2026-01</code> · <span id="r-date"></span></p></div>
       <span class="status on">Auditoria finalitzada</span>
     </div>
     <div class="grid grid-4">
@@ -63,6 +63,7 @@
       <div class="risk-bar" id="risk-bar"></div>
       <div class="legend"><span><i style="background:var(--danger)"></i>Crític</span><span><i style="background:#fb923c"></i>Alt</span><span><i style="background:var(--warn)"></i>Mitjà</span><span><i style="background:var(--ok)"></i>Baix</span></div>
     </div>
+    <div class="alert alert-info" id="uploaded-note" style="margin-top:22px"></div>
     <div class="panel" id="informes">
       <h3>Informes disponibles</h3>
       <div class="table-wrap"><table class="compare">
@@ -93,6 +94,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (!user) return;
   document.getElementById("u-name").textContent = user.name;
   document.getElementById("logout").addEventListener("click", (e) => { e.preventDefault(); ZevixAuth.logout(); });
+  // Si l'administrador ha pujat un informe generat per l'eina, es mostra aquest
+  let pujat = null;
+  try { pujat = JSON.parse(localStorage.getItem("zevix_informe")); } catch (e) {}
+  if (pujat && Array.isArray(pujat.vulnerabilitats)) {
+    renderReport(pujat);
+    mostraPujat(pujat);
+    return;
+  }
   try {
     const data = await (await fetch("informes_auditoria/informe_ebrelogistics_2026.json")).json();
     renderReport(data);
@@ -100,23 +109,40 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("vuln-rows").innerHTML = '<tr><td colspan="5">No s\'ha pogut carregar l\'informe (obre la web amb un servidor, no amb file://).</td></tr>';
   }
 });
+// Escapa el text abans de posar-lo a l'HTML (el JSON pot venir d'un fitxer pujat)
+function esc(t) {
+  return String(t ?? "").replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch]);
+}
+function mostraPujat(d) {
+  const n = document.getElementById("uploaded-note");
+  n.innerHTML = `Informe <strong>${esc(d.auditoria)}</strong> generat per l'eina d'auditoria i pujat des del portal d'administració. <a href="#" id="reset-report">Torna a l'informe d'exemple</a>`;
+  n.classList.add("show");
+  document.getElementById("reset-report").addEventListener("click", (e) => { e.preventDefault(); localStorage.removeItem("zevix_informe"); location.reload(); });
+  const blob = new Blob([JSON.stringify(d, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  document.querySelector("#informes tbody").innerHTML =
+    `<tr><td>Informe generat per l'eina (${esc(d.auditoria)})</td><td>JSON</td><td>${esc(d.data)}</td><td><a class="btn btn-outline" href="${url}" download="${esc(d.auditoria)}.json">Descarregar JSON</a></td></tr>`;
+}
 function renderReport(d) {
+  document.getElementById("r-aud").textContent = d.auditoria || "";
+  document.getElementById("r-cont").textContent = d.contracte || "";
+  document.getElementById("r-date").textContent = d.data || "";
   const c = { critical: 0, high: 0, medium: 0, low: 0 };
   d.vulnerabilitats.forEach((v) => c[v.gravetat]++);
   Object.keys(c).forEach((k) => document.getElementById("c-" + k).textContent = c[k]);
   const total = d.vulnerabilitats.length;
   const col = { critical: "var(--danger)", high: "#fb923c", medium: "var(--warn)", low: "var(--ok)" };
-  document.getElementById("risk-bar").innerHTML = Object.keys(c).map((k) => `<span style="width:${c[k] / total * 100}%;background:${col[k]}"></span>`).join("");
+  document.getElementById("risk-bar").innerHTML = total ? Object.keys(c).map((k) => `<span style="width:${c[k] / total * 100}%;background:${col[k]}"></span>`).join("") : "";
   document.getElementById("hosts-info").textContent = `${d.resum.hosts_analitzats} hosts analitzats · ${total} troballes`;
   const label = { critical: "Crítica", high: "Alta", medium: "Mitjana", low: "Baixa" };
   document.getElementById("vuln-rows").innerHTML = d.vulnerabilitats.map((v) =>
-    `<tr><td class="mono">${v.id}</td><td class="mono">${v.host}</td><td>${v.servei}</td><td style="text-align:left">${v.titol}</td><td><span class="sev ${v.gravetat}">${label[v.gravetat]}</span></td></tr>`).join("");
-  document.getElementById("plan-list").innerHTML = d.vulnerabilitats.map((v) => `<li><strong style="color:var(--text)">${v.id}</strong>: ${v.recomanacio}</li>`).join("");
+    `<tr><td class="mono">${esc(v.id)}</td><td class="mono">${esc(v.host)}</td><td>${esc(v.servei)}</td><td style="text-align:left">${esc(v.titol)}</td><td><span class="sev ${esc(v.gravetat)}">${label[v.gravetat] || esc(v.gravetat)}</span></td></tr>`).join("") || '<tr><td colspan="5">Cap troballa.</td></tr>';
+  document.getElementById("plan-list").innerHTML = d.vulnerabilitats.map((v) => `<li><strong style="color:var(--text)">${esc(v.id)}</strong>: ${esc(v.recomanacio)}</li>`).join("");
 }
 </script>
 </main>
 
-<script src="assets/js/auth.js?v=8"></script>
-<script src="assets/js/main.js?v=8"></script>
+<script src="assets/js/auth.js?v=9"></script>
+<script src="assets/js/main.js?v=9"></script>
 </body>
 </html>

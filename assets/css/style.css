@@ -713,3 +713,4 @@ table.compare thead th { font-family: var(--mono); font-size: .74rem; text-trans
 .shot figcaption { background: var(--surface-2); color: var(--muted); font-family: var(--mono); font-size: .72rem; padding: 8px 12px; border-top: 1px solid var(--border); }
 .app-cli { max-width: 720px; }
 @media (max-width: 900px) { .tool-shots { grid-template-columns: 1fr; } }
+table.compare td.mono { white-space: nowrap; }

@@ -1,0 +1,34 @@
+{
+  "auditoria": "ZVX-AUD-20261124-1930",
+  "contracte": "ZVX-CONT-2026-01",
+  "client": "Prova (scanme.nmap.org)",
+  "auditor": "Zevix Cybersecurity",
+  "data": "2026-11-24",
+  "abast": "scanme.nmap.org, servidor de proves del projecte Nmap",
+  "nota": "Informe real generat per zevix_audit.py v2.1 a partir d'un escaneig nmap -sV de scanme.nmap.org. Serveix per provar la pujada al portal d'administració.",
+  "resum": {
+    "hosts_analitzats": 1,
+    "ports_oberts": 3,
+    "nivell_risc_global": "MITJÀ"
+  },
+  "vulnerabilitats": [
+    {
+      "host": "45.33.32.156",
+      "servei": "http (80) · Apache httpd 2.4.7 ((Ubuntu))",
+      "gravetat": "medium",
+      "cvss": 5.3,
+      "titol": "Servei web sense xifratge (HTTP)",
+      "recomanacio": "Redirigir a HTTPS i afegir capçaleres de seguretat (HSTS, CSP, X-Frame-Options).",
+      "id": "ZVX-01"
+    },
+    {
+      "host": "45.33.32.156",
+      "servei": "ssh (22) · OpenSSH 6.6.1p1 Ubuntu 2ubuntu2.13 (Ubuntu Linux; protocol 2.0)",
+      "gravetat": "low",
+      "cvss": 3.1,
+      "titol": "Accés SSH exposat",
+      "recomanacio": "Revisar la configuració amb ssh-audit: PermitRootLogin no i autenticació per clau pública.",
+      "id": "ZVX-02"
+    }
+  ]
+}

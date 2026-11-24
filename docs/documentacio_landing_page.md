@@ -237,7 +237,7 @@ Tota la portada és un recorregut 3D: en fer scroll, una càmera vola **sense ta
 
 **Decisió:** la tècnica s'inspira en el projecte [scroll-world](https://github.com/oso95/scroll-world), però aquesta genera els vols amb vídeos pre-renderitzats en serveis de pagament (Monid/Higgsfield). Nosaltres renderitzem l'escena en temps real amb WebGL: és gratuït, ocupa uns pocs KB i funciona a GitHub Pages. Si el navegador no té WebGL, tot el contingut es mostra com a seccions estàtiques.
 
-**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=8`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
+**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=9`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
 
 ### 6.3 Justificació de tecnologies
 
@@ -292,7 +292,7 @@ python3 -m http.server 8000
 | Rols | `client` / `admin` comprovats a `ZevixAuth.require()` | Grups i permisos de Django (middleware) |
 | Registre | `localStorage` del navegador | Base de dades (MySQL/MariaDB o PostgreSQL) |
 | Informes | Fitxers d'exemple a `informes_auditoria/` | Directori protegit `REPORTS_DIR` + base de dades, cada client només veu els seus |
-| Pujada d'informes | Simulada | Pujada real des del portal admin o automàtica des de l'eina Python / Docker |
+| Pujada d'informes | L'admin puja el JSON que genera l'eina (pestanya Informe) i el portal del client el mostra. Es guarda al navegador | Es desarà al servidor i s'associarà a cada client |
 | Notificacions | — | Bot de Telegram |
 
 ## 9. Ús d'intel·ligència artificial
@@ -324,7 +324,7 @@ Les indicacions del projecte permeten fer servir IA sempre que es justifiqui el 
 
 **Login i rols (`assets/js/auth.js`).** Hi ha una llista d'usuaris de prova i una funció `login(email, contrasenya, rol)` que busca l'usuari i comprova que el rol coincideixi. Si és correcte, guarda la sessió a `sessionStorage` (s'esborra en tancar la pestanya) i redirigeix al portal que toca. Cada pàgina privada crida `ZevixAuth.require(["admin"])` o `require(["client", "admin"])` en carregar-se: si no hi ha sessió o el rol no és vàlid, torna al login. El registre afegeix usuaris a `localStorage`, només en aquell navegador.
 
-**Portal de clients (`portal-client.html`).** Amb `fetch()` llegeix el fitxer `informes_auditoria/informe_ebrelogistics_2026.json`, que té el format que exportarà la nostra eina. A partir d'aquestes dades compta les vulnerabilitats per gravetat, dibuixa la barra de risc i omple les taules. Si l'eina genera un altre JSON amb el mateix format, el portal el mostra sense tocar el codi.
+**Portal de clients (`portal-client.html`).** Si l'administrador ha pujat un informe generat per l'eina, el llegeix de `localStorage`; si no, amb `fetch()` llegeix l'informe d'exemple `informes_auditoria/informe_ebrelogistics_2026.json`. Tots dos tenen el format que genera la pestanya Informe de l'eina. Abans de posar el text a la pàgina l'escapa (`esc()`), perquè un fitxer pujat no pugui injectar HTML. A partir d'aquestes dades compta les vulnerabilitats per gravetat, dibuixa la barra de risc i omple les taules. Si l'eina genera un altre JSON amb el mateix format, el portal el mostra sense tocar el codi.
 
 **Efecte Scroll World (`assets/js/scroll-world.js`).**
 1. Es crea una escena de Three.js amb quatre grups d'objectes (globus, ciutat, passadís de racks i cúpula), situats un darrere l'altre a l'eix Z.
@@ -337,5 +337,5 @@ Les indicacions del projecte permeten fer servir IA sempre que es justifiqui el 
 
 **Eina d'auditoria (`auditoria/zevix_audit.py`).** L'explicació pas a pas (validació, fil secundari, cua de missatges, exportació) i la taula de canvis respecte a la v1 són a [auditoria/README.md](../auditoria/README.md).
 
-**Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=8` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
+**Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=9` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
 

@@ -1,4 +1,4 @@
-# Eina d'auditoria · Zevix Cybersecurity (v2)
+# Eina d'auditoria · Zevix Cybersecurity (v2.1)
 
 Aplicació d'escriptori en Python (tkinter) que reuneix les eines d'auditoria del projecte en una sola interfície.
 
@@ -6,6 +6,15 @@ Aplicació d'escriptori en Python (tkinter) que reuneix les eines d'auditoria de
 |---|---|
 | `zevix_audit.py` | Aplicació gràfica amb les pestanyes OSINT (theHarvester i Shodan), Nmap, Nikto i Xarxa (ping, dig i whois) |
 | `shodan_audit.py` | Versió de terminal del mòdul de Shodan (menú) |
+
+## Novetat v2.1: de l'eina al portal de clients
+
+1. Executa els escanejos (Nmap i/o Nikto) des de l'eina.
+2. A la pestanya **Informe**, omple el client, el contracte i l'abast i prem **Genera informe**. L'eina analitza la sortida amb una **base de regles de riscos** (`REGLES_PORTS`: què vol dir cada port obert, amb gravetat, CVSS orientatiu i recomanació, segons la nostra anàlisi de riscos) i desa l'informe en JSON (el format que llegeix la web) i en HTML.
+3. A la web, entra com a administrador, ves a **Pujar informe** i tria el JSON.
+4. Entra com a client (o prem *Accedir com a client*): el portal mostra les troballes, la distribució del risc i el pla de millora d'aquest informe.
+
+Exemple real: [informes_auditoria/exemple_eina_scanme.json](../informes_auditoria/exemple_eina_scanme.json) (escaneig `nmap -sV` de scanme.nmap.org).
 
 ## Requisits
 
@@ -54,6 +63,7 @@ python3 zevix_audit.py
 
 - `nmap -A` (detecció de sistema operatiu) necessita privilegis de root. Sense `sudo`, Nmap fa la resta de l'escaneig però avisa que no pot detectar el sistema operatiu.
 - Les pestanyes de theHarvester, Nikto i Shodan només s'han provat sense l'eina instal·lada o sense clau (mostren el missatge d'error que toca). Cal provar-les en un equip amb tot instal·lat abans de la presentació.
-- L'exportació JSON guarda l'historial d'execucions, encara no el format d'informe que llegeix el portal de clients (`informes_auditoria/`).
+- L'informe pujat al portal es guarda al navegador (localStorage): és un prototip. Amb un backend (Django) es desaria al servidor i el veuria qualsevol client des de qualsevol equip.
+- La base de regles només té en compte els ports oberts de Nmap i les troballes de Nikto; encara no analitza les versions per buscar CVE.
 
 > Auditeu només sistemes inclosos a l'abast del contracte. Per fer proves sense permís de ningú es pot fer servir `scanme.nmap.org`, el servidor que el projecte Nmap ofereix per a això.

@@ -18,6 +18,11 @@ Canvis respecte a la v1:
     d'execucions i exportació dels resultats a TXT i JSON.
   - Exemple de domini corregit: iesebre.com (iesebre.cat no existeix).
 
+Novetat de la v2.1:
+  - Pestanya "Informe": analitza els resultats de Nmap i Nikto amb una base
+    de regles de riscos i genera l'informe en el mateix format JSON que llegeix
+    el portal de clients de la web (i una versió HTML per llegir).
+
 Ús:
     export SHODAN_API_KEY="la_vostra_clau"     # només per a la pestanya de Shodan
     python3 zevix_audit.py
@@ -57,6 +62,90 @@ EXEMPLE_DOMINI = "iesebre.com"
 RE_IPV4 = re.compile(r"^(25[0-5]|2[0-4]\d|1?\d?\d)(\.(25[0-5]|2[0-4]\d|1?\d?\d)){3}(/\d{1,2})?$")
 RE_DOMINI = re.compile(r"^(?=.{1,253}$)([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,63}$")
 RE_URL = re.compile(r"^https?://[^\s/$.?#].[^\s]*$")
+
+
+# ---------------------------------------------------------------------------
+# Base de regles de riscos: què vol dir trobar cada port obert.
+# Gravetat i recomanacions basades en la nostra anàlisi de riscos (INCIBE).
+# port: (gravetat, CVSS orientatiu, títol, recomanació)
+# ---------------------------------------------------------------------------
+REGLES_PORTS = {
+    21: ("high", 7.5, "Servei FTP exposat (credencials en text pla)", "Substituir FTP per SFTP i desactivar l'accés anònim (anonymous_enable=NO)."),
+    22: ("low", 3.1, "Accés SSH exposat", "Revisar la configuració amb ssh-audit: PermitRootLogin no i autenticació per clau pública."),
+    23: ("critical", 9.8, "Telnet actiu (credencials en text pla)", "Desactivar Telnet i fer servir exclusivament SSH."),
+    25: ("medium", 5.3, "Servidor de correu SMTP exposat", "Comprovar que no sigui un relay obert i limitar-ne l'accés."),
+    53: ("medium", 5.3, "Servidor DNS exposat", "Limitar la transferència de zona (allow-transfer) al servidor secundari."),
+    80: ("medium", 5.3, "Servei web sense xifratge (HTTP)", "Redirigir a HTTPS i afegir capçaleres de seguretat (HSTS, CSP, X-Frame-Options)."),
+    110: ("medium", 5.9, "POP3 sense xifratge", "Fer servir POP3S (port 995) o desactivar el servei."),
+    111: ("medium", 5.3, "RPCbind exposat", "Tancar el port al tallafoc si no és necessari."),
+    135: ("high", 7.5, "RPC de Windows exposat", "Tancar el port al tallafoc perimetral."),
+    139: ("high", 7.5, "NetBIOS exposat", "Desactivar NetBIOS si no és necessari i limitar l'accés per tallafoc."),
+    143: ("medium", 5.9, "IMAP sense xifratge", "Fer servir IMAPS (port 993)."),
+    445: ("high", 7.5, "Recursos compartits SMB exposats", "Revisar els recursos amb enum4linux, eliminar 'guest ok = yes' i limitar l'accés."),
+    2049: ("high", 7.5, "NFS exposat", "Restringir les exportacions (/etc/exports) a les IP autoritzades."),
+    3306: ("critical", 9.1, "Base de dades MySQL accessible des de la xarxa", "Configurar bind-address=127.0.0.1, contrasenyes robustes i privilegi mínim."),
+    3389: ("high", 8.1, "Escriptori remot (RDP) exposat", "Accedir-hi només per VPN i activar l'autenticació a nivell de xarxa (NLA)."),
+    5432: ("critical", 9.1, "Base de dades PostgreSQL accessible des de la xarxa", "Limitar listen_addresses i les regles de pg_hba.conf."),
+    5900: ("high", 7.5, "VNC exposat", "Tancar el port o accedir-hi només per un túnel SSH o VPN."),
+    6379: ("critical", 9.8, "Redis accessible sense autenticació", "Activar requirepass i escoltar només a 127.0.0.1."),
+}
+ORDRE_GRAVETAT = ["critical", "high", "medium", "low"]
+
+
+def analitza_historial(historial):
+    """Converteix la sortida de Nmap i Nikto en una llista de vulnerabilitats."""
+    vulns, hosts, ports_oberts = [], set(), 0
+    for execucio in historial:
+        host = "?"
+        for linia in execucio["sortida"]:
+            m = re.match(r"^Nmap scan report for (\S+)(?: \(([\d.]+)\))?", linia)
+            if m:
+                host = m.group(2) or m.group(1)
+                hosts.add(host)
+                continue
+            m = re.match(r"^(\d+)/(tcp|udp)\s+open\s+(\S+)\s*(.*)$", linia)
+            if m and execucio["eina"] == "nmap":
+                ports_oberts += 1
+                port, servei, versio = int(m.group(1)), m.group(3), m.group(4).strip()
+                regla = REGLES_PORTS.get(port)
+                if regla:
+                    gravetat, cvss, titol, recomanacio = regla
+                    vulns.append({"host": host, "servei": f"{servei} ({port})" + (f" · {versio}" if versio else ""),
+                                  "gravetat": gravetat, "cvss": cvss, "titol": titol, "recomanacio": recomanacio})
+            elif execucio["eina"] == "nikto" and linia.startswith("+ ") and ":" in linia:
+                text = linia[2:].strip()
+                if text.split(":")[0] in ("Target IP", "Target Hostname", "Target Port", "Start Time", "End Time", "Server"):
+                    continue
+                objectiu = execucio["ordre"].split(" -h ")[-1].split()[0] if " -h " in execucio["ordre"] else "?"
+                hosts.add(objectiu)
+                vulns.append({"host": objectiu, "servei": "HTTP (Nikto)", "gravetat": "medium", "cvss": 5.3,
+                              "titol": text[:140], "recomanacio": "Revisar la configuració del servidor web segons aquesta troballa de Nikto."})
+    # Ordena per gravetat i numera les troballes
+    vulns.sort(key=lambda v: (ORDRE_GRAVETAT.index(v["gravetat"]), -v["cvss"]))
+    for i, v in enumerate(vulns, 1):
+        v["id"] = f"ZVX-{i:02d}"
+    return vulns, hosts, ports_oberts
+
+
+def informe_html(dades):
+    """Versió HTML de l'informe, amb el mateix contingut que el JSON."""
+    noms = {"critical": ("Crítica", "#dc2626"), "high": ("Alta", "#ea580c"), "medium": ("Mitjana", "#ca8a04"), "low": ("Baixa", "#16a34a")}
+    files = "".join(
+        f"<tr><td>{v['id']}</td><td>{v['host']}</td><td>{v['servei']}</td><td>{v['titol']}</td>"
+        f"<td style='color:{noms[v['gravetat']][1]};font-weight:700'>{noms[v['gravetat']][0]} ({v['cvss']})</td><td>{v['recomanacio']}</td></tr>"
+        for v in dades["vulnerabilitats"])
+    r = dades["resum"]
+    return f"""<!DOCTYPE html><html lang="ca"><head><meta charset="UTF-8"><title>Informe {dades['auditoria']}</title>
+<style>body{{font-family:system-ui,sans-serif;max-width:1000px;margin:0 auto;padding:32px 16px;color:#0f172a}}
+header{{border-bottom:3px solid #f5a524;padding-bottom:16px;margin-bottom:24px}}table{{width:100%;border-collapse:collapse;font-size:.88rem}}
+th,td{{border:1px solid #cbd5e1;padding:8px;text-align:left;vertical-align:top}}th{{background:#fef3c7}}.meta{{color:#475569}}</style></head><body>
+<header><h1>Informe tècnic d'auditoria de seguretat</h1><div class="meta">Auditoria <b>{dades['auditoria']}</b> · Contracte {dades['contracte']} ·
+Client: <b>{dades['client']}</b> · Auditor: {dades['auditor']} · Data: {dades['data']}</div></header>
+<h2>1. Abast</h2><p>{dades['abast']}</p>
+<h2>2. Resum executiu</h2><p>S'han analitzat <b>{r['hosts_analitzats']} hosts</b> i <b>{r['ports_oberts']} ports oberts</b>.
+S'han detectat <b>{len(dades['vulnerabilitats'])} troballes</b>. Nivell de risc global: <b>{r['nivell_risc_global']}</b>.</p>
+<h2>3. Troballes i recomanacions</h2><table><thead><tr><th>ID</th><th>Host</th><th>Servei</th><th>Descripció</th><th>Gravetat (CVSS)</th><th>Recomanació</th></tr></thead>
+<tbody>{files}</tbody></table><p class="meta">Generat per l'eina d'auditoria Zevix (zevix_audit.py) · document confidencial</p></body></html>"""
 
 
 def es_ip(text):
@@ -115,6 +204,7 @@ class ZevixAuditApp:
         self.crea_pestanya_nmap()
         self.crea_pestanya_nikto()
         self.crea_pestanya_xarxa()
+        self.crea_pestanya_informe()
 
         self.crea_consola(cos)
 
@@ -163,7 +253,7 @@ class ZevixAuditApp:
         cap.pack(fill="x", padx=16, pady=(14, 6))
         tk.Label(cap, text="[ZVX]", bg=BG, fg=AMBER, font=self.f_title).pack(side="left")
         tk.Label(cap, text=" ZEVIX", bg=BG, fg=TEXT, font=self.f_title).pack(side="left")
-        tk.Label(cap, text="   Eina d'auditoria de seguretat · v2", bg=BG, fg=MUTED, font=self.f_mono).pack(side="left", pady=(4, 0))
+        tk.Label(cap, text="   Eina d'auditoria de seguretat · v2.1", bg=BG, fg=MUTED, font=self.f_mono).pack(side="left", pady=(4, 0))
         tk.Label(cap, text="Projecte Intermodular · Grup 3", bg=BG, fg=MUTED, font=self.f_mono).pack(side="right", pady=(4, 0))
 
     # ------------------------------------------------------------ components
@@ -243,6 +333,16 @@ class ZevixAuditApp:
             "Whois (informació del domini)",
         ])
         self.boto(m, 3, "Executa", self.executa_xarxa)
+
+    def crea_pestanya_informe(self):
+        m = self.nova_pestanya(" Informe ", "Analitza els resultats de Nmap i Nikto d'aquesta sessió i genera l'informe per al portal de clients.")
+        self.informe_client = self.camp(m, 1, "Client")
+        self.informe_client.insert(0, "EbreLogistics S.L.")
+        self.informe_contracte = self.camp(m, 2, "Contracte", "referència del contracte")
+        self.informe_contracte.insert(0, "ZVX-CONT-2026-01")
+        self.informe_abast = self.camp(m, 3, "Abast", "segons el contracte", amplada=60)
+        self.informe_abast.insert(0, "Xarxa local (LAN), servidors web, FTP, DNS, SSH, SMB i bases de dades")
+        self.boto(m, 4, "Genera informe (JSON + HTML)", self.genera_informe)
 
     def crea_consola(self, pare):
         barra = tk.Frame(pare, bg=BG)
@@ -494,6 +594,44 @@ class ZevixAuditApp:
             self.cua.put(("fi", 1))
 
     # ---------------------------------------------------------- exportació
+    def genera_informe(self):
+        """Crea l'informe en el format de informes_auditoria/ que llegeix el portal de clients."""
+        vulns, hosts, ports = analitza_historial(self.historial)
+        if not any(e["eina"] in ("nmap", "nikto") for e in self.historial):
+            return self.avisa("Primer executa almenys un escaneig de Nmap o Nikto en aquesta sessió.")
+        ara = datetime.now()
+        gravetats = [v["gravetat"] for v in vulns]
+        global_ = next((g for g in ORDRE_GRAVETAT if g in gravetats), "low")
+        dades = {
+            "auditoria": f"ZVX-AUD-{ara:%Y%m%d-%H%M}",
+            "contracte": self.informe_contracte.get().strip(),
+            "client": self.informe_client.get().strip(),
+            "auditor": "Zevix Cybersecurity",
+            "data": f"{ara:%Y-%m-%d}",
+            "abast": self.informe_abast.get().strip(),
+            "nota": "Informe generat automàticament per zevix_audit.py a partir dels escanejos de la sessió.",
+            "resum": {"hosts_analitzats": len(hosts), "ports_oberts": ports,
+                      "nivell_risc_global": {"critical": "CRÍTIC", "high": "ALT", "medium": "MITJÀ", "low": "BAIX"}[global_]},
+            "vulnerabilitats": vulns,
+        }
+        nom = re.sub(r"[^a-z0-9]+", "_", dades["client"].lower()).strip("_") or "client"
+        cami = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("JSON", "*.json")],
+                                            initialfile=f"informe_{nom}_{ara:%Y%m%d}.json")
+        if not cami:
+            return
+        with open(cami, "w", encoding="utf-8") as f:
+            json.dump(dades, f, ensure_ascii=False, indent=2)
+        with open(os.path.splitext(cami)[0] + ".html", "w", encoding="utf-8") as f:
+            f.write(informe_html(dades))
+        self.neteja()
+        self.escriu(f"[+] Informe {dades['auditoria']} generat: {os.path.basename(cami)} (+ .html)\n", "cmd")
+        self.escriu(f"    {len(hosts)} hosts · {ports} ports oberts · {len(vulns)} troballes · risc global {dades['resum']['nivell_risc_global']}\n", "info")
+        for v in vulns:
+            self.escriu(f"    {v['id']}  {v['gravetat'].upper():<8} {v['host']:<16} {v['titol']}\n",
+                        "err" if v["gravetat"] == "critical" else "warn" if v["gravetat"] in ("high", "medium") else "ok")
+        self.escriu("\nPuja el JSON des del portal d'administració de la web per veure'l a l'àrea de clients.\n", "info")
+        self.estat.config(text=f"● Informe generat: {os.path.basename(cami)}", fg=OK)
+
     def desa_txt(self):
         cami = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text", "*.txt")],
                                             initialfile=f"zevix_sortida_{datetime.now():%Y%m%d_%H%M}.txt")
@@ -508,7 +646,7 @@ class ZevixAuditApp:
         cami = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("JSON", "*.json")],
                                             initialfile=f"zevix_resultats_{datetime.now():%Y%m%d_%H%M}.json")
         if cami:
-            dades = {"auditor": "Zevix Cybersecurity", "eina": "zevix_audit.py v2",
+            dades = {"auditor": "Zevix Cybersecurity", "eina": "zevix_audit.py v2.1",
                      "exportat": datetime.now().isoformat(timespec="seconds"), "execucions": self.historial}
             with open(cami, "w", encoding="utf-8") as f:
                 json.dump(dades, f, ensure_ascii=False, indent=2)
