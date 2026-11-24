@@ -1,5 +1,5 @@
 /* ==========================================================
-   Zevix Cybersecurity — Lògica comuna de la Landing Page
+   Zevix Cybersecurity · Lògica comuna de la Landing Page
    - Menú responsive
    - Animacions en fer scroll (IntersectionObserver)
    - Terminal animada del Hero

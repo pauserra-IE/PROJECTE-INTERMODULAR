@@ -1,5 +1,5 @@
 /* ==========================================================
-   Zevix Cybersecurity — Mòdul d'autenticació (PROTOTIP)
+   Zevix Cybersecurity · Mòdul d'autenticació (PROTOTIP)
 
    IMPORTANT: GitHub Pages només serveix fitxers estàtics, per tant
    aquest mòdul simula el login i el control d'accés per rols (RBAC)

@@ -1,5 +1,5 @@
 /* ==========================================================
-   Zevix Cybersecurity — Efecte "Scroll World"
+   Zevix Cybersecurity · Efecte "Scroll World"
 
    Un món 3D (Three.js) on el scroll controla una càmera que vola
    sense talls per les 4 fases d'una auditoria:
@@ -9,7 +9,7 @@
      4. Informe i protecció     (cúpula-escut sobre la xarxa)
 
    Inspirat en la tècnica de scroll-world (oso95/scroll-world), però
-   renderitzat en temps real en lloc de vídeos generats amb IA:
+   renderitzat en temps real en lloc de vídeos pre-renderitzats:
    és gratuït, lleuger i s'executa a GitHub Pages.
    ========================================================== */
 

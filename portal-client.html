@@ -111,7 +111,7 @@ function renderReport(d) {
   const label = { critical: "Crítica", high: "Alta", medium: "Mitjana", low: "Baixa" };
   document.getElementById("vuln-rows").innerHTML = d.vulnerabilitats.map((v) =>
     `<tr><td class="mono">${v.id}</td><td class="mono">${v.host}</td><td>${v.servei}</td><td style="text-align:left">${v.titol}</td><td><span class="sev ${v.gravetat}">${label[v.gravetat]}</span></td></tr>`).join("");
-  document.getElementById("plan-list").innerHTML = d.vulnerabilitats.map((v) => `<li><strong style="color:var(--text)">${v.id}</strong> — ${v.recomanacio}</li>`).join("");
+  document.getElementById("plan-list").innerHTML = d.vulnerabilitats.map((v) => `<li><strong style="color:var(--text)">${v.id}</strong>: ${v.recomanacio}</li>`).join("");
 }
 </script>
 </main>

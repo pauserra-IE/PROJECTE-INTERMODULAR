@@ -1,8 +1,8 @@
-# Documentació de la Landing Page — Zevix Cybersecurity
+# Documentació de la Landing Page · Zevix Cybersecurity
 
 **Projecte Intermodular (MP0379) · CFGS ASIX Ciberseguretat · Institut de l'Ebre · Curs 2026-27**
 **Grup 3:** Pau Serra Bertomeu · Iker Espinosa López · Maria del Valle Suñe Nieto
-**Sprint 1** — Lliurament màxim: 30/11/2026
+**Sprint 1**. Lliurament màxim: 30/11/2026
 
 ---
 
@@ -36,7 +36,7 @@ Pàgines que inclou:
 | Serveis | Fitxa de cada mòdul de l'eina (OSINT amb Shodan i theHarvester, Nmap, Nikto, DNS/Whois, SSH/SMB en desenvolupament i pla de millora) amb el seu estat, una **recreació de la interfície real de l'eina** (tkinter) i del menú de Shodan, i la nostra **anàlisi de riscos** del cas EbreLogistics (model INCIBE) |
 | Equip | Membres, càrrec, estudis, descripció i gustos, amb fotografia |
 | Sobre nosaltres | Història, finalitat de l'empresa, missió/visió/valors i estàndards |
-| Tarifes | 3 plans — **Bàsic (senzill)**, **Professional (mitjà)** i **Avançat (fort)** —, comparativa i FAQ |
+| Tarifes | 3 plans (**Bàsic**, **Professional** i **Avançat**, és a dir senzill, mitjà i fort), comparativa i FAQ |
 | Notícies | Blog d'articles de ciberseguretat amb filtre per categories |
 | Contacte | Formulari amb validació, dades de contacte, xarxes socials i mapa |
 | Login / Registre | Accés per rols (client / administrador) i alta de nous clients |
@@ -82,9 +82,9 @@ flowchart TD
 
 Nivells:
 
-- **Nivell 1 — Zona pública:** Inici, Serveis, Equip, Sobre, Tarifes, Notícies, Contacte.
-- **Nivell 2 — Passarel·la d'autenticació:** Login i Registre.
-- **Nivell 3 — Zona privada:** Portal de clients i Portal d'administradors (protegits per rol).
+- **Nivell 1, zona pública:** Inici, Serveis, Equip, Sobre, Tarifes, Notícies, Contacte.
+- **Nivell 2, passarel·la d'autenticació:** Login i Registre.
+- **Nivell 3, zona privada:** Portal de clients i Portal d'administradors (protegits per rol).
 
 ## 4. Mockup
 
@@ -98,7 +98,7 @@ NAVBAR (sempre visible)
 │ [ZVX] ZEVIX▮   Inici Serveis Equip Sobre Tarifes Notícies Contacte  [Accedir][Registrar-se] │
 └──────────────────────────────────────────────────────────────────────┘
 
-0 %  ·  INTRO — portada del document sobre el món 3D
+0 %  ·  INTRO: portada del document sobre el món 3D
 ┌──────────────────────────────────────────────────────────────────────┐
 │      DOC ZVX-WEB-001 · CLASSIFICACIÓ: PÚBLIC · REV. 4 · [hora real]  │
 │ ┌──────────────────────────────────────────┐                         │
@@ -113,7 +113,7 @@ NAVBAR (sempre visible)
 │▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔ barra de progrés ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔│
 └──────────────────────────────────────────────────────────────────────┘
 
-7–27 %  ·  FASE 01 — la càmera envolta el globus
+7–27 %  ·  FASE 01: la càmera envolta el globus
 ┌──────────────────────────────────────────────────────────────────────┐
 │                     (globus 3D amb satèl·lits)              01 OSINT ━ │
 │ ┌─────────────────────────────────────┐                     02 XARXA ─ │
@@ -123,11 +123,11 @@ NAVBAR (sempre visible)
 │ └─────────────────────────────────────┘                                │
 └──────────────────────────────────────────────────────────────────────┘
 
-27–53 %  FASE 02 — sobrevola la ciutat de servidors     (mateixa estructura)
-53–76 %  FASE 03 — entra al passadís de racks del CPD   (mateixa estructura)
-76–93 %  FASE 04 — arriba a la cúpula-escut             (mateixa estructura)
+27–53 %  FASE 02: sobrevola la ciutat de servidors     (mateixa estructura)
+53–76 %  FASE 03: entra al passadís de racks del CPD   (mateixa estructura)
+76–93 %  FASE 04: arriba a la cúpula-escut             (mateixa estructura)
 
-93–100 %  ·  FINAL — la càmera s'allunya
+93–100 %  ·  FINAL: la càmera s'allunya
 ┌──────────────────────────────────────────────────────────────────────┐
 │                        [ AUDITAT ✓ ]  (segell)                        │
 │        Saps quantes portes té obertes la teva xarxa?                  │
@@ -233,7 +233,7 @@ Tota la portada és un recorregut 3D: en fer scroll, una càmera vola **sense ta
 4. Els textos (`.world-stage`) tenen `data-from` i `data-to` a l'HTML i el JS els mostra quan el progrés és dins del seu rang. També s'actualitzen la **barra de progrés** i els **punts** de la dreta, que es poden clicar per saltar a una fase.
 5. Per estalviar bateria, només es renderitza quan la secció és visible (`IntersectionObserver`). En mòbil es redueixen les partícules i s'obre el camp de visió.
 
-**Decisió:** la tècnica s'inspira en la skill [scroll-world](https://github.com/oso95/scroll-world), però aquesta genera els vols amb vídeos d'IA de pagament (Monid/Higgsfield). Nosaltres renderitzem l'escena en temps real amb WebGL: és gratuït, ocupa uns pocs KB i funciona a GitHub Pages. Si el navegador no té WebGL, tot el contingut es mostra com a seccions estàtiques.
+**Decisió:** la tècnica s'inspira en el projecte [scroll-world](https://github.com/oso95/scroll-world), però aquesta genera els vols amb vídeos pre-renderitzats en serveis de pagament (Monid/Higgsfield). Nosaltres renderitzem l'escena en temps real amb WebGL: és gratuït, ocupa uns pocs KB i funciona a GitHub Pages. Si el navegador no té WebGL, tot el contingut es mostra com a seccions estàtiques.
 
 **Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=5`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
 
