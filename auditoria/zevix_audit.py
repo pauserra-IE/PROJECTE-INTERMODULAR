@@ -627,7 +627,7 @@ class ZevixAuditApp:
         with open(os.path.splitext(cami)[0] + ".html", "w", encoding="utf-8") as f:
             f.write(informe_html(dades))
         self.neteja()
-        self.escriu(f"[+] Informe {e(dades['auditoria'])} generat: {os.path.basename(cami)} (+ .html)\n", "cmd")
+        self.escriu(f"[+] Informe {dades['auditoria']} generat: {os.path.basename(cami)} (+ .html)\n", "cmd")
         self.escriu(f"    {len(hosts)} hosts · {ports} ports oberts · {len(vulns)} troballes · risc global {dades['resum']['nivell_risc_global']}\n", "info")
         for v in vulns:
             self.escriu(f"    {v['id']}  {v['gravetat'].upper():<8} {v['host']:<16} {v['titol']}\n",
