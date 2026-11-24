@@ -16,6 +16,7 @@
 6. [Explicació de les principals decisions preses](#6-explicació-de-les-principals-decisions-preses)
 7. [Desplegament](#7-desplegament)
 8. [Transició cap a la plataforma](#8-transició-cap-a-la-plataforma)
+9. [Ús d'intel·ligència artificial](#9-ús-dintel·ligència-artificial)
 
 ---
 
@@ -292,3 +293,46 @@ python3 -m http.server 8000
 | Informes | Fitxers d'exemple a `informes_auditoria/` | Directori protegit `REPORTS_DIR` + base de dades, cada client només veu els seus |
 | Pujada d'informes | Simulada | Pujada real des del portal admin o automàtica des de l'eina Python / Docker |
 | Notificacions | — | Bot de Telegram |
+
+## 9. Ús d'intel·ligència artificial
+
+Les indicacions del projecte permeten fer servir IA sempre que es justifiqui el codi i la seva funció. Aquest apartat explica quines eines hem fet servir, per a què, què ha decidit i revisat l'equip i com funcionen les parts principals del codi.
+
+### 9.1 Eines i ús
+
+| Eina | Per a què l'hem fet servir |
+|---|---|
+| **Gemini** (Google) | Planificació inicial del projecte: anàlisi de l'enunciat i del calendari de lliuraments, idees d'estructura del repositori i de la landing page, comparativa de tecnologies (estàtic, LAMP, Django, Laravel) i opcions de desplegament. |
+| **Claude Code** (Anthropic) | Generació del codi de la web (HTML, CSS i JavaScript), de l'efecte 3D amb Three.js i d'aquesta documentació, a partir de les nostres indicacions. Els commits on ha participat porten la línia `Co-Authored-By: Claude` a l'historial de Git. |
+
+### 9.2 Què ha fet l'equip
+
+- **Decisions de projecte:** nom i identitat de l'empresa (Zevix Cybersecurity), client auditat (EbreLogistics S.L.), rols Scrum, pàgines que havia de tenir la web segons l'enunciat i els tres plans de preus (senzill, mitjà i fort).
+- **Contingut propi:** el contracte simbòlic, l'anàlisi de riscos (model INCIBE) i el codi de l'eina d'auditoria en Python (theHarvester, Shodan, Nmap, Nikto i utilitats de xarxa). La web reutilitza aquest material: la taula de riscos de Serveis, els mòduls i la recreació de la interfície de l'eina.
+- **Direcció del disseny:** vam demanar l'efecte Scroll World, el vam fer refer quan el resultat no ens convencia i vam escollir l'estil "informe d'auditoria" entre diverses propostes. Abans del canvi d'estil vam guardar una còpia de seguretat (etiqueta `disseny-original`).
+- **Revisió i proves:** comprovació de totes les pàgines, del login amb els dos rols, del portal de clients i de la versió mòbil, i correcció dels errors trobats (per exemple, la memòria cau del navegador, que mostrava el CSS antic).
+- **Desplegament:** pujada al repositori amb Git i activació de GitHub Pages.
+
+### 9.3 Què cal tenir en compte
+
+- Les dades que es veuen a la web són **d'exemple**: clients, telèfon, correu i informe de vulnerabilitats. Els interessos de l'equip són orientatius.
+- El login és un **prototip** que funciona al navegador (vegeu 6.3). No és segur i se substituirà per un backend a la fase 2.
+- La IA s'ha equivocat en alguns punts que vam haver de corregir, com els rols de l'equip o eines de l'auditoria que no fèiem servir. Per això tot el contingut s'ha contrastat amb els nostres documents.
+
+### 9.4 Com funciona el codi (justificació)
+
+**Login i rols (`assets/js/auth.js`).** Hi ha una llista d'usuaris de prova i una funció `login(email, contrasenya, rol)` que busca l'usuari i comprova que el rol coincideixi. Si és correcte, guarda la sessió a `sessionStorage` (s'esborra en tancar la pestanya) i redirigeix al portal que toca. Cada pàgina privada crida `ZevixAuth.require(["admin"])` o `require(["client", "admin"])` en carregar-se: si no hi ha sessió o el rol no és vàlid, torna al login. El registre afegeix usuaris a `localStorage`, només en aquell navegador.
+
+**Portal de clients (`portal-client.html`).** Amb `fetch()` llegeix el fitxer `informes_auditoria/informe_ebrelogistics_2026.json`, que té el format que exportarà la nostra eina. A partir d'aquestes dades compta les vulnerabilitats per gravetat, dibuixa la barra de risc i omple les taules. Si l'eina genera un altre JSON amb el mateix format, el portal el mostra sense tocar el codi.
+
+**Efecte Scroll World (`assets/js/scroll-world.js`).**
+1. Es crea una escena de Three.js amb quatre grups d'objectes (globus, ciutat, passadís de racks i cúpula), situats un darrere l'altre a l'eix Z.
+2. En cada moviment del scroll es calcula el progrés dins la secció: `progrés = scroll recorregut / (alçada de la secció - alçada de la finestra)`, un valor entre 0 i 1.
+3. La llista `KEYS` defineix on ha de ser la càmera i cap a on ha de mirar en cada percentatge. La funció `curveT()` busca entre quins dos fotogrames clau som i calcula una posició intermèdia suavitzada sobre una corba `CatmullRomCurve3`.
+4. Els textos de cada fase tenen `data-from` i `data-to` a l'HTML, i el JavaScript mostra el que correspon al progrés actual.
+5. Només es dibuixa quan la secció és visible (`IntersectionObserver`), per no gastar bateria.
+
+**Formularis (`assets/js/main.js`).** La funció `validateForm()` recorre els camps obligatoris, comprova que no estiguin buits, que el correu tingui un format vàlid i la longitud mínima, i marca en vermell els camps incorrectes. Com que la web és estàtica, l'enviament es simula.
+
+**Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=5` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
+

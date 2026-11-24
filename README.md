@@ -59,3 +59,7 @@ python3 -m http.server 8000
 ├── informes_auditoria/    Informes d'exemple (JSON / HTML)
 └── docs/                  Documentació del projecte
 ```
+
+## Ús d'IA
+
+Hem fet servir Gemini per a la planificació i Claude Code per generar el codi de la web, amb revisió de l'equip. El detall (què ha fet l'equip, què ha fet la IA i com funciona el codi) és a l'[apartat 9 de la documentació](docs/documentacio_landing_page.md#9-ús-dintel·ligència-artificial).
