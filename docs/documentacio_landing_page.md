@@ -243,7 +243,7 @@ Tota la portada és un recorregut 3D: en fer scroll, una càmera vola **sense ta
 
 **Decisió:** la tècnica s'inspira en el projecte [scroll-world](https://github.com/oso95/scroll-world), però aquesta genera els vols amb vídeos pre-renderitzats en serveis de pagament (Monid/Higgsfield). Nosaltres renderitzem l'escena en temps real amb WebGL: és gratuït, ocupa uns pocs KB i funciona a GitHub Pages. Si el navegador no té WebGL, tot el contingut es mostra com a seccions estàtiques.
 
-**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=13`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
+**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=14`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
 
 ### 6.3 Justificació de tecnologies
 
@@ -349,5 +349,5 @@ Les indicacions del projecte permeten fer servir IA sempre que es justifiqui el 
 
 **Portal avançat (`assets/js/portal.js`).** Quan el portal ha carregat l'informe, envia l'esdeveniment `zevix:report`. `portal.js` l'escolta i dibuixa els gràfics en SVG (un donut amb `stroke-dasharray` i barres per host), el pla de millora (l'estat de cada troballa es desa a `localStorage` amb la clau `zevix_pla_<auditoria>`) i la comparació de re-auditoria: dues troballes són la mateixa si coincideixen el host i el títol; les que ja no hi són es marquen com a corregides.
 
-**Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=13` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
+**Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=14` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
 

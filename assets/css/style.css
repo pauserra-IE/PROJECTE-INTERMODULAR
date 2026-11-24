@@ -798,3 +798,13 @@ table.compare td.mono { white-space: nowrap; }
 :root[data-theme="light"] .world-cap { background: rgba(255, 255, 255, .95); }
 .nav-toggle { order: 4; }
 :root[data-theme="light"] .world-progress li span { background: rgba(255, 255, 255, .85); padding: 1px 6px; }
+
+/* Tema clar: també les consoles i les barres de les captures */
+:root[data-theme="light"] .log { background: #FBFBF9; color: #3A3D42; border-color: var(--border); }
+:root[data-theme="light"] .app-cli { background: #FBFBF9; border-color: var(--border); }
+:root[data-theme="light"] .app-cli pre { background: #FBFBF9; color: #15803D; }
+:root[data-theme="light"] .app-cli .dim, :root[data-theme="light"] .app-cli .app-console-label { color: #6B6F76; }
+:root[data-theme="light"] .shot-bar { background: #E4E4DF; color: #3A3D42; }
+:root[data-theme="light"] .shot-bar i { background: #B9B9B3; }
+:root[data-theme="light"] .shot { border-color: var(--border); }
+:root[data-theme="light"] ::selection { background: #F5A524; color: #0b0c0d; }
