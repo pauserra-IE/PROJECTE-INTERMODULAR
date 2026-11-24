@@ -1,5 +1,5 @@
 """
-Zevix Cybersecurity · Eina d'auditoria de seguretat (v2)
+Zevix Cybersecurity · Eina d'auditoria de seguretat (v2.1)
 Projecte Intermodular ASIX · Grup 3 · Institut de l'Ebre
 
 Aplicació amb interfície gràfica (tkinter) que reuneix diverses eines
@@ -28,6 +28,7 @@ Novetat de la v2.1:
     python3 zevix_audit.py
 """
 
+import html
 import json
 import os
 import queue
@@ -128,20 +129,22 @@ def analitza_historial(historial):
 
 
 def informe_html(dades):
-    """Versió HTML de l'informe, amb el mateix contingut que el JSON."""
+    """Versió HTML de l'informe, amb el mateix contingut que el JSON.
+    Tot el text s'escapa: les troballes de Nikto contenen text del servidor escanejat."""
+    e = lambda t: html.escape(str(t))
     noms = {"critical": ("Crítica", "#dc2626"), "high": ("Alta", "#ea580c"), "medium": ("Mitjana", "#ca8a04"), "low": ("Baixa", "#16a34a")}
     files = "".join(
-        f"<tr><td>{v['id']}</td><td>{v['host']}</td><td>{v['servei']}</td><td>{v['titol']}</td>"
-        f"<td style='color:{noms[v['gravetat']][1]};font-weight:700'>{noms[v['gravetat']][0]} ({v['cvss']})</td><td>{v['recomanacio']}</td></tr>"
+        f"<tr><td>{e(v['id'])}</td><td>{e(v['host'])}</td><td>{e(v['servei'])}</td><td>{e(v['titol'])}</td>"
+        f"<td style='color:{noms[v['gravetat']][1]};font-weight:700'>{noms[v['gravetat']][0]} ({v['cvss']})</td><td>{e(v['recomanacio'])}</td></tr>"
         for v in dades["vulnerabilitats"])
     r = dades["resum"]
-    return f"""<!DOCTYPE html><html lang="ca"><head><meta charset="UTF-8"><title>Informe {dades['auditoria']}</title>
+    return f"""<!DOCTYPE html><html lang="ca"><head><meta charset="UTF-8"><title>Informe {e(dades['auditoria'])}</title>
 <style>body{{font-family:system-ui,sans-serif;max-width:1000px;margin:0 auto;padding:32px 16px;color:#0f172a}}
 header{{border-bottom:3px solid #f5a524;padding-bottom:16px;margin-bottom:24px}}table{{width:100%;border-collapse:collapse;font-size:.88rem}}
 th,td{{border:1px solid #cbd5e1;padding:8px;text-align:left;vertical-align:top}}th{{background:#fef3c7}}.meta{{color:#475569}}</style></head><body>
-<header><h1>Informe tècnic d'auditoria de seguretat</h1><div class="meta">Auditoria <b>{dades['auditoria']}</b> · Contracte {dades['contracte']} ·
-Client: <b>{dades['client']}</b> · Auditor: {dades['auditor']} · Data: {dades['data']}</div></header>
-<h2>1. Abast</h2><p>{dades['abast']}</p>
+<header><h1>Informe tècnic d'auditoria de seguretat</h1><div class="meta">Auditoria <b>{e(dades['auditoria'])}</b> · Contracte {e(dades['contracte'])} ·
+Client: <b>{e(dades['client'])}</b> · Auditor: {e(dades['auditor'])} · Data: {e(dades['data'])}</div></header>
+<h2>1. Abast</h2><p>{e(dades['abast'])}</p>
 <h2>2. Resum executiu</h2><p>S'han analitzat <b>{r['hosts_analitzats']} hosts</b> i <b>{r['ports_oberts']} ports oberts</b>.
 S'han detectat <b>{len(dades['vulnerabilitats'])} troballes</b>. Nivell de risc global: <b>{r['nivell_risc_global']}</b>.</p>
 <h2>3. Troballes i recomanacions</h2><table><thead><tr><th>ID</th><th>Host</th><th>Servei</th><th>Descripció</th><th>Gravetat (CVSS)</th><th>Recomanació</th></tr></thead>
@@ -624,7 +627,7 @@ class ZevixAuditApp:
         with open(os.path.splitext(cami)[0] + ".html", "w", encoding="utf-8") as f:
             f.write(informe_html(dades))
         self.neteja()
-        self.escriu(f"[+] Informe {dades['auditoria']} generat: {os.path.basename(cami)} (+ .html)\n", "cmd")
+        self.escriu(f"[+] Informe {e(dades['auditoria'])} generat: {os.path.basename(cami)} (+ .html)\n", "cmd")
         self.escriu(f"    {len(hosts)} hosts · {ports} ports oberts · {len(vulns)} troballes · risc global {dades['resum']['nivell_risc_global']}\n", "info")
         for v in vulns:
             self.escriu(f"    {v['id']}  {v['gravetat'].upper():<8} {v['host']:<16} {v['titol']}\n",
