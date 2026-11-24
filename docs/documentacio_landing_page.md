@@ -50,13 +50,14 @@ Pàgines que inclou:
 | **HTML5** | Estructura semàntica (`header`, `nav`, `main`, `section`, `article`, `footer`), formularis amb atributs d'accessibilitat |
 | **CSS3** | Disseny responsive amb **CSS Grid** i **Flexbox**, variables CSS (`:root`) per als colors corporatius, animacions i *media queries* (mòbil, tauleta, escriptori) |
 | **JavaScript (ES6)** | Manipulació del DOM, validació de formularis, menú mòbil, animacions en fer scroll (`IntersectionObserver`), lectura de l'informe JSON amb `fetch()` i mòdul d'autenticació per rols |
-| **SVG** | Logotip i icones vectorials (sense dependències externes) |
+| **Three.js (r128, WebGL)** | Efecte *Scroll World* de la portada: món 3D on el scroll controla la càmera (carregat des de cdnjs) |
+| **SVG** | Logotip i icones vectorials |
 | **Google Fonts** | Tipografies *Inter* (text) i *JetBrains Mono* (detalls tècnics) |
 | **Git + GitHub** | Control de versions i treball col·laboratiu |
 | **GitHub Pages** | Allotjament i desplegament amb HTTPS |
 | **Python (script de generació)** | No es publica; les pàgines comparteixen capçalera i peu i s'han mantingut coherents |
 
-No s'utilitza cap framework ni llibreria JavaScript externa: la web és lleugera, ràpida i fàcil d'auditar.
+L'única llibreria externa és Three.js, i només a la portada. La resta és JavaScript propi, sense frameworks: la web és lleugera, ràpida i fàcil d'auditar.
 
 ## 3. Sitemap
 
@@ -142,6 +143,7 @@ PROJECTE-INTERMODULAR/
 │   ├── css/style.css        Full d'estils únic (variables, components, responsive)
 │   ├── js/main.js           Lògica comuna: menú, animacions, formularis, tarifes, blog
 │   ├── js/auth.js           Mòdul d'autenticació i control d'accés per rols (prototip)
+│   ├── js/scroll-world.js   Efecte Scroll World: món 3D amb Three.js controlat pel scroll
 │   └── img/                 Logo, favicon i fotos de l'equip (img/equip/*.jpg)
 ├── informes_auditoria/      Informes d'exemple que genera l'eina Python (.json / .html)
 ├── docs/                    Documentació del projecte
@@ -154,6 +156,7 @@ PROJECTE-INTERMODULAR/
 | `assets/css/style.css` | Tot el disseny. Els colors es defineixen com a variables a `:root`, de manera que canviar la imatge corporativa només requereix editar unes línies. |
 | `assets/js/main.js` | Comportament de la web pública: menú hamburguesa, animacions `reveal`, terminal animada, commutador mensual/anual de tarifes, filtre del blog i validació del formulari de contacte (`validateForm`). |
 | `assets/js/auth.js` | Objecte `ZevixAuth` amb `login()`, `register()`, `logout()`, `currentUser()` i `require(roles)`. Guarda la sessió a `sessionStorage` i protegeix les pàgines privades redirigint al login si no hi ha sessió o el rol no és vàlid. |
+| `assets/js/scroll-world.js` | Crea l'escena 3D (globus OSINT, ciutat de servidors, passadís del CPD i cúpula-escut), calcula el progrés del scroll dins la secció `#world` (0 → 1) i mou la càmera per una corba `CatmullRomCurve3`. També activa el text de cada fase i només renderitza quan la secció és visible. |
 | `portal-client.html` | Llegeix `informes_auditoria/informe_ebrelogistics_2026.json` amb `fetch()` i genera dinàmicament els comptadors per gravetat, la barra de risc, la taula de vulnerabilitats i el pla de millora. Permet descarregar l'informe en HTML i JSON. |
 | `portal-admin.html` | Només accessible amb rol `admin`. Llista de clients, estat dels mòduls de l'eina, formulari de pujada d'informes (simulat) i registre d'activitat. |
 | `informes_auditoria/*.json` | Format d'informe que exportarà l'eina d'auditoria en Python. És el "contracte" de dades entre l'eina i la plataforma web. |
@@ -167,7 +170,21 @@ PROJECTE-INTERMODULAR/
 - **Accessibilitat:** etiquetes `label` als formularis, `aria-label` a les icones, contrast alt i respecte a `prefers-reduced-motion`.
 - **Plans de preus en 3 nivells** (senzill, mitjà, fort), tal com indica l'enunciat, amb el pla mitjà destacat com a "més popular".
 
-### 6.2 Justificació de tecnologies
+### 6.2 Efecte Scroll World
+La portada inclou una secció *"El viatge d'una auditoria"*: en fer scroll, una càmera vola **sense talls** per un petit món 3D i entra a cada escena, que correspon a una fase del servei:
+
+| Fase | Escena 3D | Missatge |
+|---|---|---|
+| 01 · Internet | Globus amb satèl·lits i punts de serveis exposats | Reconeixement OSINT (Shodan, theHarvester) |
+| 02 · La xarxa | Ciutat de servidors connectats, paquets de dades i anell d'escaneig | Descobriment d'hosts i ports (Nmap) |
+| 03 · El CPD | Passadís de racks amb LEDs, alertes vermelles i pla d'escaneig | Anàlisi de vulnerabilitats (SSH, SMB...) |
+| 04 · Protecció | Cúpula-escut verda amb un check | Informe i pla de millora |
+
+**Com funciona:** la secció fa 600vh d'alt i conté un `canvas` *sticky*. El percentatge de scroll dins la secció (0 → 1) es fa servir com a "temps": la càmera segueix una corba `CatmullRomCurve3` de Three.js i mira cap a una segona corba. Així el scroll només controla on és la càmera, com a les pàgines de producte d'Apple.
+
+**Decisió:** la tècnica s'inspira en la skill [scroll-world](https://github.com/oso95/scroll-world), però aquesta genera els vols amb vídeos d'IA de pagament (Monid/Higgsfield). Nosaltres renderitzem l'escena en temps real amb WebGL: és gratuït, ocupa uns pocs KB i funciona a GitHub Pages. Si el navegador no té WebGL, les 4 fases es mostren com a targetes estàtiques.
+
+### 6.3 Justificació de tecnologies
 
 | Opció | Avantatges | Inconvenients | Decisió |
 |---|---|---|---|
@@ -181,7 +198,7 @@ PROJECTE-INTERMODULAR/
 1. **Fase 1 (actual):** web estàtica a GitHub Pages. El login és un **prototip** en JavaScript que demostra el flux complet per rols. ⚠️ No és segur (les credencials de demostració són al codi i la comprovació es fa al navegador); només serveix per a la demostració del Sprint 1.
 2. **Fase 2:** la plataforma passa a **Django** desplegat en un servidor propi (Proxmox / LAMP) o a AWS, amb contrasenyes amb hash, sessions al servidor, protecció CSRF i informes guardats fora de l'abast públic. La landing page pot continuar a GitHub Pages.
 
-### 6.3 Altres decisions
+### 6.4 Altres decisions
 - **Informes en JSON:** l'eina Python exportarà els resultats en JSON; la web només ha de llegir aquest fitxer, cosa que desacobla l'eina de la plataforma.
 - **Sense dependències externes de JavaScript:** menys risc de seguretat a la cadena de subministrament i més fàcil de justificar el codi.
 - **Empreses i dades fictícies:** EbreLogistics S.L. és l'empresa auditada del nostre contracte simbòlic; la resta de logos de clients i les dades de l'informe són d'exemple.
