@@ -714,3 +714,24 @@ table.compare thead th { font-family: var(--mono); font-size: .74rem; text-trans
 .app-cli { max-width: 720px; }
 @media (max-width: 900px) { .tool-shots { grid-template-columns: 1fr; } }
 table.compare td.mono { white-space: nowrap; }
+
+/* ---------- Cas d'èxit: xifres destacades ---------- */
+.stat-big .fitxa-body { padding: 22px 20px; }
+.stat-big .num { font-family: var(--mono); font-size: 2.6rem; font-weight: 600; line-height: 1; margin-bottom: 8px; color: var(--primary); }
+.stat-big .num.crit { color: var(--danger); }
+.stat-big .num.ok { color: var(--ok); }
+.stat-big p { color: var(--muted); }
+
+/* ---------- Glossari ---------- */
+.glossari { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 40px; border-top: 1px solid var(--border); }
+.gl-item { padding: 16px 0; border-bottom: 1px solid var(--border); }
+.gl-item dt { font-family: var(--mono); font-weight: 600; color: var(--primary); margin-bottom: 4px; }
+.gl-item dd { color: var(--muted); font-size: .95rem; }
+@media (max-width: 760px) { .glossari { grid-template-columns: 1fr; } }
+
+/* ---------- Calculadora de pressupost ---------- */
+.calc-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 36px; align-items: center; }
+.calc-result { border-left: 1px solid var(--border); padding-left: 36px; }
+.calc-plan { font-family: var(--mono); font-size: 1.8rem; font-weight: 600; }
+.calc-grid input[type=range] { width: 100%; accent-color: var(--primary); }
+@media (max-width: 760px) { .calc-grid { grid-template-columns: 1fr; } .calc-result { border-left: 0; padding-left: 0; border-top: 1px solid var(--border); padding-top: 20px; } }

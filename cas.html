@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cas d'èxit: EbreLogistics | Zevix Cybersecurity</title>
+  <meta name="description" content="Com vam auditar EbreLogistics S.L.: contracte, anàlisi de riscos, escaneig, informe i pla de millora.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Zevix Cybersecurity">
+  <meta property="og:title" content="Cas d'èxit: EbreLogistics | Zevix Cybersecurity">
+  <meta property="og:description" content="Com vam auditar EbreLogistics S.L.: contracte, anàlisi de riscos, escaneig, informe i pla de millora.">
+  <meta property="og:image" content="https://pauserra-ie.github.io/PROJECTE-INTERMODULAR/docs/img/web-portada.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0b0c0d">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css?v=10">
+</head>
+<body>
+<header class="navbar">
+  <div class="container nav-inner">
+    <a class="logo" href="index.html" aria-label="Zevix Cybersecurity - Inici">
+      <span class="logo-mark">[ZVX]</span><span>ZEVIX<i class="logo-cursor"></i><small>CYBERSECURITY</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Obrir menú" aria-expanded="false">☰</button>
+    <nav class="nav-menu" aria-label="Navegació principal">
+      <ul class="nav-links">
+        <li><a href="index.html">Inici</a></li>
+        <li><a href="serveis.html">Serveis</a></li>
+        <li><a href="equip.html">Equip</a></li>
+        <li><a href="sobre.html">Sobre nosaltres</a></li>
+        <li><a href="tarifes.html">Tarifes</a></li>
+        <li><a href="noticies.html">Notícies</a></li>
+        <li><a href="contacte.html">Contacte</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="btn btn-outline" href="login.html">Accedir</a>
+        <a class="btn btn-primary" href="registre.html">Registrar-se</a>
+      </div>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="page-header">
+  <div class="container">
+    <div class="doc-strip"><span>DOC ZVX-WEB-008</span><span>Classificació: públic</span><span>Rev. 10</span><span>Zevix Cybersecurity</span></div>
+    <div class="breadcrumb">~/zevix/cas</div>
+    <h1>Cas d'èxit: EbreLogistics S.L.</h1>
+    <p>Com auditem una empresa de logística de les Terres de l'Ebre, del contracte al pla de millora. Cas simulat del Projecte Intermodular.</p>
+  </div>
+</section>
+<section class="section" style="padding-top:50px">
+  <div class="container">
+    <div class="grid grid-4 reveal">
+      <div class="fitxa stat-big"><div class="fitxa-body"><div class="num">10</div><p>actius crítics analitzats</p></div></div>
+      <div class="fitxa stat-big"><div class="fitxa-body"><div class="num">8</div><p>troballes a l'informe</p></div></div>
+      <div class="fitxa stat-big"><div class="fitxa-body"><div class="num crit">2</div><p>vulnerabilitats crítiques</p></div></div>
+      <div class="fitxa stat-big"><div class="fitxa-body"><div class="num ok">8/8</div><p>troballes amb recomanació</p></div></div>
+    </div>
+  </div>
+</section>
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head reveal"><span class="eyebrow">// El procés</span><h2>Cinc passos, del contracte a la re-auditoria</h2></div>
+    <ol class="num-list reveal">
+      <li><div><h3>Contracte i abast</h3><p>Contracte <code>ZVX-CONT-2026-01</code>: xarxa local amb alta disponibilitat, servidors web, FTP, DNS, SSH, Samba i bases de dades. Fora de l'abast: accés físic, mòbils dels empleats i serveis de tercers. Compte de baix privilegi i cap atac DoS.</p></div></li>
+      <li><div><h3>Anàlisi de riscos (INCIBE)</h3><p>Abans de tocar res vam valorar 10 actius amb el model risc = probabilitat × impacte. Tres van sortir crítics: l'accés SSH, els serveis innecessaris i MySQL.</p></div></li>
+      <li><div><h3>Reconeixement i escaneig</h3><p>Amb la nostra eina: OSINT amb theHarvester i Shodan, descobriment de ports i versions amb Nmap, i revisió dels servidors web amb Nikto.</p></div></li>
+      <li><div><h3>Informe al portal del client</h3><p>L'eina genera l'informe amb la gravetat de cada troballa (CVSS) i la recomanació. El client el consulta i el descarrega des del seu portal.</p></div></li>
+      <li><div><h3>Pla de millora i re-auditoria</h3><p>Correcció de les vulnerabilitats prioritzades per risc i nova auditoria per comprovar-ho. És el Projecte 2 del curs.</p></div></li>
+    </ol>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal"><span class="eyebrow">// Troballes principals</span><h2>Què vam trobar i què proposem</h2></div>
+    <div class="table-wrap reveal">
+      <table class="compare risk-table">
+        <thead><tr><th>Troballa</th><th>Gravetat</th><th>Mesura proposada</th><th>Estat</th></tr></thead>
+        <tbody>
+          <tr><td>Accés SSH com a root</td><td><span class="sev critical">Crítica</span></td><td><code>PermitRootLogin no</code> i autenticació per clau</td><td><span class="sev info">Pla de millora</span></td></tr>
+          <tr><td>MySQL obert a 0.0.0.0 amb credencials febles</td><td><span class="sev critical">Crítica</span></td><td><code>bind-address=127.0.0.1</code> i contrasenyes robustes</td><td><span class="sev info">Pla de millora</span></td></tr>
+          <tr><td>FTP anònim amb escriptura</td><td><span class="sev high">Alta</span></td><td>Desactivar l'accés anònim i passar a SFTP</td><td><span class="sev info">Pla de millora</span></td></tr>
+          <tr><td>Recurs Samba sense contrasenya</td><td><span class="sev high">Alta</span></td><td>Treure <code>guest ok = yes</code> i permisos per grup</td><td><span class="sev info">Pla de millora</span></td></tr>
+          <tr><td>Transferència de zona DNS oberta</td><td><span class="sev medium">Mitjana</span></td><td><code>allow-transfer</code> només al secundari</td><td><span class="sev info">Pla de millora</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption reveal">EbreLogistics S.L. és l'empresa (fictícia) del nostre contracte simbòlic. Les troballes corresponen a l'informe d'exemple del portal de clients.</p>
+    <div class="fitxa reveal" style="margin-top:40px">
+      <div class="fitxa-head"><span class="ref">ZVX-CAS-01</span><span>La teva empresa</span></div>
+      <div class="fitxa-body" style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+        <div><h3 style="font-size:1.3rem;margin-bottom:6px">Vols saber com està la teva xarxa?</h3><p style="color:var(--muted)">Comencem pel contracte i l'abast, sense compromís.</p></div>
+        <a class="btn btn-primary btn-lg" href="contacte.html">Sol·licitar auditoria</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<section class="trusted">
+  <div class="container">
+    <p>Empreses que confien en Zevix</p>
+    <div class="logos">
+      <div class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h11v9H2zM13 9h5l3 3v3h-8zM6 18a2 2 0 1 0 0-.01M17 18a2 2 0 1 0 0-.01"/></svg>EbreLogistics</div>
+      <div class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19C5 10 11 4 20 4c0 9-6 15-15 15zM5 19l8-8"/></svg>DeltaAgro</div>
+      <div class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/></svg>Clínica Montsià</div>
+      <div class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c3-4 5-4 8 0s5 4 8 0 3-2 4-2M2 17c3-4 5-4 8 0s5 4 8 0"/></svg>Port Nàutic Ebre</div>
+      <div class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5v10l-9 5-9-5V7z"/><path d="m3 7 9 5 9-5M12 12v10"/></svg>TerresData</div>
+    </div>
+  </div>
+</section>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a class="logo" href="index.html"><span class="logo-mark">[ZVX]</span><span>ZEVIX<i class="logo-cursor"></i><small>CYBERSECURITY</small></span></a>
+        <p>Auditories de ciberseguretat i pentesting ètic per a pimes de les Terres de l'Ebre. Detectem les vulnerabilitats abans que ho faci un atacant.</p>
+        <div class="socials">
+  <a href="https://github.com/pauserra-IE/PROJECTE-INTERMODULAR" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg></a>
+  <a href="https://kanbanflow.com/board/SLcaEb2" target="_blank" rel="noopener" aria-label="Tauler KanbanFlow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></a>
+</div>
+      </div>
+      <div>
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="sobre.html">Sobre nosaltres</a></li>
+          <li><a href="equip.html">Equip</a></li>
+          <li><a href="cas.html">Cas d'èxit</a></li>
+          <li><a href="noticies.html">Notícies</a></li>
+          <li><a href="glossari.html">Glossari i FAQ</a></li>
+          <li><a href="contacte.html">Contacte</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Serveis</h4>
+        <ul>
+          <li><a href="serveis.html#osint">Reconeixement OSINT</a></li>
+          <li><a href="serveis.html#xarxa">Auditoria de xarxa</a></li>
+          <li><a href="serveis.html#ssh">Hardening SSH</a></li>
+          <li><a href="serveis.html#pla">Pla de millora</a></li>
+          <li><a href="tarifes.html">Tarifes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Butlletí de seguretat</h4>
+        <ul><li style="color:var(--muted);font-size:.9rem">Rep alertes de vulnerabilitats i consells un cop al mes.</li></ul>
+        <form class="newsletter" novalidate>
+          <input type="email" placeholder="el-teu@correu.cat" aria-label="Correu electrònic">
+          <button class="btn btn-primary" type="submit">Subscriure</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>[<span class="js-now">2026-11-30 09:00:00</span>] zevixcyber.tech: fi del document · © 2026 Zevix Cybersecurity · Institut de l'Ebre</span>
+      <span>ISO/IEC 27001 · RGPD · INCIBE</span>
+    </div>
+  </div>
+</footer>
+<button class="back-top" aria-label="Tornar amunt">↑</button>
+<script src="assets/js/auth.js?v=10"></script>
+<script src="assets/js/main.js?v=10"></script>
+</body>
+</html>

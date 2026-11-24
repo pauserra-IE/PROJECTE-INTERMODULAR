@@ -141,6 +141,54 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  /* ---- Calculadora de pressupost (tarifes.html) ---- */
+  const calc = document.getElementById("calc");
+  if (calc) {
+    const $ = (id) => document.getElementById(id);
+    const plans = {
+      basic: { nom: "Bàsic", preu: 490, max: 5 },
+      professional: { nom: "Professional", preu: 1290, max: 20 },
+      avancat: { nom: "Avançat", preu: 2900, max: Infinity },
+    };
+    const recalcula = () => {
+      const hosts = parseInt($("calc-hosts").value, 10);
+      $("calc-hosts-val").textContent = hosts >= 60 ? "60+" : hosts;
+      let pla = "basic";
+      const motius = [];
+      if (hosts > 5 || $("calc-osint").checked || $("calc-serveis").checked) pla = "professional";
+      if (hosts > 20 || $("calc-ha").checked) pla = "avancat";
+      if (hosts > 20) motius.push("més de 20 equips");
+      else if (hosts > 5) motius.push("més de 5 equips");
+      if ($("calc-ha").checked) motius.push("infraestructura crítica o redundant");
+      if ($("calc-osint").checked) motius.push("reconeixement OSINT");
+      if ($("calc-serveis").checked) motius.push("serveis web, DNS o carpetes compartides");
+      const anual = $("calc-anual").checked;
+      const preu = Math.round(plans[pla].preu * (anual ? 0.85 : 1));
+      $("calc-plan").textContent = plans[pla].nom;
+      $("calc-price").textContent = preu.toLocaleString("ca-ES");
+      $("calc-why").textContent = (motius.length ? "Perquè necessites: " + motius.join(", ") + "." : "Suficient per a una primera revisió d'una xarxa petita.") +
+        (anual ? " Preu per auditoria amb contracte anual." : " Preu per auditoria puntual.");
+      $("calc-cta").href = "contacte.html?pla=" + pla;
+    };
+    calc.querySelectorAll("input").forEach((i) => i.addEventListener("input", recalcula));
+    recalcula();
+  }
+
+  /* ---- Cercador del glossari (glossari.html) ---- */
+  const cerca = document.getElementById("gl-search");
+  if (cerca) {
+    cerca.addEventListener("input", () => {
+      const q = cerca.value.trim().toLowerCase();
+      let visibles = 0;
+      document.querySelectorAll(".gl-item").forEach((el) => {
+        const ok = !q || el.textContent.toLowerCase().includes(q);
+        el.style.display = ok ? "" : "none";
+        if (ok) visibles++;
+      });
+      document.getElementById("gl-empty").style.display = visibles ? "none" : "block";
+    });
+  }
+
   /* ---- Formulari de contacte ---- */
   const contact = document.getElementById("contact-form");
   if (contact) {

@@ -39,7 +39,10 @@ Pàgines que inclou:
 | Sobre nosaltres | Història, finalitat de l'empresa, missió/visió/valors i estàndards |
 | Tarifes | 3 plans (**Bàsic**, **Professional** i **Avançat**, és a dir senzill, mitjà i fort), comparativa i FAQ |
 | Notícies | Blog d'articles de ciberseguretat amb filtre per categories |
-| Contacte | Formulari amb validació, dades de contacte, xarxes socials i mapa |
+| Contacte | Formulari amb validació, dades de contacte, enllaços i mapa |
+| Cas d'èxit | Auditoria d'EbreLogistics pas a pas: xifres clau, procés en 5 passos i troballes principals amb la mesura proposada |
+| Glossari i FAQ | 17 termes de ciberseguretat amb cercador i preguntes freqüents per a pimes |
+| 404 | Pàgina d'error amb l'estil de la web |
 | Login / Registre | Accés per rols (client / administrador) i alta de nous clients |
 | Portal client | Resum de riscos, llistat de vulnerabilitats, pla de millora i **descàrrega d'informes** |
 | Portal admin | Gestió de clients, estat dels mòduls de l'eina, pujada d'informes, registre d'activitat i opció d'**accedir com a client** |
@@ -70,6 +73,9 @@ flowchart TD
     A --> E[tarifes.html<br/>Tarifes]
     A --> F[noticies.html<br/>Notícies]
     A --> G[contacte.html<br/>Contacte]
+    A --> CS[cas.html<br/>Cas d'èxit]
+    A --> GL[glossari.html<br/>Glossari i FAQ]
+    CS --> G
     E -- "Contractar pla (?pla=)" --> G
     A --> R[registre.html<br/>Registre]
     A --> L[login.html<br/>Login]
@@ -83,7 +89,7 @@ flowchart TD
 
 Nivells:
 
-- **Nivell 1, zona pública:** Inici, Serveis, Equip, Sobre, Tarifes, Notícies, Contacte.
+- **Nivell 1, zona pública:** Inici, Serveis, Equip, Sobre, Tarifes, Notícies, Contacte, Cas d'èxit i Glossari (aquests dos, enllaçats des del peu de pàgina).
 - **Nivell 2, passarel·la d'autenticació:** Login i Registre.
 - **Nivell 3, zona privada:** Portal de clients i Portal d'administradors (protegits per rol).
 
@@ -237,7 +243,7 @@ Tota la portada és un recorregut 3D: en fer scroll, una càmera vola **sense ta
 
 **Decisió:** la tècnica s'inspira en el projecte [scroll-world](https://github.com/oso95/scroll-world), però aquesta genera els vols amb vídeos pre-renderitzats en serveis de pagament (Monid/Higgsfield). Nosaltres renderitzem l'escena en temps real amb WebGL: és gratuït, ocupa uns pocs KB i funciona a GitHub Pages. Si el navegador no té WebGL, tot el contingut es mostra com a seccions estàtiques.
 
-**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=9`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
+**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=10`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
 
 ### 6.3 Justificació de tecnologies
 
@@ -337,5 +343,5 @@ Les indicacions del projecte permeten fer servir IA sempre que es justifiqui el 
 
 **Eina d'auditoria (`auditoria/zevix_audit.py`).** L'explicació pas a pas (validació, fil secundari, cua de missatges, exportació) i la taula de canvis respecte a la v1 són a [auditoria/README.md](../auditoria/README.md).
 
-**Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=9` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
+**Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=10` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
 

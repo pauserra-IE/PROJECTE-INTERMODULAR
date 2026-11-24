@@ -36,7 +36,7 @@ Tota la portada és un efecte **Scroll World**: un món 3D (Three.js) on el scro
 
 El disseny segueix l'estil d'un **informe d'auditoria** (IBM Plex Mono/Sans, colors de gravetat CVSS). La versió anterior està guardada a l'etiqueta `disseny-original` i a [index-original.html](index-original.html).
 
-Pàgines: Inici · Serveis · Equip · Sobre nosaltres · Tarifes (Bàsic / Professional / Avançat) · Notícies · Contacte · Login · Registre · Portal de clients · Portal d'administradors.
+Pàgines: Inici · Serveis · Equip · Sobre nosaltres · Tarifes (amb calculadora de pressupost) · Notícies · Contacte · Cas d'èxit · Glossari i FAQ · Login · Registre · Portal de clients · Portal d'administradors · 404.
 
 **Comptes de demostració** (prototip, l'autenticació es fa al navegador):
 
