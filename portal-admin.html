@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=4">
+  <link rel="stylesheet" href="assets/css/style.css?v=5">
 </head>
 <body>
 <header class="navbar">
@@ -69,12 +69,15 @@
     <div class="panel" id="moduls">
       <h3>Estat dels mòduls de l'eina d'auditoria</h3>
       <div class="grid grid-3">
-        <div class="card"><h3>Shodan / theHarvester</h3><span class="status on">Operatiu</span></div>
-        <div class="card"><h3>Nmap (ports + NSE)</h3><span class="status on">Operatiu</span></div>
-        <div class="card"><h3>ssh-audit</h3><span class="status on">Operatiu</span></div>
-        <div class="card"><h3>enum4linux (SMB)</h3><span class="status idle">En desenvolupament</span></div>
+        <div class="card"><h3>theHarvester (OSINT)</h3><span class="status on">Operatiu</span></div>
+        <div class="card"><h3>Shodan API</h3><span class="status on">Operatiu</span></div>
+        <div class="card"><h3>Nmap (-F / -sV / -A)</h3><span class="status on">Operatiu</span></div>
+        <div class="card"><h3>Nikto (web)</h3><span class="status on">Operatiu</span></div>
+        <div class="card"><h3>Ping / dig / whois</h3><span class="status on">Operatiu</span></div>
+        <div class="card"><h3>ssh-audit · enum4linux</h3><span class="status idle">En desenvolupament</span></div>
         <div class="card"><h3>Docker</h3><span class="status idle">Sprint 2</span></div>
         <div class="card"><h3>Bot de Telegram</h3><span class="status off">Pendent</span></div>
+        <div class="card"><h3>Interfície (tkinter)</h3><span class="status on">Operatiu</span></div>
       </div>
     </div>
     <div class="panel" id="pujar">
@@ -112,13 +115,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const log = [
     "2026-11-28 09:02:11 [INFO]  Inici auditoria ZVX-AUD-2026-01 (EbreLogistics S.L.)",
-    "2026-11-28 09:02:15 [INFO]  osint.py      -> 3 subdominis, 0 serveis exposats a Shodan",
-    "2026-11-28 09:04:40 [INFO]  portscan.py   -> 4 hosts actius a 192.168.56.0/24",
-    "2026-11-28 09:11:02 [WARN]  ssh_audit.py  -> PermitRootLogin yes a 192.168.56.10",
-    "2026-11-28 09:13:27 [WARN]  ftp_check.py  -> FTP anònim amb escriptura a 192.168.56.10",
-    "2026-11-28 09:15:50 [WARN]  dns_check.py  -> AXFR permès a 192.168.56.10",
-    "2026-11-28 09:18:03 [INFO]  smb_enum.py   -> recurs 'public' sense autenticació a 192.168.56.11",
-    "2026-11-28 09:20:44 [INFO]  report.py     -> informe_ebrelogistics_2026.json / .html generats",
+    "2026-11-28 09:02:15 [INFO]  [+] Executant comanda: theHarvester -d ebrelogistics.cat -b all -l 500 -f resultat",
+    "2026-11-28 09:03:02 [INFO]  [+] Executant comanda: nmap -sV 192.168.56.0/24",
+    "2026-11-28 09:04:40 [INFO]  4 hosts actius a 192.168.56.0/24",
+    "2026-11-28 09:06:10 [INFO]  [+] Executant comanda: nikto -h 192.168.56.10 -p 80",
+    "2026-11-28 09:08:30 [INFO]  [+] Executant comanda: dig axfr ebrelogistics.cat @192.168.56.10",
+    "2026-11-28 09:11:02 [WARN]  Troballa: transferència de zona (AXFR) permesa a 192.168.56.10",
+    "2026-11-28 09:13:27 [WARN]  Troballa: FTP anònim amb escriptura a 192.168.56.10",
+    "2026-11-28 09:18:03 [WARN]  Troballa: PermitRootLogin yes a 192.168.56.10 (revisió manual)",
+    "2026-11-28 09:20:44 [INFO]  Informe informe_ebrelogistics_2026.json / .html generat",
     "2026-11-28 09:20:45 [INFO]  Sessió iniciada al portal: client@ebrelogistics.cat",
   ];
   const el = document.getElementById("log");
@@ -140,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 </main>
 
-<script src="assets/js/auth.js?v=4"></script>
-<script src="assets/js/main.js?v=4"></script>
+<script src="assets/js/auth.js?v=5"></script>
+<script src="assets/js/main.js?v=5"></script>
 </body>
 </html>

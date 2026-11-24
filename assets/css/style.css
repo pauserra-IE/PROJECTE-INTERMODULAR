@@ -669,3 +669,35 @@ table.compare thead th { font-family: var(--mono); font-size: .74rem; text-trans
 .member .fields th { width: 96px; }
 .timeline-item::before { border-radius: 0; width: 12px; height: 12px; left: -37px; }
 .post-meta .cat { display: none; }
+
+/* ---------- Recreació de l'eina (tkinter) a Serveis ---------- */
+.tool-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; align-items: start; }
+.app-window { border: 1px solid #3a3e44; background: #dcdad5; color: #1c1c1c; font-family: "Helvetica", Arial, sans-serif; font-size: .82rem; border-radius: 4px; overflow: hidden; }
+.app-title { display: flex; align-items: center; gap: 6px; background: #2d2f33; color: #d6d3cc; padding: 7px 10px; font-size: .78rem; }
+.app-title i { width: 10px; height: 10px; border-radius: 50%; background: #555; display: block; }
+.app-title span { margin-left: 8px; }
+.app-tabs { display: flex; flex-wrap: wrap; gap: 2px; padding: 8px 10px 0; border-bottom: 1px solid #9a9893; }
+.app-tabs span { padding: 5px 10px; background: #cfcdc8; border: 1px solid #9a9893; border-bottom: 0; font-size: .74rem; }
+.app-tabs span.on { background: #dcdad5; font-weight: 700; }
+.app-form { display: grid; grid-template-columns: auto 1fr; gap: 8px 12px; align-items: center; padding: 16px 14px; }
+.app-form label { font-weight: 700; }
+.app-form .app-check { font-weight: 400; grid-column: 1 / -1; }
+.app-input { background: #fff; border: 1px solid #9a9893; padding: 3px 6px; max-width: 240px; }
+.app-btn { justify-self: start; background: #e8e6e1; border: 1px solid #77756f; padding: 5px 14px; }
+.app-console { margin: 0 10px 10px; border: 1px solid #9a9893; padding: 8px; }
+.app-console-label { font-size: .72rem; margin-bottom: 6px; }
+.app-console pre, .app-cli pre {
+  background: #1e1e1e; color: #00ff00; font-family: Consolas, var(--mono); font-size: .74rem; line-height: 1.5;
+  padding: 12px; margin: 0; overflow-x: auto; white-space: pre;
+}
+.app-cli { border: 1px solid var(--border); background: #1e1e1e; border-radius: 4px; padding: 10px; }
+.app-cli .app-console-label { color: var(--muted); font-family: var(--mono); }
+.app-cli pre { padding: 4px 2px; }
+.dim { color: #5f8f5f; }
+.caption { font-family: var(--mono); font-size: .72rem; color: var(--muted); margin-top: 14px; }
+.risk-table td { text-align: left !important; vertical-align: top; font-size: .86rem; }
+.risk-table td:nth-child(4), .risk-table td:nth-child(5) { text-align: center !important; font-family: var(--mono); }
+.risk-table .sev { white-space: nowrap; }
+.pending { color: var(--warn); font-style: normal; font-family: var(--mono); font-size: .8rem; }
+@media (max-width: 900px) { .tool-grid { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .app-form { grid-template-columns: 1fr; } .app-tabs span:nth-child(n+3) { display: none; } }

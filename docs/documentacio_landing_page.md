@@ -33,7 +33,7 @@ Pàgines que inclou:
 | Pàgina | Contingut |
 |---|---|
 | Inici | Navbar (logo, menú, botons *Accedir* i *Registrar-se*) i un **recorregut 3D (Scroll World)** que ocupa tota la portada: presentació amb la proposta de valor, les 4 fases de l'auditoria (que expliquen els serveis) i crida a l'acció final. Acaba amb el footer (logos de clients, xarxes socials i butlletí) |
-| Serveis | Detall de cada servei (OSINT, escaneig de ports, SSH, SMB, web/DNS/FTP, pla de millora): en què consisteix i per què és important |
+| Serveis | Fitxa de cada mòdul de l'eina (OSINT amb Shodan i theHarvester, Nmap, Nikto, DNS/Whois, SSH/SMB en desenvolupament i pla de millora) amb el seu estat, una **recreació de la interfície real de l'eina** (tkinter) i del menú de Shodan, i la nostra **anàlisi de riscos** del cas EbreLogistics (model INCIBE) |
 | Equip | Membres, càrrec, estudis, descripció i gustos, amb fotografia |
 | Sobre nosaltres | Història, finalitat de l'empresa, missió/visió/valors i estàndards |
 | Tarifes | 3 plans — **Bàsic (senzill)**, **Professional (mitjà)** i **Avançat (fort)** —, comparativa i FAQ |
@@ -235,7 +235,7 @@ Tota la portada és un recorregut 3D: en fer scroll, una càmera vola **sense ta
 
 **Decisió:** la tècnica s'inspira en la skill [scroll-world](https://github.com/oso95/scroll-world), però aquesta genera els vols amb vídeos d'IA de pagament (Monid/Higgsfield). Nosaltres renderitzem l'escena en temps real amb WebGL: és gratuït, ocupa uns pocs KB i funciona a GitHub Pages. Si el navegador no té WebGL, tot el contingut es mostra com a seccions estàtiques.
 
-**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=4`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
+**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=5`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
 
 ### 6.3 Justificació de tecnologies
 

@@ -13,21 +13,21 @@ Zevix Cybersecurity és una empresa (simulada) d'auditories de seguretat inform�
 |---|---|
 | 🌐 Landing page | https://pauserra-ie.github.io/PROJECTE-INTERMODULAR/ |
 | 📄 Documentació de la landing page | [docs/documentacio_landing_page.md](docs/documentacio_landing_page.md) |
-| 📋 Tauler Kanban | *(afegir enllaç a KanbanFlow / Trello)* |
+| 📋 Tauler Kanban | https://kanbanflow.com/board/SLcaEb2 |
 
 ## 👥 Equip
 
 | Membre | Rol |
 |---|---|
-| Pau Serra Bertomeu | Product Owner · Infraestructura i Sistemes |
-| Iker Espinosa López | Scrum Master · Desenvolupament Web |
-| Maria del Valle Suñe Nieto | Developer · Eina d'Auditoria Python |
+| Pau Serra Bertomeu | Product Owner |
+| Maria del Valle Suñe Nieto | Scrum Master |
+| Iker Espinosa López | Developer |
 
 ## 🧱 Tecnologies
 
 - **Web (Sprint 1):** HTML5, CSS3, JavaScript, Three.js (efecte Scroll World) — desplegat a GitHub Pages
 - **Plataforma (fase 2):** Django (Python) o LAMP
-- **Eina d'auditoria:** Python, Nmap, ssh-audit, enum4linux, Shodan, theHarvester, Docker, bot de Telegram
+- **Eina d'auditoria:** Python + tkinter (GUI) amb theHarvester, Shodan API, Nmap, Nikto, ping/dig/whois · en desenvolupament: ssh-audit, enum4linux, Docker i bot de Telegram
 - **Infraestructura auditada:** Proxmox VE, alta disponibilitat (IP flotant), Apache, vsftpd, Bind9, Samba, SSH
 
 ## 🖥️ Landing page

@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=4">
+  <link rel="stylesheet" href="assets/css/style.css?v=5">
 </head>
 <body>
 <header class="navbar">
@@ -39,7 +39,7 @@
 <main>
 <section class="page-header">
   <div class="container">
-    <div class="doc-strip"><span>DOC ZVX-WEB-002</span><span>Classificació: públic</span><span>Rev. 4</span><span>Zevix Cybersecurity</span></div>
+    <div class="doc-strip"><span>DOC ZVX-WEB-002</span><span>Classificació: públic</span><span>Rev. 5</span><span>Zevix Cybersecurity</span></div>
     <div class="breadcrumb">~/zevix/serveis</div>
     <h1>Serveis</h1>
     <p>Cada servei correspon a un mòdul de la nostra eina d'auditoria en Python. Es poden contractar per separat o dins d'un dels nostres plans.</p>
@@ -48,53 +48,126 @@
 <section class="section" style="padding-top:50px">
   <div class="container grid" style="gap:22px">
     <article class="fitxa reveal" id="osint">
-      <div class="fitxa-head"><span class="ref">ZVX-SRV-01</span><span>Mòdul de l'eina d'auditoria</span></div>
+      <div class="fitxa-head"><span class="ref">ZVX-SRV-01</span><span>Mòdul de l'eina d'auditoria</span><span class="sev low">Operatiu</span></div>
       <div class="fitxa-body">
         <h2>Reconeixement OSINT</h2>
-        <p>Descobrim quina informació de la teva empresa és pública a Internet abans que ho faci un atacant.</p>
-        <table class="fields"><tr><th>Proves</th><td><ul><li>Consulta de l'API de Shodan per detectar serveis exposats a Internet</li><li>Recol·lecció de correus, subdominis i noms amb theHarvester</li><li>Detecció de fuites d'informació i superfície d'atac externa</li><li>Informe de l'empremta digital de l'organització</li></ul></td></tr><tr><th>Per què</th><td>Saber què veu un atacant des de fora permet tancar portes que ni sabies que estaven obertes.</td></tr><tr><th>Eines</th><td><code>Shodan API</code> · <code>theHarvester</code> · <code>Python</code></td></tr></table>
+        <p>Descobrim quina informació de la teva empresa és pública a Internet, sense enviar ni un paquet a la teva xarxa.</p>
+        <table class="fields"><tr><th>Proves</th><td><ul><li>Consulta d'una IP a l'API de Shodan: dominis associats i ports oberts</li><li>Identificació de serveis i versions (banner grabbing), p. ex. <code>Port 22: OpenSSH</code></li><li>Cerca de correus, subdominis i hosts amb theHarvester (google, bing, linkedin o all)</li><li>Exportació dels resultats en HTML i XML</li></ul></td></tr><tr><th>Per què</th><td>Saber què veu un atacant des de fora permet tancar portes que ni sabies que estaven obertes.</td></tr><tr><th>Eines</th><td><code>shodan</code> · <code>theHarvester -d -b -l 500 -f</code></td></tr></table>
       </div>
     </article>
     <article class="fitxa reveal" id="xarxa">
-      <div class="fitxa-head"><span class="ref">ZVX-SRV-02</span><span>Mòdul de l'eina d'auditoria</span></div>
+      <div class="fitxa-head"><span class="ref">ZVX-SRV-02</span><span>Mòdul de l'eina d'auditoria</span><span class="sev low">Operatiu</span></div>
       <div class="fitxa-body">
-        <h2>Descobriment d'hosts i escaneig de ports</h2>
-        <p>Inventariem tots els equips actius de la xarxa i identifiquem els serveis i versions que exposen.</p>
-        <table class="fields"><tr><th>Proves</th><td><ul><li>Descobriment d'hosts actius a la LAN</li><li>Escaneig de ports TCP/UDP i detecció de versions (nmap -sV)</li><li>Detecció de serveis innecessaris (Telnet, NFS, MySQL obert a 0.0.0.0...)</li><li>Scripts NSE per identificar vulnerabilitats conegudes (CVE)</li></ul></td></tr><tr><th>Per què</th><td>Un inventari actualitzat és la base de qualsevol política de seguretat: no es pot protegir el que no es coneix.</td></tr><tr><th>Eines</th><td><code>Nmap</code> · <code>NSE --script vuln</code> · <code>python-nmap</code></td></tr></table>
-      </div>
-    </article>
-    <article class="fitxa reveal" id="ssh">
-      <div class="fitxa-head"><span class="ref">ZVX-SRV-03</span><span>Mòdul de l'eina d'auditoria</span></div>
-      <div class="fitxa-body">
-        <h2>Auditoria de configuració SSH</h2>
-        <p>Revisem la configuració dels servidors d'accés remot, una de les portes d'entrada més atacades.</p>
-        <table class="fields"><tr><th>Proves</th><td><ul><li>Anàlisi d'algorismes de xifratge, intercanvi de claus i MAC obsolets</li><li>Detecció de PermitRootLogin, PermitEmptyPasswords i autenticació per contrasenya</li><li>Recomanacions de hardening segons CIS Benchmarks</li><li>Verificació posterior de les correccions aplicades</li></ul></td></tr><tr><th>Per què</th><td>Evita atacs de força bruta i accessos no autoritzats amb privilegis d'administrador.</td></tr><tr><th>Eines</th><td><code>ssh-audit</code> · <code>OpenSSH</code> · <code>CIS</code></td></tr></table>
-      </div>
-    </article>
-    <article class="fitxa reveal" id="smb">
-      <div class="fitxa-head"><span class="ref">ZVX-SRV-04</span><span>Mòdul de l'eina d'auditoria</span></div>
-      <div class="fitxa-body">
-        <h2>Enumeració SMB i recursos compartits</h2>
-        <p>Comprovem quins recursos compartits, usuaris i polítiques es poden obtenir sense credencials.</p>
-        <table class="fields"><tr><th>Proves</th><td><ul><li>Enumeració d'usuaris, grups i polítiques de contrasenyes</li><li>Detecció de recursos compartits sense autenticació o amb permisos excessius</li><li>Revisió de configuracions Samba / Windows</li><li>Classificació del risc de fuga de dades</li></ul></td></tr><tr><th>Per què</th><td>Les carpetes compartides mal configurades són una de les causes més habituals de fuga de dades.</td></tr><tr><th>Eines</th><td><code>enum4linux</code> · <code>smbclient</code> · <code>Samba</code></td></tr></table>
+        <h2>Escaneig de xarxa amb Nmap</h2>
+        <p>Inventariem els equips actius i identifiquem quins ports, serveis i versions exposen.</p>
+        <table class="fields"><tr><th>Proves</th><td><ul><li>Escaneig ràpid dels ports més habituals (<code>-F</code>)</li><li>Detecció de serveis i versions (<code>-sV</code>)</li><li>Escaneig complet amb detecció de sistema operatiu (<code>-A</code>)</li><li>Escaneig dels ports comuns <code>1-1024</code></li></ul></td></tr><tr><th>Per què</th><td>Un inventari actualitzat és la base de qualsevol política de seguretat: no es pot protegir el que no es coneix.</td></tr><tr><th>Eines</th><td><code>nmap</code></td></tr></table>
       </div>
     </article>
     <article class="fitxa reveal" id="web">
-      <div class="fitxa-head"><span class="ref">ZVX-SRV-05</span><span>Mòdul de l'eina d'auditoria</span></div>
+      <div class="fitxa-head"><span class="ref">ZVX-SRV-03</span><span>Mòdul de l'eina d'auditoria</span><span class="sev low">Operatiu</span></div>
       <div class="fitxa-body">
-        <h2>Anàlisi de serveis web i DNS</h2>
-        <p>Avaluem els servidors web, FTP i DNS de l'empresa, buscant males configuracions explotables.</p>
-        <table class="fields"><tr><th>Proves</th><td><ul><li>Anàlisi de capçaleres HTTP de seguretat (HSTS, CSP, X-Frame-Options...)</li><li>Detecció de pàgines d'estat exposades (/server-status, /server-info)</li><li>Comprovació d'FTP anònim i permisos d'escriptura</li><li>Prova de transferència de zona DNS (AXFR) oberta</li></ul></td></tr><tr><th>Per què</th><td>Protegeix la imatge pública i els serveis que l'empresa ofereix als seus clients.</td></tr><tr><th>Eines</th><td><code>Apache</code> · <code>vsftpd</code> · <code>Bind9</code> · <code>dig</code></td></tr></table>
+        <h2>Auditoria de servidors web</h2>
+        <p>Analitzem els servidors web de l'empresa a la recerca de configuracions insegures.</p>
+        <table class="fields"><tr><th>Proves</th><td><ul><li>Fitxers i directoris perillosos exposats</li><li>Versions de servidor obsoletes i capçaleres insegures</li><li>Pàgines d'estat accessibles (<code>/server-status</code>, <code>/server-info</code>)</li><li>Auditoria de qualsevol port (80, 443...)</li></ul></td></tr><tr><th>Per què</th><td>Protegeix la imatge pública i els serveis que l'empresa ofereix als seus clients.</td></tr><tr><th>Eines</th><td><code>nikto -h -p</code></td></tr></table>
+      </div>
+    </article>
+    <article class="fitxa reveal" id="dns">
+      <div class="fitxa-head"><span class="ref">ZVX-SRV-04</span><span>Mòdul de l'eina d'auditoria</span><span class="sev low">Operatiu</span></div>
+      <div class="fitxa-body">
+        <h2>DNS, Whois i connectivitat</h2>
+        <p>Comprovem la configuració dels noms de domini i la informació pública del titular.</p>
+        <table class="fields"><tr><th>Proves</th><td><ul><li>Comprovació de connectivitat (<code>ping -c 4</code>)</li><li>Consulta de registres DNS i prova de transferència de zona (<code>dig</code>)</li><li>Informació del domini i del titular (<code>whois</code>)</li></ul></td></tr><tr><th>Per què</th><td>Un DNS mal configurat pot revelar tota l'estructura interna de la xarxa.</td></tr><tr><th>Eines</th><td><code>ping</code> · <code>dig</code> · <code>whois</code></td></tr></table>
+      </div>
+    </article>
+    <article class="fitxa reveal" id="ssh">
+      <div class="fitxa-head"><span class="ref">ZVX-SRV-05</span><span>Mòdul de l'eina d'auditoria</span><span class="sev medium">En desenvolupament</span></div>
+      <div class="fitxa-body">
+        <h2>Auditoria SSH i enumeració SMB</h2>
+        <p>Revisarem la configuració d'accés remot i els recursos compartits, dues de les portes d'entrada més atacades.</p>
+        <table class="fields"><tr><th>Proves</th><td><ul><li>Algorismes de xifratge i intercanvi de claus obsolets</li><li>Detecció de <code>PermitRootLogin yes</code> i contrasenyes buides</li><li>Recursos Samba accessibles sense contrasenya (<code>guest ok = yes</code>)</li><li>Enumeració d'usuaris i polítiques de contrasenyes</li></ul></td></tr><tr><th>Per què</th><td>Evita atacs de força bruta, accessos com a root i fuites de dades per carpetes compartides.</td></tr><tr><th>Eines</th><td><code>ssh-audit</code> · <code>enum4linux</code></td></tr></table>
       </div>
     </article>
     <article class="fitxa reveal" id="pla">
-      <div class="fitxa-head"><span class="ref">ZVX-SRV-06</span><span>Mòdul de l'eina d'auditoria</span></div>
+      <div class="fitxa-head"><span class="ref">ZVX-SRV-06</span><span>Mòdul de l'eina d'auditoria</span><span class="sev info">Inclòs</span></div>
       <div class="fitxa-body">
-        <h2>Informe i Pla de Millora</h2>
+        <h2>Informe i pla de millora</h2>
         <p>No ens limitem a trobar problemes: t'expliquem com solucionar-los i ho verifiquem.</p>
-        <table class="fields"><tr><th>Proves</th><td><ul><li>Informe executiu per a la direcció, sense tecnicismes</li><li>Informe tècnic amb vulnerabilitats classificades per gravetat (CVSS)</li><li>Pla de millora amb instruccions de correcció i hardening</li><li>Re-auditoria per verificar que les vulnerabilitats s'han corregit</li></ul></td></tr><tr><th>Per què</th><td>Converteix l'auditoria en accions concretes i prioritzades segons l'impacte real per al negoci.</td></tr><tr><th>Eines</th><td><code>HTML / JSON / PDF</code> · <code>CVSS v3.1</code> · <code>MAGERIT</code></td></tr></table>
+        <table class="fields"><tr><th>Proves</th><td><ul><li>Informe executiu per a la direcció, sense tecnicismes</li><li>Informe tècnic amb vulnerabilitats classificades per gravetat (CVSS)</li><li>Pla de millora amb instruccions de correcció i hardening</li><li>Re-auditoria per verificar que les vulnerabilitats s'han corregit</li></ul></td></tr><tr><th>Per què</th><td>Converteix l'auditoria en accions concretes i prioritzades segons l'impacte real per al negoci.</td></tr><tr><th>Eines</th><td><code>HTML / JSON</code> · <code>CVSS v3.1</code> · <code>INCIBE</code></td></tr></table>
       </div>
     </article>
+  </div>
+</section>
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">// L'eina</span>
+      <h2>La nostra eina d'auditoria</h2>
+      <p>Aplicació d'escriptori pròpia en Python amb interfície gràfica (tkinter). Cada pestanya llança una eina del sistema en un fil separat (<code>threading</code> + <code>subprocess</code>) i en mostra la sortida en temps real, sense bloquejar la finestra.</p>
+    </div>
+    <div class="tool-grid reveal">
+      <div class="app-window" aria-label="Recreació de la interfície de l'eina">
+        <div class="app-title"><i></i><i></i><i></i><span>Eina d'Auditoria de Seguretat de Xarxa, Web i OSINT</span></div>
+        <div class="app-tabs"><span class="on">OSINT (theHarvester)</span><span>Nmap (Escaneig de Xarxa)</span><span>Nikto (Auditoria Web)</span><span>Utilitats de Xarxa (Ping / DNS / Whois)</span></div>
+        <div class="app-form">
+          <label>Domini Objectiu (ex: iesebre.cat):</label><span class="app-input">ebrelogistics.cat</span>
+          <label>Font de Dades (Data Source):</label><span class="app-input">all ▾</span>
+          <label class="app-check">☑ Guardar resultats en un fitxer (HTML/XML)</label>
+          <label>Nom del Fitxer (sense extensió):</label><span class="app-input">resultat</span>
+          <span></span><span class="app-btn">Cerca OSINT amb theHarvester</span>
+        </div>
+        <div class="app-console"><div class="app-console-label">Sortida de la Consola</div><pre>[+] Executant comanda: theHarvester -d ebrelogistics.cat -b all -l 500 -f resultat
+----------------------------------------------------------------------
+<span class="dim">· · · sortida de theHarvester en temps real · · ·</span>
+
+[+] Procés finalitzat.
+======================================================================</pre></div>
+      </div>
+      <div class="app-cli" aria-label="Menú del mòdul de Shodan">
+        <div class="app-console-label">shodan_recon.py</div>
+<pre>=== EINA DE RECONEIXEMENT PASSIU (SHODAN) ===
+1. Consulta d'Host i Identificació de Serveis (IP Lookup)
+2. Cerca global de Serveis Específics
+3. Sortir
+
+Selecciona una opció (1-3): 1
+
+[&gt;] Introdueix l'adreça IP pública a consultar: <span class="dim">x.x.x.x</span>
+==================================================
+IP Consultada : <span class="dim">x.x.x.x</span>
+Noms de domini: <span class="dim">...</span>
+--------------------------------------------------
+Ports oberts i serveis detectats:
+ - Port <span class="dim">NN</span>: <span class="dim">producte versió</span>
+==================================================</pre>
+      </div>
+    </div>
+    <p class="caption reveal">Recreació de la interfície i dels menús reals de l'eina (Python 3 · tkinter · subprocess · threading · python3-shodan). Les dades de sortida s'han omès.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">// Cas real · EbreLogistics S.L.</span>
+      <h2>Anàlisi de riscos prèvia (model INCIBE)</h2>
+      <p>Una auditoria no comença executant eines: primer identifiquem els actius crítics i prioritzem. <code>Risc = Probabilitat (1–4) × Impacte (1–4)</code>.</p>
+    </div>
+    <div class="table-wrap reveal">
+      <table class="compare risk-table">
+        <thead><tr><th>#</th><th>Actiu crític</th><th>Vulnerabilitat</th><th>P</th><th>I</th><th>Risc</th><th>Mesura correctora</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">01</td><td>Servidors i virtualització (Proxmox VE)</td><td>Manca de redundància o quòrum incomplet al clúster</td><td>2</td><td>3</td><td><span class="sev medium">Mitjà (6)</span></td><td>Alta disponibilitat amb IP virtual flotant (keepalived) i redundància de nodes</td></tr>
+          <tr><td class="mono">02</td><td>Servidor web (Apache)</td><td>Capçaleres de versió i directoris exposats</td><td>3</td><td>3</td><td><span class="sev high">Alt (9)</span></td><td>Endurir el VirtualHost, restringir <code>/server-status</code> i forçar HTTPS</td></tr>
+          <tr><td class="mono">03</td><td>Accés remot (SSH)</td><td>Accés directe com a root i contrasenyes febles</td><td>3</td><td>4</td><td><span class="sev critical">Crític (12)</span></td><td><code>PermitRootLogin no</code>, clau pública i <code>MaxAuthTries</code></td></tr>
+          <tr><td class="mono">04</td><td>Fitxers (FTP / vsftpd)</td><td>Accés anònim amb permisos d'escriptura (777)</td><td>3</td><td>3</td><td><span class="sev high">Alt (9)</span></td><td>Eliminar l'accés anònim d'escriptura, xifratge i <code>chroot</code></td></tr>
+          <tr><td class="mono">05</td><td>DNS (Bind9)</td><td><code>allow-transfer { any; };</code> activat</td><td>2</td><td>3</td><td><span class="sev medium">Mitjà (6)</span></td><td>Transferència de zona només al servidor secundari</td></tr>
+          <tr><td class="mono">06</td><td>Serveis innecessaris (Telnet / SMB)</td><td>Serveis obsolets i recursos sense contrasenya</td><td>3</td><td>4</td><td><span class="sev critical">Crític (12)</span></td><td>Desinstal·lar Telnet, tancar ports (ufw) i protegir Samba</td></tr>
+          <tr><td class="mono">07</td><td>Base de dades (MySQL)</td><td>Root sense contrasenya i escolta a 0.0.0.0</td><td>3</td><td>4</td><td><span class="sev critical">Crític (12)</span></td><td>Escoltar a 127.0.0.1, contrasenyes robustes i privilegi mínim</td></tr>
+          <tr><td class="mono">08</td><td>Còpies de seguretat</td><td>Backups al mateix disc o sense xifrar</td><td>1</td><td>4</td><td><span class="sev medium">Mitjà (4)</span></td><td>Snapshots diaris exportats a un repositori extern</td></tr>
+          <tr><td class="mono">09</td><td>Credencials i tokens</td><td>Claus API i token de Telegram en text pla al codi</td><td>2</td><td>3</td><td><span class="sev medium">Mitjà (6)</span></td><td>Variables d'entorn fora del repositori</td></tr>
+          <tr><td class="mono">10</td><td>Plataforma web i portal de clients</td><td>Falta de xifratge en trànsit o errors de sessió</td><td>1</td><td>2</td><td><span class="sev low">Baix (2)</span></td><td>HTTPS a tot el domini i gestió segura de rols (client / admin)</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 <section class="section section-alt">
@@ -179,7 +252,7 @@
   </div>
 </footer>
 <button class="back-top" aria-label="Tornar amunt">↑</button>
-<script src="assets/js/auth.js?v=4"></script>
-<script src="assets/js/main.js?v=4"></script>
+<script src="assets/js/auth.js?v=5"></script>
+<script src="assets/js/main.js?v=5"></script>
 </body>
 </html>
