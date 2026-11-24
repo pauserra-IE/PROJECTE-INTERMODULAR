@@ -33,7 +33,12 @@
   // Sense Three.js o WebGL: es mostren les 4 fases com a targetes estàtiques
   if (!window.THREE || !hasWebGL()) { section.classList.add("world-fallback"); return; }
 
-  const COL = { cyan: 0x22d3ee, blue: 0x3b82f6, violet: 0xa78bfa, red: 0xf87171, green: 0x34d399, amber: 0xfbbf24, bg: 0x070b14 };
+  // Paleta: estil "informe" (línies de plànol en blanc trencat + colors de gravetat).
+  // La portada original (index-original.html) conserva la paleta cian/blau.
+  const ORIGINAL = document.body.classList.contains("theme-original");
+  const COL = ORIGINAL
+    ? { cyan: 0x22d3ee, blue: 0x3b82f6, violet: 0xa78bfa, red: 0xf87171, green: 0x34d399, amber: 0xfbbf24, bg: 0x070b14, grid1: 0x1e3a5f, grid2: 0x13213a, dots: 0.6, solid: 0x0f1a2e }
+    : { cyan: 0xd6d3cc, blue: 0x5b6068, violet: 0xf5a524, red: 0xef4444, green: 0x22c55e, amber: 0xf5a524, bg: 0x0b0c0d, grid1: 0x2a2d32, grid2: 0x17191c, dots: 0.3, solid: 0x16181b };
 
   /* ---------- Renderer, escena i càmera ---------- */
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
@@ -53,7 +58,7 @@
   function block(w, h, d, edge, glow) {
     const geo = new THREE.BoxGeometry(w, h, d);
     const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
-      color: 0x0f1a2e, roughness: 0.6, metalness: 0.3, emissive: glow || edge, emissiveIntensity: 0.07,
+      color: COL.solid, roughness: 0.6, metalness: 0.3, emissive: glow || edge, emissiveIntensity: 0.07,
     }));
     mesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo), lineMat(edge)));
     return mesh;
@@ -64,7 +69,7 @@
   const animated = []; // funcions (t) => void que s'executen cada frame
 
   /* ---------- Entorn: terra en graella i partícules de dades ---------- */
-  const grid = new THREE.GridHelper(420, 140, 0x1e3a5f, 0x13213a);
+  const grid = new THREE.GridHelper(420, 140, COL.grid1, COL.grid2);
   grid.position.set(0, -6, -100);
   scene.add(grid);
 
@@ -77,7 +82,7 @@
   }
   const pGeo = new THREE.BufferGeometry();
   pGeo.setAttribute("position", new THREE.BufferAttribute(pPos, 3));
-  const particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: COL.cyan, size: 0.16, transparent: true, opacity: 0.6 }));
+  const particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: COL.cyan, size: 0.16, transparent: true, opacity: COL.dots }));
   scene.add(particles);
 
   // "Autopista de dades" que uneix totes les escenes (flux continu, sense talls)
@@ -99,7 +104,7 @@
   const globe = new THREE.Group();
   globe.position.set(0, 4, 0);
   scene.add(globe);
-  globe.add(new THREE.Mesh(new THREE.SphereGeometry(6.8, 32, 32), new THREE.MeshStandardMaterial({ color: 0x0a1424, roughness: 0.9 })));
+  globe.add(new THREE.Mesh(new THREE.SphereGeometry(6.8, 32, 32), new THREE.MeshStandardMaterial({ color: COL.solid, roughness: 0.9 })));
   globe.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(7, 2)), lineMat(COL.cyan, 0.35)));
   // Serveis exposats detectats a Internet (punts sobre el globus)
   for (let i = 0; i < 26; i++) {
@@ -179,7 +184,7 @@
   door.position.set(0, -1.5, -100);
   door.material.visible = false; // només es veu el marc
   room.add(door);
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(14, 56), new THREE.MeshStandardMaterial({ color: 0x0b1322, roughness: 0.8 }));
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(14, 56), new THREE.MeshStandardMaterial({ color: COL.solid, roughness: 0.8 }));
   floor.rotation.x = -Math.PI / 2;
   floor.position.set(0, -5.9, -127);
   room.add(floor);

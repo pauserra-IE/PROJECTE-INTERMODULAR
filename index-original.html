@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zevix Cybersecurity | Portada (disseny original)</title>
+  <meta name="description" content="Zevix Cybersecurity: auditories de seguretat informàtica i pentesting ètic per a pimes.">
+  <meta name="theme-color" content="#070b14">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style-original.css?v=3">
+</head>
+<body class="theme-original">
+<header class="navbar">
+  <div class="container nav-inner">
+    <a class="logo" href="index.html" aria-label="Zevix Cybersecurity - Inici">
+      <img src="assets/img/logo.svg" alt="Logo de Zevix" width="36" height="36">
+      <span>ZEVIX<small>CYBERSECURITY</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Obrir menú" aria-expanded="false">☰</button>
+    <nav class="nav-menu" aria-label="Navegació principal">
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Inici</a></li>
+        <li><a href="serveis.html">Serveis</a></li>
+        <li><a href="equip.html">Equip</a></li>
+        <li><a href="sobre.html">Sobre nosaltres</a></li>
+        <li><a href="tarifes.html">Tarifes</a></li>
+        <li><a href="noticies.html">Notícies</a></li>
+        <li><a href="contacte.html">Contacte</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="btn btn-outline" href="login.html">Accedir</a>
+        <a class="btn btn-primary" href="registre.html">Registrar-se</a>
+      </div>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="world" id="world" aria-label="Recorregut 3D per les fases d'una auditoria">
+  <div class="world-sticky">
+    <canvas aria-hidden="true"></canvas>
+    <div class="world-vignette"></div>
+
+    <div class="world-stage world-intro" data-from="0" data-to="0.07">
+      <span class="badge-pill"><span class="dot"></span> Auditories de seguretat per a pimes</span>
+      <h1>Trobem les teves vulnerabilitats <span class="grad-text">abans que ho faci un atacant</span>.</h1>
+      <p class="lead">A Zevix Cybersecurity auditem servidors, xarxes i serveis amb la nostra pròpia eina automatitzada en Python. Rebràs un informe clar i un pla de millora per protegir el teu negoci.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="contacte.html">Sol·licitar auditoria</a>
+        <a class="btn btn-outline btn-lg" href="serveis.html">Veure serveis</a>
+      </div>
+    </div>
+
+    <div class="world-caps">
+      <div class="world-stage world-cap" data-from="0.07" data-to="0.27"><span class="num">FASE 01 · INTERNET</span><h3>Reconeixement OSINT</h3><p>Comencem des de fora: què sap Internet de la teva empresa? Busquem serveis exposats, subdominis i correus públics.</p><div class="tools"><span>Shodan</span><span>theHarvester</span></div></div>
+      <div class="world-stage world-cap" data-from="0.27" data-to="0.53"><span class="num">FASE 02 · LA XARXA</span><h3>Descobriment i escaneig</h3><p>Entrem a la xarxa local: inventariem cada equip i servei actiu i en detectem les versions.</p><div class="tools"><span>Nmap</span><span>NSE</span></div></div>
+      <div class="world-stage world-cap" data-from="0.53" data-to="0.76"><span class="num">FASE 03 · EL CPD</span><h3>Anàlisi de vulnerabilitats</h3><p>Dins dels servidors revisem SSH, SMB, FTP, DNS i web. Cada alerta vermella és una porta oberta per a un atacant.</p><div class="tools"><span>ssh-audit</span><span>enum4linux</span><span>Docker</span></div></div>
+      <div class="world-stage world-cap" data-from="0.76" data-to="0.93"><span class="num">FASE 04 · PROTECCIÓ</span><h3>Informe i pla de millora</h3><p>Lliurem l'informe al teu portal de client i t'acompanyem a corregir cada vulnerabilitat. Després re-auditem per verificar-ho.</p><div class="tools"><span>CVSS</span><span>Telegram</span><span>Portal client</span></div></div>
+    </div>
+
+    <div class="world-stage world-outro" data-from="0.93" data-to="1.01">
+      <span class="eyebrow">// La teva xarxa, protegida</span>
+      <h2>Saps quantes portes té obertes la teva xarxa?</h2>
+      <p>Tria el pla que millor s'adapta a la teva empresa: Bàsic, Professional o Avançat.</p>
+      <div class="hero-cta" style="justify-content:center">
+        <a class="btn btn-primary btn-lg" href="tarifes.html">Veure tarifes</a>
+        <a class="btn btn-outline btn-lg" href="registre.html">Crear compte de client</a>
+      </div>
+    </div>
+
+    <ol class="world-progress" aria-label="Fases">
+      <li data-go="0.17"><span>OSINT</span></li><li data-go="0.42"><span>Xarxa</span></li><li data-go="0.68"><span>CPD</span></li><li data-go="0.87"><span>Protecció</span></li>
+    </ol>
+    <div class="world-bar"><span></span></div>
+    <div class="world-hint">fes scroll ↓</div>
+  </div>
+</section>
+</main>
+<section class="trusted">
+  <div class="container">
+    <p>Empreses que confien en Zevix</p>
+    <div class="logos">
+      <div class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h11v9H2zM13 9h5l3 3v3h-8zM6 18a2 2 0 1 0 0-.01M17 18a2 2 0 1 0 0-.01"/></svg>EbreLogistics</div>
+      <div class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19C5 10 11 4 20 4c0 9-6 15-15 15zM5 19l8-8"/></svg>DeltaAgro</div>
+      <div class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/></svg>Clínica Montsià</div>
+      <div class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c3-4 5-4 8 0s5 4 8 0 3-2 4-2M2 17c3-4 5-4 8 0s5 4 8 0"/></svg>Port Nàutic Ebre</div>
+      <div class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5v10l-9 5-9-5V7z"/><path d="m3 7 9 5 9-5M12 12v10"/></svg>TerresData</div>
+    </div>
+  </div>
+</section>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a class="logo" href="index.html"><img src="assets/img/logo.svg" alt="" width="36" height="36"><span>ZEVIX<small>CYBERSECURITY</small></span></a>
+        <p>Auditories de ciberseguretat i pentesting ètic per a pimes de les Terres de l'Ebre. Detectem les vulnerabilitats abans que ho faci un atacant.</p>
+        <div class="socials">
+  <a href="https://github.com/pauserra-IE/PROJECTE-INTERMODULAR" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg></a>
+  <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z"/></svg></a>
+  <a href="#" aria-label="X / Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.7 8 10.3h-6.2l-4.9-6.4L5.4 21H2.3l7.3-8.3L2 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"/></svg></a>
+  <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+  <a href="#" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.5c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.2-8.3c.4-.4-.1-.6-.6-.2L6.1 13.2 1.2 11.7c-1.1-.3-1.1-1.1.2-1.6L20.5 2.8c.9-.3 1.7.2 1.4 1.5z"/></svg></a>
+</div>
+      </div>
+      <div>
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="sobre.html">Sobre nosaltres</a></li>
+          <li><a href="equip.html">Equip</a></li>
+          <li><a href="noticies.html">Notícies</a></li>
+          <li><a href="contacte.html">Contacte</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Serveis</h4>
+        <ul>
+          <li><a href="serveis.html#osint">Reconeixement OSINT</a></li>
+          <li><a href="serveis.html#xarxa">Auditoria de xarxa</a></li>
+          <li><a href="serveis.html#ssh">Hardening SSH</a></li>
+          <li><a href="serveis.html#pla">Pla de millora</a></li>
+          <li><a href="tarifes.html">Tarifes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Butlletí de seguretat</h4>
+        <ul><li style="color:var(--muted);font-size:.9rem">Rep alertes de vulnerabilitats i consells un cop al mes.</li></ul>
+        <form class="newsletter" novalidate>
+          <input type="email" placeholder="el-teu@correu.cat" aria-label="Correu electrònic">
+          <button class="btn btn-primary" type="submit">Subscriure</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Zevix Cybersecurity · Projecte Intermodular ASIX · Institut de l'Ebre</span>
+      <span>Marc normatiu: ISO/IEC 27001 · RGPD · Guies INCIBE</span>
+    </div>
+  </div>
+</footer>
+<button class="back-top" aria-label="Tornar amunt">↑</button>
+<script src="assets/js/auth.js?v=3"></script>
+<script src="assets/js/main.js?v=3"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="assets/js/scroll-world.js?v=3"></script>
+</body>
+</html>

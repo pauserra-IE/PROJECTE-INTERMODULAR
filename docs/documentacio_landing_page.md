@@ -51,7 +51,7 @@ Pàgines que inclou:
 | **CSS3** | Disseny responsive amb **CSS Grid** i **Flexbox**, variables CSS (`:root`) per als colors corporatius, animacions i *media queries* (mòbil, tauleta, escriptori) |
 | **JavaScript (ES6)** | Manipulació del DOM, validació de formularis, menú mòbil, animacions en fer scroll (`IntersectionObserver`), lectura de l'informe JSON amb `fetch()` i mòdul d'autenticació per rols |
 | **Three.js (r128, WebGL)** | Efecte *Scroll World* de la portada: món 3D on el scroll controla la càmera (carregat des de cdnjs) |
-| **SVG** | Logotip i icones vectorials |
+| **SVG** | Icones vectorials |
 | **Google Fonts** | Tipografies *Inter* (text) i *JetBrains Mono* (detalls tècnics) |
 | **Git + GitHub** | Control de versions i treball col·laboratiu |
 | **GitHub Pages** | Allotjament i desplegament amb HTTPS |
@@ -88,34 +88,39 @@ Nivells:
 
 ## 4. Mockup
 
-Abans de programar es va fer el següent esquema (wireframe) de la pàgina d'inici i del login. Paleta: fons fosc `#070b14`, cian `#22d3ee` i blau `#3b82f6`, per transmetre tecnologia i confiança.
+Abans de programar es va fer el següent esquema (wireframe) de la pàgina d'inici i del login. Paleta: negre neutre `#0b0c0d`, accent ambre `#f5a524` i colors de gravetat CVSS (vegeu 6.1).
 
 La portada és una sola pantalla fixa (el món 3D) on el contingut canvia a mesura que es fa scroll. Cada requadre és un "fotograma" del recorregut:
 
 ```
 NAVBAR (sempre visible)
 ┌──────────────────────────────────────────────────────────────────────┐
-│ [LOGO] ZEVIX   Inici Serveis Equip Sobre Tarifes Notícies Contacte  [Accedir][Registrar-se] │
+│ [ZVX] ZEVIX▮   Inici Serveis Equip Sobre Tarifes Notícies Contacte  [Accedir][Registrar-se] │
 └──────────────────────────────────────────────────────────────────────┘
 
-0 %  ·  INTRO — vista general del món 3D
+0 %  ·  INTRO — portada del document sobre el món 3D
 ┌──────────────────────────────────────────────────────────────────────┐
-│              ● Auditories de seguretat per a pimes            OSINT ○ │
-│        Trobem les teves vulnerabilitats abans que ho          Xarxa ○ │
-│                   faci un atacant.                            CPD   ○ │
-│          [Sol·licitar auditoria]  [Veure serveis]         Protecció ○ │
-│                       fes scroll ↓                                    │
-│▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔ barra de progrés ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔│
+│      DOC ZVX-WEB-001 · CLASSIFICACIÓ: PÚBLIC · REV. 4 · [hora real]  │
+│ ┌──────────────────────────────────────────┐                         │
+│ │ INFORME D'AUDITORIA DE SEGURETAT          │               01 OSINT ─ │
+│ │ Trobem les vulnerabilitats de la teva     │               02 XARXA ─ │
+│ │ empresa abans que ho faci un atacant.     │               03 CPD   ─ │
+│ │ CLIENT   ████████  (es descobreix)        │          04 PROTECCIÓ ─ │
+│ │ ABAST    Xarxa, servidors i serveis       │                         │
+│ │ MÈTODE   OSINT → escaneig → anàlisi → pla │                         │
+│ │ [SOL·LICITAR AUDITORIA] [VEURE SERVEIS]   │                         │
+│ └──────────────────────────────────────────┘                         │
+│▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔ barra de progrés ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔│
 └──────────────────────────────────────────────────────────────────────┘
 
 7–27 %  ·  FASE 01 — la càmera envolta el globus
 ┌──────────────────────────────────────────────────────────────────────┐
-│                     (globus 3D amb satèl·lits)                OSINT ● │
-│ ┌─────────────────────────────┐                               Xarxa ○ │
-│ │ FASE 01 · INTERNET          │                               CPD   ○ │
-│ │ Reconeixement OSINT         │                           Protecció ○ │
-│ │ [Shodan] [theHarvester]     │                                       │
-│ └─────────────────────────────┘                                       │
+│                     (globus 3D amb satèl·lits)              01 OSINT ━ │
+│ ┌─────────────────────────────────────┐                     02 XARXA ─ │
+│ │ ZVX-F01   FASE 01 / 04   [EXTERIOR] │                     03 CPD   ─ │
+│ │ Reconeixement OSINT                 │                04 PROTECCIÓ ─ │
+│ │ EINES     shodan · theharvester     │                                │
+│ └─────────────────────────────────────┘                                │
 └──────────────────────────────────────────────────────────────────────┘
 
 27–53 %  FASE 02 — sobrevola la ciutat de servidors     (mateixa estructura)
@@ -124,7 +129,7 @@ NAVBAR (sempre visible)
 
 93–100 %  ·  FINAL — la càmera s'allunya
 ┌──────────────────────────────────────────────────────────────────────┐
-│               // La teva xarxa, protegida                             │
+│                        [ AUDITAT ✓ ]  (segell)                        │
 │        Saps quantes portes té obertes la teva xarxa?                  │
 │         [Veure tarifes]  [Crear compte de client]                     │
 └──────────────────────────────────────────────────────────────────────┘
@@ -152,6 +157,7 @@ LOGIN
 ```
 PROJECTE-INTERMODULAR/
 ├── index.html               Pàgina d'inici (landing)
+├── index-original.html      Còpia de seguretat de la portada amb el disseny anterior
 ├── serveis.html             Detall dels serveis
 ├── equip.html               Presentació de l'equip
 ├── sobre.html               Història i valors de l'empresa
@@ -163,7 +169,8 @@ PROJECTE-INTERMODULAR/
 ├── portal-client.html       Àrea privada de clients
 ├── portal-admin.html        Àrea privada d'administradors
 ├── assets/
-│   ├── css/style.css        Full d'estils únic (variables, components, responsive)
+│   ├── css/style.css        Full d'estils (variables, components, estil informe, responsive)
+│   ├── css/style-original.css  Còpia del disseny anterior (només per a index-original.html)
 │   ├── js/main.js           Lògica comuna: menú, animacions, formularis, tarifes, blog
 │   ├── js/auth.js           Mòdul d'autenticació i control d'accés per rols (prototip)
 │   ├── js/scroll-world.js   Efecte Scroll World: món 3D amb Three.js controlat pel scroll
@@ -186,8 +193,22 @@ PROJECTE-INTERMODULAR/
 
 ## 6. Explicació de les principals decisions preses
 
-### 6.1 Disseny
-- **Tema fosc amb blau i cian:** estètica habitual al sector de la ciberseguretat que transmet tecnologia i professionalitat.
+### 6.1 Disseny: estil "informe d'auditoria"
+La primera versió feia servir una estètica molt habitual (fons fosc, degradats cian/blau, targetes de vidre arrodonides i icones en caixes) que semblava una plantilla genèrica. Per diferenciar-nos, la web adopta el **llenguatge visual del nostre propi producte: un expedient de pentesting**.
+
+| Element | Decisió | Per què |
+|---|---|---|
+| Tipografia | **IBM Plex Mono** (títols, etiquetes) + **IBM Plex Sans** (text) | Aspecte de documentació tècnica, no d'anunci |
+| Color | Negre neutre `#0b0c0d`, un sol accent ambre `#f5a524` i els **colors de gravetat CVSS** (crítica, alta, mitjana, baixa) | El color té significat; s'eliminen els degradats decoratius |
+| Formes | Cantonades rectes (2–3 px), línies d'1 px, sense ombres ni vidre | Sobri i professional, com un document |
+| Logo | Wordmark `[ZVX] ZEVIX▮` amb cursor parpellejant | Més propi que un escut genèric |
+| Capçaleres | Franja de document a cada pàgina: `DOC ZVX-WEB-00X · CLASSIFICACIÓ · REV.` | Cada pàgina és un "document" de l'expedient |
+| Contingut | **Fitxes** amb referència (`ZVX-SRV-01`, `ZVX-EQ-02`), taules de camps i llistes numerades en lloc de graelles de targetes | Lectura més clara i coherent amb un informe |
+| Detalls | Text **censurat** (`████`) que es descobreix en passar-hi el ratolí, segell **AUDITAT ✓** al final de la portada i peu de pàgina com una línia de log amb l'hora real | Reforcen la idea de confidencialitat i auditoria |
+| Món 3D | Línies de plànol en blanc trencat; només els riscos en vermell i la protecció en verd | Mateixa paleta que la resta de la web |
+
+**Còpia de seguretat del disseny anterior:** l'etiqueta de git `disseny-original` guarda el projecte complet abans del canvi, i la portada antiga es pot veure a `index-original.html` (amb el seu full d'estils `assets/css/style-original.css`).
+
 - **Portada com a recorregut 3D:** en lloc d'una portada amb molts blocs de text, el visitant "viatja" per les fases de l'auditoria. Així s'explica el servei de manera visual i memorable amb molt poc text.
 - **Mobile-first i responsive:** tota la web s'adapta a mòbil, tauleta i escriptori.
 - **Accessibilitat:** etiquetes `label` als formularis, `aria-label` a les icones, contrast alt i respecte a `prefers-reduced-motion`.
@@ -214,7 +235,7 @@ Tota la portada és un recorregut 3D: en fer scroll, una càmera vola **sense ta
 
 **Decisió:** la tècnica s'inspira en la skill [scroll-world](https://github.com/oso95/scroll-world), però aquesta genera els vols amb vídeos d'IA de pagament (Monid/Higgsfield). Nosaltres renderitzem l'escena en temps real amb WebGL: és gratuït, ocupa uns pocs KB i funciona a GitHub Pages. Si el navegador no té WebGL, tot el contingut es mostra com a seccions estàtiques.
 
-**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (`style.css?v=3`, `scroll-world.js?v=3`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
+**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=4`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
 
 ### 6.3 Justificació de tecnologies
 

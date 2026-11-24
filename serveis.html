@@ -5,19 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Serveis | Zevix Cybersecurity</title>
   <meta name="description" content="Serveis d'auditoria de ciberseguretat: OSINT, escaneig de ports, SSH, SMB, web i pla de millora.">
-  <meta name="theme-color" content="#070b14">
+  <meta name="theme-color" content="#0b0c0d">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=3">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css?v=4">
 </head>
 <body>
 <header class="navbar">
   <div class="container nav-inner">
     <a class="logo" href="index.html" aria-label="Zevix Cybersecurity - Inici">
-      <img src="assets/img/logo.svg" alt="Logo de Zevix" width="36" height="36">
-      <span>ZEVIX<small>CYBERSECURITY</small></span>
+      <span class="logo-mark">[ZVX]</span><span>ZEVIX<i class="logo-cursor"></i><small>CYBERSECURITY</small></span>
     </a>
     <button class="nav-toggle" aria-label="Obrir menú" aria-expanded="false">☰</button>
     <nav class="nav-menu" aria-label="Navegació principal">
@@ -40,101 +39,60 @@
 <main>
 <section class="page-header">
   <div class="container">
+    <div class="doc-strip"><span>DOC ZVX-WEB-002</span><span>Classificació: públic</span><span>Rev. 4</span><span>Zevix Cybersecurity</span></div>
     <div class="breadcrumb">~/zevix/serveis</div>
-    <h1>Els nostres <span class='grad-text'>serveis</span></h1>
-    <p>Cada servei correspon a un mòdul de la nostra eina d'auditoria en Python. Pots contractar-los per separat o dins d'un dels nostres plans.</p>
+    <h1>Serveis</h1>
+    <p>Cada servei correspon a un mòdul de la nostra eina d'auditoria en Python. Es poden contractar per separat o dins d'un dels nostres plans.</p>
   </div>
 </section>
-<section class="section">
-  <div class="container grid" style="gap:26px">
-    <article class="card service-detail reveal" id="osint">
-      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12 19 5"/><circle cx="12" cy="12" r="1"/></svg></div>
-      <div>
-        <h2 style="font-size:1.5rem;margin-bottom:8px">Reconeixement OSINT</h2>
-        <p style="color:var(--muted)">Descobrim quina informació de la teva empresa és pública a Internet abans que ho faci un atacant.</p>
-        <ul>
-          <li>Consulta de l'API de Shodan per detectar serveis exposats a Internet</li>
-          <li>Recol·lecció de correus, subdominis i noms amb theHarvester</li>
-          <li>Detecció de fuites d'informació i superfície d'atac externa</li>
-          <li>Informe de l'empremta digital de l'organització</li>
-        </ul>
-        <div class="benefit"><strong>Per què és important?</strong> Saber què veu un atacant des de fora permet tancar portes que ni sabies que estaven obertes.</div>
-        <div class="tools"><span>Shodan API</span><span>theHarvester</span><span>Python</span></div>
+<section class="section" style="padding-top:50px">
+  <div class="container grid" style="gap:22px">
+    <article class="fitxa reveal" id="osint">
+      <div class="fitxa-head"><span class="ref">ZVX-SRV-01</span><span>Mòdul de l'eina d'auditoria</span></div>
+      <div class="fitxa-body">
+        <h2>Reconeixement OSINT</h2>
+        <p>Descobrim quina informació de la teva empresa és pública a Internet abans que ho faci un atacant.</p>
+        <table class="fields"><tr><th>Proves</th><td><ul><li>Consulta de l'API de Shodan per detectar serveis exposats a Internet</li><li>Recol·lecció de correus, subdominis i noms amb theHarvester</li><li>Detecció de fuites d'informació i superfície d'atac externa</li><li>Informe de l'empremta digital de l'organització</li></ul></td></tr><tr><th>Per què</th><td>Saber què veu un atacant des de fora permet tancar portes que ni sabies que estaven obertes.</td></tr><tr><th>Eines</th><td><code>Shodan API</code> · <code>theHarvester</code> · <code>Python</code></td></tr></table>
       </div>
     </article>
-    <article class="card service-detail reveal" id="xarxa">
-      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M7 9h2M11 9h6M7 12h6"/></svg></div>
-      <div>
-        <h2 style="font-size:1.5rem;margin-bottom:8px">Descobriment d'hosts i escaneig de ports</h2>
-        <p style="color:var(--muted)">Inventariem tots els equips actius de la xarxa i identifiquem els serveis i versions que exposen.</p>
-        <ul>
-          <li>Descobriment d'hosts actius a la LAN</li>
-          <li>Escaneig de ports TCP/UDP i detecció de versions (nmap -sV)</li>
-          <li>Detecció de serveis innecessaris (Telnet, NFS, MySQL obert a 0.0.0.0...)</li>
-          <li>Scripts NSE per identificar vulnerabilitats conegudes (CVE)</li>
-        </ul>
-        <div class="benefit"><strong>Per què és important?</strong> Un inventari actualitzat és la base de qualsevol política de seguretat: no es pot protegir el que no es coneix.</div>
-        <div class="tools"><span>Nmap</span><span>NSE --script vuln</span><span>python-nmap</span></div>
+    <article class="fitxa reveal" id="xarxa">
+      <div class="fitxa-head"><span class="ref">ZVX-SRV-02</span><span>Mòdul de l'eina d'auditoria</span></div>
+      <div class="fitxa-body">
+        <h2>Descobriment d'hosts i escaneig de ports</h2>
+        <p>Inventariem tots els equips actius de la xarxa i identifiquem els serveis i versions que exposen.</p>
+        <table class="fields"><tr><th>Proves</th><td><ul><li>Descobriment d'hosts actius a la LAN</li><li>Escaneig de ports TCP/UDP i detecció de versions (nmap -sV)</li><li>Detecció de serveis innecessaris (Telnet, NFS, MySQL obert a 0.0.0.0...)</li><li>Scripts NSE per identificar vulnerabilitats conegudes (CVE)</li></ul></td></tr><tr><th>Per què</th><td>Un inventari actualitzat és la base de qualsevol política de seguretat: no es pot protegir el que no es coneix.</td></tr><tr><th>Eines</th><td><code>Nmap</code> · <code>NSE --script vuln</code> · <code>python-nmap</code></td></tr></table>
       </div>
     </article>
-    <article class="card service-detail reveal" id="ssh">
-      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8.2-8.2M16 7l3 3M14 9l2 2"/></svg></div>
-      <div>
-        <h2 style="font-size:1.5rem;margin-bottom:8px">Auditoria de configuració SSH</h2>
-        <p style="color:var(--muted)">Revisem la configuració dels servidors d'accés remot, una de les portes d'entrada més atacades.</p>
-        <ul>
-          <li>Anàlisi d'algorismes de xifratge, intercanvi de claus i MAC obsolets</li>
-          <li>Detecció de PermitRootLogin, PermitEmptyPasswords i autenticació per contrasenya</li>
-          <li>Recomanacions de hardening segons CIS Benchmarks</li>
-          <li>Verificació posterior de les correccions aplicades</li>
-        </ul>
-        <div class="benefit"><strong>Per què és important?</strong> Evita atacs de força bruta i accessos no autoritzats amb privilegis d'administrador.</div>
-        <div class="tools"><span>ssh-audit</span><span>OpenSSH</span><span>CIS</span></div>
+    <article class="fitxa reveal" id="ssh">
+      <div class="fitxa-head"><span class="ref">ZVX-SRV-03</span><span>Mòdul de l'eina d'auditoria</span></div>
+      <div class="fitxa-body">
+        <h2>Auditoria de configuració SSH</h2>
+        <p>Revisem la configuració dels servidors d'accés remot, una de les portes d'entrada més atacades.</p>
+        <table class="fields"><tr><th>Proves</th><td><ul><li>Anàlisi d'algorismes de xifratge, intercanvi de claus i MAC obsolets</li><li>Detecció de PermitRootLogin, PermitEmptyPasswords i autenticació per contrasenya</li><li>Recomanacions de hardening segons CIS Benchmarks</li><li>Verificació posterior de les correccions aplicades</li></ul></td></tr><tr><th>Per què</th><td>Evita atacs de força bruta i accessos no autoritzats amb privilegis d'administrador.</td></tr><tr><th>Eines</th><td><code>ssh-audit</code> · <code>OpenSSH</code> · <code>CIS</code></td></tr></table>
       </div>
     </article>
-    <article class="card service-detail reveal" id="smb">
-      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M12 11v4M10 13h4"/></svg></div>
-      <div>
-        <h2 style="font-size:1.5rem;margin-bottom:8px">Enumeració SMB i recursos compartits</h2>
-        <p style="color:var(--muted)">Comprovem quins recursos compartits, usuaris i polítiques es poden obtenir sense credencials.</p>
-        <ul>
-          <li>Enumeració d'usuaris, grups i polítiques de contrasenyes</li>
-          <li>Detecció de recursos compartits sense autenticació o amb permisos excessius</li>
-          <li>Revisió de configuracions Samba / Windows</li>
-          <li>Classificació del risc de fuga de dades</li>
-        </ul>
-        <div class="benefit"><strong>Per què és important?</strong> Les carpetes compartides mal configurades són una de les causes més habituals de fuga de dades.</div>
-        <div class="tools"><span>enum4linux</span><span>smbclient</span><span>Samba</span></div>
+    <article class="fitxa reveal" id="smb">
+      <div class="fitxa-head"><span class="ref">ZVX-SRV-04</span><span>Mòdul de l'eina d'auditoria</span></div>
+      <div class="fitxa-body">
+        <h2>Enumeració SMB i recursos compartits</h2>
+        <p>Comprovem quins recursos compartits, usuaris i polítiques es poden obtenir sense credencials.</p>
+        <table class="fields"><tr><th>Proves</th><td><ul><li>Enumeració d'usuaris, grups i polítiques de contrasenyes</li><li>Detecció de recursos compartits sense autenticació o amb permisos excessius</li><li>Revisió de configuracions Samba / Windows</li><li>Classificació del risc de fuga de dades</li></ul></td></tr><tr><th>Per què</th><td>Les carpetes compartides mal configurades són una de les causes més habituals de fuga de dades.</td></tr><tr><th>Eines</th><td><code>enum4linux</code> · <code>smbclient</code> · <code>Samba</code></td></tr></table>
       </div>
     </article>
-    <article class="card service-detail reveal" id="web">
-      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
-      <div>
-        <h2 style="font-size:1.5rem;margin-bottom:8px">Anàlisi de serveis web i DNS</h2>
-        <p style="color:var(--muted)">Avaluem els servidors web, FTP i DNS de l'empresa, buscant males configuracions explotables.</p>
-        <ul>
-          <li>Anàlisi de capçaleres HTTP de seguretat (HSTS, CSP, X-Frame-Options...)</li>
-          <li>Detecció de pàgines d'estat exposades (/server-status, /server-info)</li>
-          <li>Comprovació d'FTP anònim i permisos d'escriptura</li>
-          <li>Prova de transferència de zona DNS (AXFR) oberta</li>
-        </ul>
-        <div class="benefit"><strong>Per què és important?</strong> Protegeix la imatge pública i els serveis que l'empresa ofereix als seus clients.</div>
-        <div class="tools"><span>Apache</span><span>vsftpd</span><span>Bind9</span><span>dig</span></div>
+    <article class="fitxa reveal" id="web">
+      <div class="fitxa-head"><span class="ref">ZVX-SRV-05</span><span>Mòdul de l'eina d'auditoria</span></div>
+      <div class="fitxa-body">
+        <h2>Anàlisi de serveis web i DNS</h2>
+        <p>Avaluem els servidors web, FTP i DNS de l'empresa, buscant males configuracions explotables.</p>
+        <table class="fields"><tr><th>Proves</th><td><ul><li>Anàlisi de capçaleres HTTP de seguretat (HSTS, CSP, X-Frame-Options...)</li><li>Detecció de pàgines d'estat exposades (/server-status, /server-info)</li><li>Comprovació d'FTP anònim i permisos d'escriptura</li><li>Prova de transferència de zona DNS (AXFR) oberta</li></ul></td></tr><tr><th>Per què</th><td>Protegeix la imatge pública i els serveis que l'empresa ofereix als seus clients.</td></tr><tr><th>Eines</th><td><code>Apache</code> · <code>vsftpd</code> · <code>Bind9</code> · <code>dig</code></td></tr></table>
       </div>
     </article>
-    <article class="card service-detail reveal" id="pla">
-      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></div>
-      <div>
-        <h2 style="font-size:1.5rem;margin-bottom:8px">Informe i Pla de Millora</h2>
-        <p style="color:var(--muted)">No ens limitem a trobar problemes: t'expliquem com solucionar-los i ho verifiquem.</p>
-        <ul>
-          <li>Informe executiu per a la direcció, sense tecnicismes</li>
-          <li>Informe tècnic amb vulnerabilitats classificades per gravetat (CVSS)</li>
-          <li>Pla de millora amb instruccions de correcció i hardening</li>
-          <li>Re-auditoria per verificar que les vulnerabilitats s'han corregit</li>
-        </ul>
-        <div class="benefit"><strong>Per què és important?</strong> Converteix l'auditoria en accions concretes i prioritzades segons l'impacte real per al negoci.</div>
-        <div class="tools"><span>HTML / JSON / PDF</span><span>CVSS v3.1</span><span>MAGERIT</span></div>
+    <article class="fitxa reveal" id="pla">
+      <div class="fitxa-head"><span class="ref">ZVX-SRV-06</span><span>Mòdul de l'eina d'auditoria</span></div>
+      <div class="fitxa-body">
+        <h2>Informe i Pla de Millora</h2>
+        <p>No ens limitem a trobar problemes: t'expliquem com solucionar-los i ho verifiquem.</p>
+        <table class="fields"><tr><th>Proves</th><td><ul><li>Informe executiu per a la direcció, sense tecnicismes</li><li>Informe tècnic amb vulnerabilitats classificades per gravetat (CVSS)</li><li>Pla de millora amb instruccions de correcció i hardening</li><li>Re-auditoria per verificar que les vulnerabilitats s'han corregit</li></ul></td></tr><tr><th>Per què</th><td>Converteix l'auditoria en accions concretes i prioritzades segons l'impacte real per al negoci.</td></tr><tr><th>Eines</th><td><code>HTML / JSON / PDF</code> · <code>CVSS v3.1</code> · <code>MAGERIT</code></td></tr></table>
       </div>
     </article>
   </div>
@@ -142,18 +100,20 @@
 <section class="section section-alt">
   <div class="container">
     <div class="section-head reveal">
-      <span class="eyebrow">// Valor afegit</span>
-      <h2>Inclòs en totes les auditories</h2>
+      <span class="eyebrow">// Inclòs sempre</span>
+      <h2>En totes les auditories</h2>
     </div>
-    <div class="grid grid-3">
-      <div class="card reveal"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></div><h3>Contracte i delimitació d'abast</h3><p>Document formal que protegeix les dues parts: què s'audita, què no i amb quins permisos.</p></div>
-      <div class="card reveal"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 12h16c1 0 2-.5 2-2 0 0-1 0-1.5.5M5 12v-3h3v3M8 12V9h3v3M11 12V9h3v3M8 9V6h3v3M3 12c0 4 3 7 8 7 5 0 8-3 9-7"/></svg></div><h3>Execució sense rastre</h3><p>Contenidor Docker efímer (<code>--rm</code>) que no modifica la configuració dels teus sistemes.</p></div>
-      <div class="card reveal"><div class="icon-box"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.5c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.2-8.3c.4-.4-.1-.6-.6-.2L6.1 13.2 1.2 11.7c-1.1-.3-1.1-1.1.2-1.6L20.5 2.8c.9-.3 1.7.2 1.4 1.5z"/></svg></div><h3>Avisos per Telegram</h3><p>Notificació automàtica quan l'informe està disponible al teu portal de client.</p></div>
-    </div>
-    <div class="cta-band reveal" style="margin-top:50px">
-      <h2>Necessites un servei a mida?</h2>
-      <p>Explica'ns la teva infraestructura i et preparem un pressupost sense compromís.</p>
-      <a class="btn btn-primary btn-lg" href="contacte.html">Demanar pressupost</a>
+    <ol class="num-list reveal">
+      <li><div><h3>Contracte i delimitació d'abast</h3><p>Document formal que protegeix les dues parts: què s'audita, què no i amb quins permisos.</p></div></li>
+      <li><div><h3>Execució sense rastre</h3><p>Contenidor Docker efímer (<code>--rm</code>) que no modifica la configuració dels teus sistemes.</p></div></li>
+      <li><div><h3>Avís per Telegram</h3><p>Notificació automàtica quan l'informe està disponible al teu portal de client.</p></div></li>
+    </ol>
+    <div class="fitxa reveal" style="margin-top:46px">
+      <div class="fitxa-head"><span class="ref">ZVX-SRV-00</span><span>Servei a mida</span></div>
+      <div class="fitxa-body" style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+        <div><h3 style="font-size:1.3rem;margin-bottom:6px">Necessites un servei a mida?</h3><p style="color:var(--muted)">Explica'ns la teva infraestructura i et preparem un pressupost sense compromís.</p></div>
+        <a class="btn btn-primary btn-lg" href="contacte.html">Demanar pressupost</a>
+      </div>
     </div>
   </div>
 </section>
@@ -174,7 +134,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-about">
-        <a class="logo" href="index.html"><img src="assets/img/logo.svg" alt="" width="36" height="36"><span>ZEVIX<small>CYBERSECURITY</small></span></a>
+        <a class="logo" href="index.html"><span class="logo-mark">[ZVX]</span><span>ZEVIX<i class="logo-cursor"></i><small>CYBERSECURITY</small></span></a>
         <p>Auditories de ciberseguretat i pentesting ètic per a pimes de les Terres de l'Ebre. Detectem les vulnerabilitats abans que ho faci un atacant.</p>
         <div class="socials">
   <a href="https://github.com/pauserra-IE/PROJECTE-INTERMODULAR" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg></a>
@@ -213,13 +173,13 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Zevix Cybersecurity · Projecte Intermodular ASIX · Institut de l'Ebre</span>
-      <span>Marc normatiu: ISO/IEC 27001 · RGPD · Guies INCIBE</span>
+      <span>[<span class="js-now">2026-11-30 09:00:00</span>] zevix.tech — fi del document · © 2026 Zevix Cybersecurity · Institut de l'Ebre</span>
+      <span>ISO/IEC 27001 · RGPD · INCIBE</span>
     </div>
   </div>
 </footer>
 <button class="back-top" aria-label="Tornar amunt">↑</button>
-<script src="assets/js/auth.js?v=3"></script>
-<script src="assets/js/main.js?v=3"></script>
+<script src="assets/js/auth.js?v=4"></script>
+<script src="assets/js/main.js?v=4"></script>
 </body>
 </html>

@@ -31,6 +31,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  /* ---- Rellotge del document (capçalera i peu, estil log) ---- */
+  const clocks = document.querySelectorAll(".js-now");
+  if (clocks.length) {
+    const pad = (n) => String(n).padStart(2, "0");
+    const tick = () => {
+      const d = new Date();
+      const txt = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+      clocks.forEach((c) => { c.textContent = txt; });
+    };
+    tick();
+    setInterval(tick, 1000);
+  }
+
   /* ---- Reveal on scroll ---- */
   const items = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
