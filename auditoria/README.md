@@ -50,4 +50,10 @@ python3 zevix_audit.py
 5. Quan el procés acaba, s'envia el missatge `fi` amb el codi de sortida: es mostra el temps, es guarda l'execució a l'historial i es tornen a activar els botons.
 6. Shodan fa servir la llibreria `shodan` en lloc d'un programa extern, però segueix el mateix camí (fil → cua → consola).
 
+## Limitacions conegudes
+
+- `nmap -A` (detecció de sistema operatiu) necessita privilegis de root. Sense `sudo`, Nmap fa la resta de l'escaneig però avisa que no pot detectar el sistema operatiu.
+- Les pestanyes de theHarvester, Nikto i Shodan només s'han provat sense l'eina instal·lada o sense clau (mostren el missatge d'error que toca). Cal provar-les en un equip amb tot instal·lat abans de la presentació.
+- L'exportació JSON guarda l'historial d'execucions, encara no el format d'informe que llegeix el portal de clients (`informes_auditoria/`).
+
 > Auditeu només sistemes inclosos a l'abast del contracte. Per fer proves sense permís de ningú es pot fer servir `scanme.nmap.org`, el servidor que el projecte Nmap ofereix per a això.

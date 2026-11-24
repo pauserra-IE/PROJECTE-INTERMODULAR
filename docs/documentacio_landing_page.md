@@ -237,7 +237,7 @@ Tota la portada és un recorregut 3D: en fer scroll, una càmera vola **sense ta
 
 **Decisió:** la tècnica s'inspira en el projecte [scroll-world](https://github.com/oso95/scroll-world), però aquesta genera els vols amb vídeos pre-renderitzats en serveis de pagament (Monid/Higgsfield). Nosaltres renderitzem l'escena en temps real amb WebGL: és gratuït, ocupa uns pocs KB i funciona a GitHub Pages. Si el navegador no té WebGL, tot el contingut es mostra com a seccions estàtiques.
 
-**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=7`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
+**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=8`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
 
 ### 6.3 Justificació de tecnologies
 
@@ -269,7 +269,7 @@ Tota la portada és un recorregut 3D: en fer scroll, una càmera vola **sense ta
 
 ### 7.2 Domini personalitzat gratuït (1 any) amb el GitHub Student Developer Pack
 1. Sol·licitar el pack a <https://education.github.com/pack> amb el correu de l'institut.
-2. Registrar el domini gratuït (p. ex. `zevix.tech` amb get.tech, o un `.me` amb Namecheap) i **desactivar la renovació automàtica**.
+2. Registrar el domini gratuït (el grup ha triat `zevixcyber.tech`, amb get.tech) i **desactivar la renovació automàtica**.
 3. Al panell DNS del registrador crear:
    - 4 registres **A** per a `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
    - 1 registre **CNAME** per a `www` → `pauserra-ie.github.io`
@@ -309,7 +309,7 @@ Les indicacions del projecte permeten fer servir IA sempre que es justifiqui el 
 ### 9.2 Què ha fet l'equip
 
 - **Decisions de projecte:** nom i identitat de l'empresa (Zevix Cybersecurity), client auditat (EbreLogistics S.L.), rols Scrum, pàgines que havia de tenir la web segons l'enunciat i els tres plans de preus (senzill, mitjà i fort).
-- **Contingut propi:** el contracte simbòlic, l'anàlisi de riscos (model INCIBE) i la **primera versió** de l'eina d'auditoria en Python (theHarvester, Shodan, Nmap, Nikto i utilitats de xarxa). Vam decidir quines millores calia fer a la v2, com treure la clau de Shodan del codi seguint la nostra pròpia anàlisi de riscos. La web reutilitza aquest material: la taula de riscos de Serveis, els mòduls i la recreació de la interfície de l'eina.
+- **Contingut propi:** el contracte simbòlic, l'anàlisi de riscos (model INCIBE) i la **primera versió** de l'eina d'auditoria en Python (theHarvester, Shodan, Nmap, Nikto i utilitats de xarxa). Vam decidir quines millores calia fer a la v2, com treure la clau de Shodan del codi seguint la nostra pròpia anàlisi de riscos. La web reutilitza aquest material: la taula de riscos de Serveis, els mòduls i les captures de l'eina.
 - **Direcció del disseny:** vam demanar l'efecte Scroll World, el vam fer refer quan el resultat no ens convencia i vam escollir l'estil "informe d'auditoria" entre diverses propostes. Abans del canvi d'estil vam guardar una còpia de seguretat (etiqueta `disseny-original`).
 - **Revisió i proves:** comprovació de totes les pàgines, del login amb els dos rols, del portal de clients i de la versió mòbil, i correcció dels errors trobats (per exemple, la memòria cau del navegador, que mostrava el CSS antic).
 - **Desplegament:** pujada al repositori amb Git i activació de GitHub Pages.
@@ -337,5 +337,5 @@ Les indicacions del projecte permeten fer servir IA sempre que es justifiqui el 
 
 **Eina d'auditoria (`auditoria/zevix_audit.py`).** L'explicació pas a pas (validació, fil secundari, cua de missatges, exportació) i la taula de canvis respecte a la v1 són a [auditoria/README.md](../auditoria/README.md).
 
-**Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=7` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
+**Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=8` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
 

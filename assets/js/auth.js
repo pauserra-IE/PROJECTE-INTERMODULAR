@@ -19,7 +19,7 @@
   // Usuaris de demostració (entorn de proves)
   const DEMO_USERS = [
     { email: "client@ebrelogistics.cat", password: "Client2026!", role: "client", name: "EbreLogistics S.L.", company: "EbreLogistics S.L." },
-    { email: "admin@zevix.tech", password: "Admin2026!", role: "admin", name: "Equip Zevix", company: "Zevix Cybersecurity" },
+    { email: "admin@zevixcyber.tech", password: "Admin2026!", role: "admin", name: "Equip Zevix", company: "Zevix Cybersecurity" },
   ];
 
   function safeGet(storage, key) {

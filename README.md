@@ -43,7 +43,7 @@ Pàgines: Inici · Serveis · Equip · Sobre nosaltres · Tarifes (Bàsic / Prof
 | Rol | Correu | Contrasenya |
 |---|---|---|
 | Client | `client@ebrelogistics.cat` | `Client2026!` |
-| Administrador | `admin@zevix.tech` | `Admin2026!` |
+| Administrador | `admin@zevixcyber.tech` | `Admin2026!` |
 
 Provar en local:
 
