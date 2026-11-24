@@ -430,48 +430,63 @@ footer.site-footer { border-top: 1px solid var(--border); padding: 60px 0 26px; 
 .contact-item .icon-box svg { width: 22px; height: 22px; }
 
 /* ---------- Scroll World (món 3D controlat pel scroll) ---------- */
-.world { position: relative; height: 600vh; background: var(--bg); border-top: 1px solid var(--border); }
-.world-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.world { position: relative; height: 750vh; background: var(--bg); }
+.world-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
 .world canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .world-vignette {
   position: absolute; inset: 0; pointer-events: none;
-  background:
-    radial-gradient(ellipse at center, transparent 55%, rgba(7, 11, 20, .85) 100%),
-    linear-gradient(to bottom, var(--bg) 0, transparent 14%, transparent 86%, var(--bg) 100%);
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(7, 11, 20, .8) 100%);
 }
-.world-title { position: absolute; top: 110px; left: 16px; right: 16px; text-align: center; pointer-events: none; transition: opacity .5s; }
-.world-title h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
-.world-title p { color: var(--muted); margin-top: 8px; }
+.world-stage { opacity: 0; transform: translateY(24px); transition: opacity .6s, transform .6s; pointer-events: none; }
+.world-stage.active { opacity: 1; transform: none; pointer-events: auto; }
+
+/* Intro i final: text centrat sobre el món */
+.world-intro, .world-outro {
+  position: absolute; left: 50%; top: 50%; width: min(820px, calc(100% - 32px));
+  translate: -50% -50%; text-align: center; padding: 34px 28px; border-radius: 20px;
+  background: radial-gradient(ellipse at center, rgba(7, 11, 20, .78) 0%, rgba(7, 11, 20, .55) 60%, transparent 100%);
+}
+.world-intro h1 { font-size: clamp(2rem, 5vw, 3.6rem); margin-bottom: 18px; }
+.world-intro .lead { font-size: 1.1rem; color: var(--muted); margin: 0 auto 28px; max-width: 620px; }
+.world-intro .hero-cta { justify-content: center; }
+.world-outro h2 { font-size: clamp(1.7rem, 4vw, 2.6rem); margin-bottom: 12px; }
+.world-outro p { color: var(--muted); margin-bottom: 26px; }
+
+/* Targetes de cada fase */
 .world-caps { position: absolute; left: max(20px, calc((100% - var(--max)) / 2 + 20px)); bottom: 11vh; }
 .world-cap {
   position: absolute; left: 0; bottom: 0; width: min(440px, calc(100vw - 40px));
-  background: rgba(12, 19, 34, .74); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  background: rgba(12, 19, 34, .78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;
-  opacity: 0; transform: translateY(24px); transition: opacity .6s, transform .6s; pointer-events: none;
 }
-.world-cap.active { opacity: 1; transform: none; pointer-events: auto; }
 .world-cap .num { font-family: var(--mono); color: var(--primary); font-size: .8rem; letter-spacing: .12em; }
 .world-cap h3 { font-size: 1.5rem; margin: 6px 0 8px; }
 .world-cap p { color: var(--muted); font-size: .95rem; }
 .world-cap .tools { margin-top: 12px; }
+
 .world-progress { position: absolute; right: 24px; top: 50%; transform: translateY(-50%); list-style: none; display: grid; gap: 16px; }
 .world-progress li { display: flex; align-items: center; justify-content: flex-end; gap: 10px; font-family: var(--mono); font-size: .75rem; color: var(--muted); cursor: pointer; }
 .world-progress li::after { content: ""; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--border); transition: .3s; }
 .world-progress li.active { color: var(--primary); }
 .world-progress li.active::after { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 12px var(--primary); }
-.world-hint { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); font-family: var(--mono); font-size: .8rem; color: var(--muted); transition: opacity .4s; animation: bob 1.6s ease-in-out infinite; }
+.world-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(34, 211, 238, .1); }
+.world-bar span { display: block; height: 100%; width: 0; background: var(--grad); }
+.world-hint { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); font-family: var(--mono); font-size: .8rem; color: var(--muted); transition: opacity .4s; animation: bob 1.6s ease-in-out infinite; }
 @keyframes bob { 50% { margin-bottom: 8px; } }
 @media (max-width: 680px) {
   .world-progress { right: 10px; }
   .world-progress span { display: none; }
-  .world-cap { padding: 18px; }
-  .world-caps { bottom: 7vh; }
-  .world-title { top: 96px; }
+  .world-cap { padding: 18px; width: calc(100vw - 52px); }
+  .world-caps { bottom: 6vh; left: 16px; }
+  .world-intro .lead { font-size: 1rem; }
 }
-/* Alternativa sense WebGL: targetes estàtiques */
+
+/* Alternativa sense WebGL: tot el contingut com a seccions estàtiques */
 .world.world-fallback { height: auto; }
-.world-fallback .world-sticky { position: static; height: auto; padding: 80px 0; }
-.world-fallback canvas, .world-fallback .world-vignette, .world-fallback .world-progress, .world-fallback .world-hint { display: none; }
-.world-fallback .world-title { position: static; margin-bottom: 30px; opacity: 1 !important; }
+.world-fallback .world-sticky { position: static; height: auto; padding: 60px 0; overflow: visible; }
+.world-fallback canvas, .world-fallback .world-vignette, .world-fallback .world-progress,
+.world-fallback .world-hint, .world-fallback .world-bar { display: none; }
+.world-fallback .world-stage { opacity: 1; transform: none; pointer-events: auto; }
+.world-fallback .world-intro, .world-fallback .world-outro { position: static; translate: none; margin: 30px auto; background: none; }
 .world-fallback .world-caps { position: static; max-width: var(--max); margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
-.world-fallback .world-cap { position: static; width: auto; opacity: 1; transform: none; }
+.world-fallback .world-cap { position: static; width: auto; }

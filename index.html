@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css?v=3">
 </head>
 <body>
 <header class="navbar">
@@ -38,10 +38,12 @@
   </div>
 </header>
 <main>
-<section class="hero">
-  <div class="hero-grid-bg"></div>
-  <div class="container hero-inner">
-    <div class="reveal">
+<section class="world" id="world" aria-label="Recorregut 3D per les fases d'una auditoria">
+  <div class="world-sticky">
+    <canvas aria-hidden="true"></canvas>
+    <div class="world-vignette"></div>
+
+    <div class="world-stage world-intro" data-from="0" data-to="0.07">
       <span class="badge-pill"><span class="dot"></span> Auditories de seguretat per a pimes</span>
       <h1>Trobem les teves vulnerabilitats <span class="grad-text">abans que ho faci un atacant</span>.</h1>
       <p class="lead">A Zevix Cybersecurity auditem servidors, xarxes i serveis amb la nostra pròpia eina automatitzada en Python. Rebràs un informe clar i un pla de millora per protegir el teu negoci.</p>
@@ -49,125 +51,17 @@
         <a class="btn btn-primary btn-lg" href="contacte.html">Sol·licitar auditoria</a>
         <a class="btn btn-outline btn-lg" href="serveis.html">Veure serveis</a>
       </div>
-      <div class="hero-badges">
-        <div><strong data-count="7">0</strong>mòduls d'escaneig</div>
-        <div><strong data-count="48" data-suffix="h">0</strong>lliurament d'informe</div>
-        <div><strong data-count="100" data-suffix="%">0</strong>confidencialitat</div>
-      </div>
     </div>
-    <div class="terminal reveal" aria-label="Exemple d'execució de l'eina d'auditoria">
-      <div class="terminal-bar"><i></i><i></i><i></i><span>zevix-audit — bash</span></div>
-      <div class="terminal-body" id="terminal"><span class="cursor"></span></div>
-    </div>
-  </div>
-</section>
 
-
-<section class="world" id="world" aria-label="Recorregut 3D per les fases d'una auditoria">
-  <div class="world-sticky">
-    <canvas aria-hidden="true"></canvas>
-    <div class="world-vignette"></div>
-    <div class="world-title">
-      <span class="eyebrow">// Scroll world</span>
-      <h2>El viatge d'una <span class="grad-text">auditoria</span></h2>
-      <p>Fes scroll i acompanya'ns de fora cap a dins de la teva infraestructura.</p>
-    </div>
     <div class="world-caps">
-      <div class="world-cap"><span class="num">FASE 01 · INTERNET</span><h3>Reconeixement OSINT</h3><p>Comencem des de fora: què sap Internet de la teva empresa? Busquem serveis exposats, subdominis i correus públics.</p><div class="tools"><span>Shodan</span><span>theHarvester</span></div></div>
-      <div class="world-cap"><span class="num">FASE 02 · LA XARXA</span><h3>Descobriment i escaneig</h3><p>Entrem a la xarxa local: inventariem cada host i servei actiu i en detectem les versions.</p><div class="tools"><span>Nmap</span><span>NSE</span></div></div>
-      <div class="world-cap"><span class="num">FASE 03 · EL CPD</span><h3>Anàlisi de vulnerabilitats</h3><p>Dins dels servidors revisem SSH, SMB, FTP, DNS i web. Cada alerta vermella és una porta oberta per a un atacant.</p><div class="tools"><span>ssh-audit</span><span>enum4linux</span><span>Docker</span></div></div>
-      <div class="world-cap"><span class="num">FASE 04 · PROTECCIÓ</span><h3>Informe i pla de millora</h3><p>Lliurem l'informe al teu portal i t'acompanyem a corregir cada vulnerabilitat. Després, re-auditem per verificar-ho.</p><div class="tools"><span>CVSS</span><span>Telegram</span><span>Portal client</span></div></div>
+      <div class="world-stage world-cap" data-from="0.07" data-to="0.27"><span class="num">FASE 01 · INTERNET</span><h3>Reconeixement OSINT</h3><p>Comencem des de fora: què sap Internet de la teva empresa? Busquem serveis exposats, subdominis i correus públics.</p><div class="tools"><span>Shodan</span><span>theHarvester</span></div></div>
+      <div class="world-stage world-cap" data-from="0.27" data-to="0.53"><span class="num">FASE 02 · LA XARXA</span><h3>Descobriment i escaneig</h3><p>Entrem a la xarxa local: inventariem cada equip i servei actiu i en detectem les versions.</p><div class="tools"><span>Nmap</span><span>NSE</span></div></div>
+      <div class="world-stage world-cap" data-from="0.53" data-to="0.76"><span class="num">FASE 03 · EL CPD</span><h3>Anàlisi de vulnerabilitats</h3><p>Dins dels servidors revisem SSH, SMB, FTP, DNS i web. Cada alerta vermella és una porta oberta per a un atacant.</p><div class="tools"><span>ssh-audit</span><span>enum4linux</span><span>Docker</span></div></div>
+      <div class="world-stage world-cap" data-from="0.76" data-to="0.93"><span class="num">FASE 04 · PROTECCIÓ</span><h3>Informe i pla de millora</h3><p>Lliurem l'informe al teu portal de client i t'acompanyem a corregir cada vulnerabilitat. Després re-auditem per verificar-ho.</p><div class="tools"><span>CVSS</span><span>Telegram</span><span>Portal client</span></div></div>
     </div>
-    <ol class="world-progress">
-      <li><span>OSINT</span></li><li><span>Xarxa</span></li><li><span>CPD</span></li><li><span>Protecció</span></li>
-    </ol>
-    <div class="world-hint">scroll ↓</div>
-  </div>
-</section>
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">// Què fem</span>
-      <h2>Una auditoria completa, de fora cap a dins</h2>
-      <p>Combinem reconeixement extern, anàlisi de la xarxa interna i revisió de configuracions per donar-te una visió real del teu nivell de seguretat.</p>
-    </div>
-    <div class="grid grid-3">
-      <div class="card reveal">
-        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12 19 5"/><circle cx="12" cy="12" r="1"/></svg></div>
-        <h3>Reconeixement OSINT</h3>
-        <p>Descobrim quina informació de la teva empresa és pública a Internet abans que ho faci un atacant.</p>
-        <a class="tag" href="serveis.html#osint">→ més informació</a>
-      </div>
-      <div class="card reveal">
-        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M7 9h2M11 9h6M7 12h6"/></svg></div>
-        <h3>Descobriment d'hosts i escaneig de ports</h3>
-        <p>Inventariem tots els equips actius de la xarxa i identifiquem els serveis i versions que exposen.</p>
-        <a class="tag" href="serveis.html#xarxa">→ més informació</a>
-      </div>
-      <div class="card reveal">
-        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8.2-8.2M16 7l3 3M14 9l2 2"/></svg></div>
-        <h3>Auditoria de configuració SSH</h3>
-        <p>Revisem la configuració dels servidors d'accés remot, una de les portes d'entrada més atacades.</p>
-        <a class="tag" href="serveis.html#ssh">→ més informació</a>
-      </div>
-      <div class="card reveal">
-        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M12 11v4M10 13h4"/></svg></div>
-        <h3>Enumeració SMB i recursos compartits</h3>
-        <p>Comprovem quins recursos compartits, usuaris i polítiques es poden obtenir sense credencials.</p>
-        <a class="tag" href="serveis.html#smb">→ més informació</a>
-      </div>
-      <div class="card reveal">
-        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
-        <h3>Anàlisi de serveis web i DNS</h3>
-        <p>Avaluem els servidors web, FTP i DNS de l'empresa, buscant males configuracions explotables.</p>
-        <a class="tag" href="serveis.html#web">→ més informació</a>
-      </div>
-      <div class="card reveal">
-        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></div>
-        <h3>Informe i Pla de Millora</h3>
-        <p>No ens limitem a trobar problemes: t'expliquem com solucionar-los i ho verifiquem.</p>
-        <a class="tag" href="serveis.html#pla">→ més informació</a>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="container split">
-    <div class="reveal">
-      <span class="eyebrow">// Com treballem</span>
-      <h2 style="font-size:clamp(1.8rem,3.5vw,2.4rem);margin-bottom:18px">Una metodologia clara, sense sorpreses</h2>
-      <p>Cada auditoria comença amb un <strong>contracte</strong> que delimita exactament què s'audita i què no, i acaba amb un <strong>pla de millora</strong> que pots aplicar des del primer dia.</p>
-      <p>La nostra eina s'executa en un <strong>contenidor Docker portable</strong> (fins i tot des d'un USB): no instal·la res als teus sistemes i no deixa rastre.</p>
-      <a class="btn btn-outline" href="sobre.html">Coneix-nos millor</a>
-    </div>
-    <div class="grid steps reveal" style="gap:26px">
-      <div class="step"><h3>Contracte i abast</h3><p style="color:var(--muted)">Definim sistemes inclosos, exclusions i permisos de l'equip auditor.</p></div>
-      <div class="step"><h3>Reconeixement i escaneig</h3><p style="color:var(--muted)">OSINT, descobriment d'hosts, ports, SSH, SMB i serveis web.</p></div>
-      <div class="step"><h3>Anàlisi de riscos</h3><p style="color:var(--muted)">Classifiquem cada troballa per gravetat (CVSS) i impacte en el negoci.</p></div>
-      <div class="step"><h3>Informe i pla de millora</h3><p style="color:var(--muted)">Lliurem l'informe al teu portal de client i t'avisem per Telegram.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">// Per què Zevix</span>
-      <h2>Seguretat professional a l'abast de qualsevol pime</h2>
-    </div>
-    <div class="grid grid-4">
-      <div class="card reveal"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 12h16c1 0 2-.5 2-2 0 0-1 0-1.5.5M5 12v-3h3v3M8 12V9h3v3M11 12V9h3v3M8 9V6h3v3M3 12c0 4 3 7 8 7 5 0 8-3 9-7"/></svg></div><h3>Portable</h3><p>Eina encapsulada en Docker, executable des d'un USB sense deixar rastre.</p></div>
-      <div class="card reveal"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></div><h3>Alertes en temps real</h3><p>Bot de Telegram que t'avisa en finalitzar l'auditoria o en detectar un risc crític.</p></div>
-      <div class="card reveal"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><h3>Confidencial</h3><p>Clàusula de confidencialitat indefinida i informes accessibles només des del teu portal.</p></div>
-      <div class="card reveal"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></div><h3>Portal de clients</h3><p>Consulta l'estat de l'auditoria i descarrega els informes en HTML, JSON o PDF.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="cta-band reveal">
+    <div class="world-stage world-outro" data-from="0.93" data-to="1.01">
+      <span class="eyebrow">// La teva xarxa, protegida</span>
       <h2>Saps quantes portes té obertes la teva xarxa?</h2>
       <p>Tria el pla que millor s'adapta a la teva empresa: Bàsic, Professional o Avançat.</p>
       <div class="hero-cta" style="justify-content:center">
@@ -175,6 +69,12 @@
         <a class="btn btn-outline btn-lg" href="registre.html">Crear compte de client</a>
       </div>
     </div>
+
+    <ol class="world-progress" aria-label="Fases">
+      <li data-go="0.17"><span>OSINT</span></li><li data-go="0.42"><span>Xarxa</span></li><li data-go="0.68"><span>CPD</span></li><li data-go="0.87"><span>Protecció</span></li>
+    </ol>
+    <div class="world-bar"><span></span></div>
+    <div class="world-hint">fes scroll ↓</div>
   </div>
 </section>
 </main>
@@ -239,9 +139,9 @@
   </div>
 </footer>
 <button class="back-top" aria-label="Tornar amunt">↑</button>
-<script src="assets/js/auth.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="assets/js/auth.js?v=3"></script>
+<script src="assets/js/main.js?v=3"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="assets/js/scroll-world.js"></script>
+<script src="assets/js/scroll-world.js?v=3"></script>
 </body>
 </html>

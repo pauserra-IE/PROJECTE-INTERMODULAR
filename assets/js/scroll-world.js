@@ -18,9 +18,10 @@
   if (!section) return;
 
   const canvas = section.querySelector("canvas");
+  const stages = Array.from(section.querySelectorAll(".world-stage"));
   const caps = Array.from(section.querySelectorAll(".world-cap"));
   const dots = Array.from(section.querySelectorAll(".world-progress li"));
-  const title = section.querySelector(".world-title");
+  const bar = section.querySelector(".world-bar span");
   const hint = section.querySelector(".world-hint");
 
   function hasWebGL() {
@@ -39,7 +40,7 @@
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(COL.bg);
-  scene.fog = new THREE.FogExp2(COL.bg, 0.02);
+  scene.fog = new THREE.FogExp2(COL.bg, 0.011);
   const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 400);
 
   scene.add(new THREE.AmbientLight(0x6688aa, 0.7));
@@ -247,23 +248,38 @@
     check.rotation.y = Math.sin(t * 0.6) * 0.4;
   });
 
-  /* ---------- Recorregut de la càmera (posició i punt de mira) ---------- */
+  /* ---------- Recorregut de la càmera ----------
+     Fotogrames clau: [progrés, posició, punt de mira].
+     Cada fase té el seu tram, sincronitzat amb el text (data-from / data-to). */
   const V = (x, y, z) => new THREE.Vector3(x, y, z);
-  const camPath = new THREE.CatmullRomCurve3([
-    V(0, 6, 32), V(16, 9, 12), V(8, 5, -14),            // 1: s'acosta i envolta el globus
-    V(24, 20, -38), V(11, 4, -60), V(-6, 3, -76),       // 2: sobrevola i entra a la ciutat
-    V(0, 1.5, -94), V(0, 1.2, -116), V(0, 1.2, -146),   // 3: travessa la porta i el passadís
-    V(9, 9, -160), V(0, 11, -160),                      // 4: surt i contempla l'escut
-  ]);
-  const lookPath = new THREE.CatmullRomCurve3([
-    V(0, 4, 0), V(0, 4, 0), V(0, 2, -30),
-    V(0, -1, -55), V(0, 0, -62), V(0, 0, -90),
-    V(0, 1, -110), V(0, 1, -130), V(0, 2, -170),
-    V(0, 2, -188), V(0, 2, -188),
-  ]);
+  const KEYS = [
+    [0.00, V(0, 24, 58),     V(0, -2, -50)],   // intro: vista general de tot el món
+    [0.07, V(0, 14, 34),     V(0, 4, 0)],      // 1: arribem al globus
+    [0.17, V(17, 8, 9),      V(0, 4, 0)],      //    l'envoltem
+    [0.27, V(8, 10, -18),    V(0, -1, -50)],   //    marxem cap a la xarxa
+    [0.36, V(28, 24, -34),   V(0, -3, -55)],   // 2: sobrevolem la ciutat
+    [0.45, V(16, 14, -70),   V(0, -2, -55)],   //    la rodegem per sobre dels edificis
+    [0.53, V(0, 7, -84),     V(0, 0, -100)],   //    baixem cap a la porta del CPD
+    [0.60, V(0, 1.4, -98),   V(0, 1, -115)],   // 3: creuem la porta
+    [0.70, V(0, 1.2, -122),  V(0, 1, -140)],   //    passadís de racks
+    [0.80, V(0, 1.2, -149),  V(0, 2, -178)],   //    sortim del CPD
+    [0.87, V(14, 11, -164),  V(0, 3, -188)],   // 4: arribem a l'escut
+    [0.93, V(0, 13, -160),   V(0, 4, -188)],   //    vista frontal
+    [1.00, V(0, 26, -146),   V(0, 2, -188)],   // outro: ens allunyem
+  ];
+  const camPath = new THREE.CatmullRomCurve3(KEYS.map((k) => k[1]));
+  const lookPath = new THREE.CatmullRomCurve3(KEYS.map((k) => k[2]));
+  // Converteix el progrés (0..1) al paràmetre de la corba respectant els fotogrames clau
+  function curveT(p) {
+    let i = 0;
+    while (i < KEYS.length - 2 && p > KEYS[i + 1][0]) i++;
+    const f = (p - KEYS[i][0]) / (KEYS[i + 1][0] - KEYS[i][0]);
+    const e = f * f * (3 - 2 * f); // suavitzat (smoothstep) dins de cada tram
+    return (i + Math.min(1, Math.max(0, e))) / (KEYS.length - 1);
+  }
 
   /* ---------- Scroll → progrés (0..1), suavitzat ---------- */
-  let target = 0, progress = 0, running = false, activeIdx = -1;
+  let target = 0, progress = 0, running = false;
   function readScroll() {
     const r = section.getBoundingClientRect();
     const total = section.offsetHeight - window.innerHeight;
@@ -275,36 +291,38 @@
     const w = section.clientWidth, h = window.innerHeight;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    camera.fov = w < 700 ? 70 : 55; // en mòbil (vertical) obrim el camp de visió
+    camera.fov = w < 700 ? 72 : 55; // en mòbil (vertical) obrim el camp de visió
     camera.updateProjectionMatrix();
   }
   window.addEventListener("resize", resize);
 
+  // Mostra el text de l'etapa actual (intro, fases 1-4 o final)
   function updateUI(p) {
-    const idx = Math.min(caps.length - 1, Math.floor(p * caps.length));
-    if (idx !== activeIdx) {
-      caps.forEach((c, i) => c.classList.toggle("active", i === idx));
-      dots.forEach((d, i) => d.classList.toggle("active", i === idx));
-      activeIdx = idx;
-    }
-    if (title) title.style.opacity = p < 0.04 ? 1 : 0;
+    stages.forEach((el) => {
+      const on = p >= parseFloat(el.dataset.from) && p < parseFloat(el.dataset.to);
+      if (on !== el.classList.contains("active")) el.classList.toggle("active", on);
+    });
+    dots.forEach((d, i) => d.classList.toggle("active", caps[i].classList.contains("active")));
+    if (bar) bar.style.width = (p * 100).toFixed(1) + "%";
     if (hint) hint.style.opacity = p < 0.02 ? 1 : 0;
   }
 
   // Clic als punts de progrés: salta a cada fase
-  dots.forEach((d, i) => d.addEventListener("click", () => {
+  dots.forEach((d) => d.addEventListener("click", () => {
     const total = section.offsetHeight - window.innerHeight;
-    window.scrollTo({ top: section.offsetTop + total * ((i + 0.5) / dots.length), behavior: "smooth" });
+    window.scrollTo({ top: section.offsetTop + total * parseFloat(d.dataset.go), behavior: "smooth" });
   }));
 
   const clock = new THREE.Clock();
   function frame() {
     if (!running) return;
-    progress += (target - progress) * 0.07;
+    progress += (target - progress) * 0.08;
+    if (Math.abs(target - progress) < 0.0001) progress = target;
     const t = clock.getElapsedTime();
     animated.forEach((fn) => fn(t));
-    camera.position.copy(camPath.getPoint(progress));
-    camera.lookAt(lookPath.getPoint(progress));
+    const ct = curveT(progress);
+    camera.position.copy(camPath.getPoint(ct));
+    camera.lookAt(lookPath.getPoint(ct));
     updateUI(progress);
     renderer.render(scene, camera);
     requestAnimationFrame(frame);
@@ -320,4 +338,5 @@
   resize();
   readScroll();
   progress = target;
+  updateUI(progress);
 })();
