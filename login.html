@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sessió | Zevix Cybersecurity</title>
+  <meta name="description" content="Accés a la plataforma de clients i administradors de Zevix.">
+  <meta name="theme-color" content="#070b14">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="container nav-inner">
+    <a class="logo" href="index.html" aria-label="Zevix Cybersecurity - Inici">
+      <img src="assets/img/logo.svg" alt="Logo de Zevix" width="36" height="36">
+      <span>ZEVIX<small>CYBERSECURITY</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Obrir menú" aria-expanded="false">☰</button>
+    <nav class="nav-menu" aria-label="Navegació principal">
+      <ul class="nav-links">
+        <li><a href="index.html">Inici</a></li>
+        <li><a href="serveis.html">Serveis</a></li>
+        <li><a href="equip.html">Equip</a></li>
+        <li><a href="sobre.html">Sobre nosaltres</a></li>
+        <li><a href="tarifes.html">Tarifes</a></li>
+        <li><a href="noticies.html">Notícies</a></li>
+        <li><a href="contacte.html">Contacte</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="btn btn-outline" href="login.html">Accedir</a>
+        <a class="btn btn-primary" href="registre.html">Registrar-se</a>
+      </div>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="auth-wrap">
+  <aside class="auth-side">
+    <span class="eyebrow">// Plataforma Zevix</span>
+    <h2>Accés a la plataforma d'auditoria</h2>
+    <p>Des del portal pots consultar l'estat de les teves auditories i descarregar els informes de vulnerabilitats.</p>
+    <ul>
+      <li>Resum de riscos per gravetat (CVSS)</li>
+      <li>Descàrrega d'informes en HTML i JSON</li>
+      <li>Pla de millora amb les accions recomanades</li>
+      <li>Àrea d'administració per a l'equip Zevix</li>
+    </ul>
+  </aside>
+  <section class="auth-main">
+    <div class="auth-card">
+      <h1>Iniciar sessió</h1>
+      <p>Selecciona el tipus de compte i introdueix les teves credencials.</p>
+      <div class="role-switch" role="tablist">
+        <button type="button" class="active" data-role="client" role="tab">Client</button>
+        <button type="button" data-role="admin" role="tab">Administrador</button>
+      </div>
+      <form id="login-form" class="form" novalidate>
+        <div class="field"><label for="l-email">Correu electrònic</label><input id="l-email" type="email" required autocomplete="username"><div class="error">Introdueix un correu vàlid.</div></div>
+        <div class="field"><label for="l-pass">Contrasenya</label><input id="l-pass" type="password" required autocomplete="current-password"><div class="error">Introdueix la contrasenya.</div></div>
+        <div id="login-err" class="alert alert-err" role="alert"></div>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Entrar</button>
+      </form>
+      <p style="margin-top:20px;color:var(--muted);font-size:.9rem;text-align:center">No tens compte? <a href="registre.html">Registra't</a></p>
+      <div class="demo-box">
+        <strong>Comptes de demostració</strong> (prototip — Sprint 1)<br>
+        Client: <code>client@ebrelogistics.cat</code> / <code>Client2026!</code><br>
+        Admin: <code>admin@zevix.tech</code> / <code>Admin2026!</code>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  let role = "client";
+  document.querySelectorAll(".role-switch button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".role-switch button").forEach((x) => x.classList.remove("active"));
+    b.classList.add("active");
+    role = b.dataset.role;
+  }));
+  const form = document.getElementById("login-form");
+  const err = document.getElementById("login-err");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    err.classList.remove("show");
+    if (!validateForm(form)) return;
+    const res = ZevixAuth.login(document.getElementById("l-email").value, document.getElementById("l-pass").value, role);
+    if (!res.ok) { err.textContent = res.error; err.classList.add("show"); return; }
+    const next = new URLSearchParams(location.search).get("next");
+    const allowed = res.user.role === "admin" ? ["portal-admin.html", "portal-client.html"] : ["portal-client.html"];
+    location.href = next && allowed.includes(next) ? next : res.redirect;
+  });
+});
+</script>
+</main>
+
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

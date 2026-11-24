@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administració | Zevix Cybersecurity</title>
+  <meta name="description" content="Àrea d'administradors de Zevix.">
+  <meta name="theme-color" content="#070b14">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="container nav-inner">
+    <a class="logo" href="index.html" aria-label="Zevix Cybersecurity - Inici">
+      <img src="assets/img/logo.svg" alt="Logo de Zevix" width="36" height="36">
+      <span>ZEVIX<small>CYBERSECURITY</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Obrir menú" aria-expanded="false">☰</button>
+    <nav class="nav-menu" aria-label="Navegació principal">
+      <ul class="nav-links">
+        <li><a href="index.html">Inici</a></li>
+        <li><a href="serveis.html">Serveis</a></li>
+        <li><a href="equip.html">Equip</a></li>
+        <li><a href="sobre.html">Sobre nosaltres</a></li>
+        <li><a href="tarifes.html">Tarifes</a></li>
+        <li><a href="noticies.html">Notícies</a></li>
+        <li><a href="contacte.html">Contacte</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="btn btn-outline" href="login.html">Accedir</a>
+        <a class="btn btn-primary" href="registre.html">Registrar-se</a>
+      </div>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="portal">
+  <aside class="sidebar">
+    <h5>Administració</h5>
+    <a class="active" href="#dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg> Tauler</a>
+    <a href="#clients"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c3 0 5 2 5 5"/></svg> Clients</a>
+    <a href="#moduls"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg> Mòduls</a>
+    <a href="#pujar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 21V9M7 14l5-5 5 5M4 4h16"/></svg> Pujar informe</a>
+    <a href="#logs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg> Registre</a>
+    <a href="portal-client.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg> Vista client</a>
+    <a href="#" id="logout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M15 17l5-5-5-5M20 12H9M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7"/></svg> Tancar sessió</a>
+  </aside>
+  <div class="portal-main">
+    <div class="portal-top" id="dashboard">
+      <div><h1>Panell d'administració</h1><p>Sessió iniciada com <strong id="u-name">admin</strong> · rol <code>admin</code></p></div>
+      <a class="btn btn-primary" href="portal-client.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg> Accedir com a client</a>
+    </div>
+    <div class="grid grid-4">
+      <div class="card stat"><div class="label">Clients actius</div><div class="value" id="n-clients">1</div></div>
+      <div class="card stat"><div class="label">Auditories en curs</div><div class="value">1</div></div>
+      <div class="card stat"><div class="label">Informes generats</div><div class="value">3</div></div>
+      <div class="card stat"><div class="label">Vulnerabilitats crítiques</div><div class="value critical">2</div></div>
+    </div>
+    <div class="panel" id="clients">
+      <h3>Clients registrats</h3>
+      <div class="table-wrap"><table class="compare">
+        <thead><tr><th>Empresa</th><th>Correu</th><th>Pla</th><th>Estat</th></tr></thead>
+        <tbody id="client-rows"></tbody>
+      </table></div>
+    </div>
+    <div class="panel" id="moduls">
+      <h3>Estat dels mòduls de l'eina d'auditoria</h3>
+      <div class="grid grid-3">
+        <div class="card"><h3>Shodan / theHarvester</h3><span class="status on">Operatiu</span></div>
+        <div class="card"><h3>Nmap (ports + NSE)</h3><span class="status on">Operatiu</span></div>
+        <div class="card"><h3>ssh-audit</h3><span class="status on">Operatiu</span></div>
+        <div class="card"><h3>enum4linux (SMB)</h3><span class="status idle">En desenvolupament</span></div>
+        <div class="card"><h3>Docker</h3><span class="status idle">Sprint 2</span></div>
+        <div class="card"><h3>Bot de Telegram</h3><span class="status off">Pendent</span></div>
+      </div>
+    </div>
+    <div class="panel" id="pujar">
+      <h3>Pujar nou informe d'auditoria</h3>
+      <form id="upload-form" class="form" novalidate>
+        <div class="form-row">
+          <div class="field"><label for="u-client">Client</label><select id="u-client" required><option value="">— Selecciona —</option></select><div class="error">Selecciona un client.</div></div>
+          <div class="field"><label for="u-file">Fitxer (.json / .html)</label><input id="u-file" type="file" accept=".json,.html" required><div class="error">Selecciona un fitxer.</div></div>
+        </div>
+        <div id="upload-msg" class="alert alert-info" role="status"></div>
+        <button class="btn btn-primary" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 21V9M7 14l5-5 5 5M4 4h16"/></svg> Pujar informe</button>
+      </form>
+    </div>
+    <div class="panel" id="logs">
+      <h3>Registre d'activitat (auditoria.log)</h3>
+      <div class="log" id="log"></div>
+    </div>
+  </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const user = ZevixAuth.require(["admin"]);
+  if (!user) return;
+  document.getElementById("u-name").textContent = user.email;
+  document.getElementById("logout").addEventListener("click", (e) => { e.preventDefault(); ZevixAuth.logout(); });
+
+  let extra = [];
+  try { extra = JSON.parse(localStorage.getItem("zevix_users")) || []; } catch (e) {}
+  const clients = [{ company: "EbreLogistics S.L.", email: "client@ebrelogistics.cat", plan: "Professional", state: "Auditoria finalitzada" }]
+    .concat(extra.map((u) => ({ company: u.company, email: u.email, plan: "—", state: "Pendent de contracte" })));
+  document.getElementById("n-clients").textContent = clients.length;
+  document.getElementById("client-rows").innerHTML = clients.map((c) =>
+    `<tr><td>${c.company}</td><td class="mono">${c.email}</td><td>${c.plan}</td><td>${c.state}</td></tr>`).join("");
+  document.getElementById("u-client").innerHTML += clients.map((c) => `<option>${c.company}</option>`).join("");
+
+  const log = [
+    "2026-11-28 09:02:11 [INFO]  Inici auditoria ZVX-AUD-2026-01 (EbreLogistics S.L.)",
+    "2026-11-28 09:02:15 [INFO]  osint.py      -> 3 subdominis, 0 serveis exposats a Shodan",
+    "2026-11-28 09:04:40 [INFO]  portscan.py   -> 4 hosts actius a 192.168.56.0/24",
+    "2026-11-28 09:11:02 [WARN]  ssh_audit.py  -> PermitRootLogin yes a 192.168.56.10",
+    "2026-11-28 09:13:27 [WARN]  ftp_check.py  -> FTP anònim amb escriptura a 192.168.56.10",
+    "2026-11-28 09:15:50 [WARN]  dns_check.py  -> AXFR permès a 192.168.56.10",
+    "2026-11-28 09:18:03 [INFO]  smb_enum.py   -> recurs 'public' sense autenticació a 192.168.56.11",
+    "2026-11-28 09:20:44 [INFO]  report.py     -> informe_ebrelogistics_2026.json / .html generats",
+    "2026-11-28 09:20:45 [INFO]  Sessió iniciada al portal: client@ebrelogistics.cat",
+  ];
+  const el = document.getElementById("log");
+  el.textContent = log.join("\n");
+
+  document.getElementById("upload-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!validateForm(e.target)) return;
+    const f = document.getElementById("u-file").files[0];
+    const c = document.getElementById("u-client").value;
+    const now = new Date().toISOString().replace("T", " ").slice(0, 19);
+    el.textContent += `\n${now} [INFO]  Informe '${f.name}' assignat a ${c} (simulació)`;
+    const m = document.getElementById("upload-msg");
+    m.textContent = "Simulació: en la versió amb backend (Django/LAMP) el fitxer es desarà a REPORTS_DIR i quedarà disponible al portal del client.";
+    m.classList.add("show");
+    e.target.reset();
+  });
+});
+</script>
+</main>
+
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de clients | Zevix Cybersecurity</title>
+  <meta name="description" content="Àrea privada de clients.">
+  <meta name="theme-color" content="#070b14">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="container nav-inner">
+    <a class="logo" href="index.html" aria-label="Zevix Cybersecurity - Inici">
+      <img src="assets/img/logo.svg" alt="Logo de Zevix" width="36" height="36">
+      <span>ZEVIX<small>CYBERSECURITY</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Obrir menú" aria-expanded="false">☰</button>
+    <nav class="nav-menu" aria-label="Navegació principal">
+      <ul class="nav-links">
+        <li><a href="index.html">Inici</a></li>
+        <li><a href="serveis.html">Serveis</a></li>
+        <li><a href="equip.html">Equip</a></li>
+        <li><a href="sobre.html">Sobre nosaltres</a></li>
+        <li><a href="tarifes.html">Tarifes</a></li>
+        <li><a href="noticies.html">Notícies</a></li>
+        <li><a href="contacte.html">Contacte</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="btn btn-outline" href="login.html">Accedir</a>
+        <a class="btn btn-primary" href="registre.html">Registrar-se</a>
+      </div>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="portal">
+  <aside class="sidebar">
+    <h5>Portal client</h5>
+    <a class="active" href="#resum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg> Resum</a>
+    <a href="#informes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg> Informes</a>
+    <a href="#vulns"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><rect x="8" y="6" width="8" height="13" rx="4"/><path d="M12 6V3M9 4l1 2M15 4l-1 2M4 10h4M16 10h4M4 15h4M16 15h4"/></svg> Vulnerabilitats</a>
+    <a href="#pla"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg> Pla de millora</a>
+    <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="m3 11 9-8 9 8M5 9v11h14V9"/></svg> Tornar a la web</a>
+    <a href="#" id="logout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M15 17l5-5-5-5M20 12H9M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7"/></svg> Tancar sessió</a>
+  </aside>
+  <div class="portal-main">
+    <div class="portal-top" id="resum">
+      <div><h1>Hola, <span id="u-name">client</span></h1><p>Auditoria <code>ZVX-AUD-2026-01</code> · Contracte <code>ZVX-CONT-2026-01</code></p></div>
+      <span class="status on">Auditoria finalitzada</span>
+    </div>
+    <div class="grid grid-4">
+      <div class="card stat"><div class="label">Crítiques</div><div class="value critical" id="c-critical">–</div></div>
+      <div class="card stat"><div class="label">Altes</div><div class="value high" id="c-high">–</div></div>
+      <div class="card stat"><div class="label">Mitjanes</div><div class="value medium" id="c-medium">–</div></div>
+      <div class="card stat"><div class="label">Baixes</div><div class="value low" id="c-low">–</div></div>
+    </div>
+    <div class="panel">
+      <h3>Distribució del risc <span style="font-size:.85rem;color:var(--muted);font-weight:500" id="hosts-info"></span></h3>
+      <div class="risk-bar" id="risk-bar"></div>
+      <div class="legend"><span><i style="background:var(--danger)"></i>Crític</span><span><i style="background:#fb923c"></i>Alt</span><span><i style="background:var(--warn)"></i>Mitjà</span><span><i style="background:var(--ok)"></i>Baix</span></div>
+    </div>
+    <div class="panel" id="informes">
+      <h3>Informes disponibles</h3>
+      <div class="table-wrap"><table class="compare">
+        <thead><tr><th>Document</th><th>Format</th><th>Data</th><th>Descarregar</th></tr></thead>
+        <tbody>
+          <tr><td>Informe tècnic de vulnerabilitats</td><td>HTML</td><td>28/11/2026</td><td><a class="btn btn-outline" href="informes_auditoria/informe_ebrelogistics_2026.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg> Veure</a></td></tr>
+          <tr><td>Resultats en brut de l'eina</td><td>JSON</td><td>28/11/2026</td><td><a class="btn btn-outline" href="informes_auditoria/informe_ebrelogistics_2026.json" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg> JSON</a></td></tr>
+          <tr><td>Informe tècnic (còpia local)</td><td>HTML</td><td>28/11/2026</td><td><a class="btn btn-outline" href="informes_auditoria/informe_ebrelogistics_2026.html" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg> HTML</a></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="panel" id="vulns">
+      <h3>Vulnerabilitats detectades</h3>
+      <div class="table-wrap"><table class="compare">
+        <thead><tr><th>ID</th><th>Host</th><th>Servei</th><th>Descripció</th><th>Gravetat</th></tr></thead>
+        <tbody id="vuln-rows"><tr><td colspan="5">Carregant...</td></tr></tbody>
+      </table></div>
+    </div>
+    <div class="panel" id="pla">
+      <h3>Pla de millora (resum)</h3>
+      <ol id="plan-list" style="padding-left:20px;color:var(--muted);display:grid;gap:8px"></ol>
+    </div>
+  </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const user = ZevixAuth.require(["client", "admin"]);
+  if (!user) return;
+  document.getElementById("u-name").textContent = user.name;
+  document.getElementById("logout").addEventListener("click", (e) => { e.preventDefault(); ZevixAuth.logout(); });
+  try {
+    const data = await (await fetch("informes_auditoria/informe_ebrelogistics_2026.json")).json();
+    renderReport(data);
+  } catch (e) {
+    document.getElementById("vuln-rows").innerHTML = '<tr><td colspan="5">No s\'ha pogut carregar l\'informe (obre la web amb un servidor, no amb file://).</td></tr>';
+  }
+});
+function renderReport(d) {
+  const c = { critical: 0, high: 0, medium: 0, low: 0 };
+  d.vulnerabilitats.forEach((v) => c[v.gravetat]++);
+  Object.keys(c).forEach((k) => document.getElementById("c-" + k).textContent = c[k]);
+  const total = d.vulnerabilitats.length;
+  const col = { critical: "var(--danger)", high: "#fb923c", medium: "var(--warn)", low: "var(--ok)" };
+  document.getElementById("risk-bar").innerHTML = Object.keys(c).map((k) => `<span style="width:${c[k] / total * 100}%;background:${col[k]}"></span>`).join("");
+  document.getElementById("hosts-info").textContent = `${d.resum.hosts_analitzats} hosts analitzats · ${total} troballes`;
+  const label = { critical: "Crítica", high: "Alta", medium: "Mitjana", low: "Baixa" };
+  document.getElementById("vuln-rows").innerHTML = d.vulnerabilitats.map((v) =>
+    `<tr><td class="mono">${v.id}</td><td class="mono">${v.host}</td><td>${v.servei}</td><td style="text-align:left">${v.titol}</td><td><span class="sev ${v.gravetat}">${label[v.gravetat]}</span></td></tr>`).join("");
+  document.getElementById("plan-list").innerHTML = d.vulnerabilitats.map((v) => `<li><strong style="color:var(--text)">${v.id}</strong> — ${v.recomanacio}</li>`).join("");
+}
+</script>
+</main>
+
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

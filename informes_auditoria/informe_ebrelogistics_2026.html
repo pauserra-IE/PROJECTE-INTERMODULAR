@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ca"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe ZVX-AUD-2026-01 - EbreLogistics S.L.</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:1000px;margin:0 auto;padding:32px 16px;color:#0f172a;background:#fff;line-height:1.5}
+h1{margin:0 0 4px}header{border-bottom:3px solid #0891b2;padding-bottom:16px;margin-bottom:24px}
+.meta{color:#475569;font-size:.92rem}table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{border:1px solid #cbd5e1;padding:8px;text-align:left;vertical-align:top}th{background:#e0f2fe}
+.wrap{overflow-x:auto}.note{background:#fef9c3;padding:10px 14px;border-radius:6px;font-size:.88rem}
+</style></head><body>
+<header><h1>Informe tècnic d'auditoria de seguretat</h1>
+<div class="meta">Auditoria <b>ZVX-AUD-2026-01</b> · Contracte ZVX-CONT-2026-01 · Client: <b>EbreLogistics S.L.</b> · Auditor: Zevix Cybersecurity · Data: 2026-11-28</div></header>
+<p class="note">Dades d'exemple generades per a la demostració del portal (Sprint 1). Document CONFIDENCIAL.</p>
+<h2>1. Abast</h2><p>192.168.56.0/24 (LAN, servidors web, FTP, DNS, SSH, SMB i base de dades)</p>
+<h2>2. Resum executiu</h2><p>S'han analitzat <b>4 hosts</b> i <b>14 ports oberts</b>. S'han detectat <b>8 vulnerabilitats</b>. Nivell de risc global: <b>ALT</b>.</p>
+<h2>3. Vulnerabilitats i recomanacions</h2>
+<div class="wrap"><table><thead><tr><th>ID</th><th>Host</th><th>Servei</th><th>Descripció</th><th>Gravetat (CVSS)</th><th>Recomanació</th></tr></thead><tbody><tr><td>ZVX-01</td><td>192.168.56.10</td><td>SSH (22)</td><td>Accés root per SSH permès (PermitRootLogin yes)</td><td style="color:#dc2626;font-weight:700">Crítica (9.8)</td><td>Establir PermitRootLogin no i PasswordAuthentication no; utilitzar només claus públiques i fail2ban.</td></tr><tr><td>ZVX-02</td><td>192.168.56.11</td><td>MySQL (3306)</td><td>MySQL exposat a 0.0.0.0 amb credencials febles</td><td style="color:#dc2626;font-weight:700">Crítica (9.1)</td><td>Configurar bind-address=127.0.0.1, canviar contrasenyes i restringir l'accés amb tallafocs.</td></tr><tr><td>ZVX-03</td><td>192.168.56.10</td><td>FTP (21)</td><td>FTP anònim amb permisos d'escriptura</td><td style="color:#ea580c;font-weight:700">Alta (8.2)</td><td>Desactivar anonymous_enable i substituir FTP per SFTP.</td></tr><tr><td>ZVX-04</td><td>192.168.56.11</td><td>SMB (445)</td><td>Recurs compartit Samba accessible sense autenticació</td><td style="color:#ea580c;font-weight:700">Alta (7.5)</td><td>Eliminar 'guest ok = yes' i aplicar permisos per usuari i grup.</td></tr><tr><td>ZVX-05</td><td>192.168.56.10</td><td>DNS (53)</td><td>Transferència de zona DNS (AXFR) oberta</td><td style="color:#ca8a04;font-weight:700">Mitjana (5.3)</td><td>Limitar allow-transfer a les IPs dels servidors DNS secundaris.</td></tr><tr><td>ZVX-06</td><td>192.168.56.10</td><td>HTTP (80)</td><td>Pàgines /server-status i /server-info exposades</td><td style="color:#ca8a04;font-weight:700">Mitjana (5.3)</td><td>Desactivar mod_status/mod_info o restringir-los a localhost.</td></tr><tr><td>ZVX-07</td><td>192.168.56.12</td><td>Telnet (23)</td><td>Servei Telnet actiu (credencials en text pla)</td><td style="color:#ca8a04;font-weight:700">Mitjana (6.5)</td><td>Desactivar Telnet i utilitzar exclusivament SSH.</td></tr><tr><td>ZVX-08</td><td>192.168.56.10</td><td>HTTP (80)</td><td>Absència de capçaleres de seguretat HTTP</td><td style="color:#16a34a;font-weight:700">Baixa (3.1)</td><td>Afegir HSTS, X-Frame-Options, X-Content-Type-Options i Content-Security-Policy.</td></tr></tbody></table></div>
+<p class="meta" style="margin-top:24px">Generat per l'eina d'auditoria Zevix (Python) · © 2026 Zevix Cybersecurity</p>
+</body></html>

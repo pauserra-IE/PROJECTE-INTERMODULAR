@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registre | Zevix Cybersecurity</title>
+  <meta name="description" content="Crea un compte de client a Zevix Cybersecurity.">
+  <meta name="theme-color" content="#070b14">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="container nav-inner">
+    <a class="logo" href="index.html" aria-label="Zevix Cybersecurity - Inici">
+      <img src="assets/img/logo.svg" alt="Logo de Zevix" width="36" height="36">
+      <span>ZEVIX<small>CYBERSECURITY</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Obrir menú" aria-expanded="false">☰</button>
+    <nav class="nav-menu" aria-label="Navegació principal">
+      <ul class="nav-links">
+        <li><a href="index.html">Inici</a></li>
+        <li><a href="serveis.html">Serveis</a></li>
+        <li><a href="equip.html">Equip</a></li>
+        <li><a href="sobre.html">Sobre nosaltres</a></li>
+        <li><a href="tarifes.html">Tarifes</a></li>
+        <li><a href="noticies.html">Notícies</a></li>
+        <li><a href="contacte.html">Contacte</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="btn btn-outline" href="login.html">Accedir</a>
+        <a class="btn btn-primary" href="registre.html">Registrar-se</a>
+      </div>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="auth-wrap">
+  <aside class="auth-side">
+    <span class="eyebrow">// Nou client</span>
+    <h2>Crea el compte de la teva empresa</h2>
+    <p>Amb un compte de client podràs seguir les teves auditories i descarregar-ne els informes de manera segura.</p>
+    <ul>
+      <li>Registre gratuït i sense compromís</li>
+      <li>Accés immediat al portal de clients</li>
+      <li>Sol·licitud de pressupost en un clic</li>
+    </ul>
+  </aside>
+  <section class="auth-main">
+    <div class="auth-card">
+      <h1>Registrar-se</h1>
+      <p>Omple les dades per crear el teu compte de client.</p>
+      <form id="reg-form" class="form" novalidate>
+        <div class="field"><label for="r-name">Nom i cognoms *</label><input id="r-name" required autocomplete="name"><div class="error">Introdueix el teu nom.</div></div>
+        <div class="field"><label for="r-company">Empresa *</label><input id="r-company" required autocomplete="organization"><div class="error">Introdueix el nom de l'empresa.</div></div>
+        <div class="field"><label for="r-email">Correu electrònic *</label><input id="r-email" type="email" required autocomplete="email"><div class="error">Introdueix un correu vàlid.</div></div>
+        <div class="field">
+          <label for="r-pass">Contrasenya *</label><input id="r-pass" type="password" required minlength="8" autocomplete="new-password">
+          <div class="password-meter"><span id="meter"></span></div>
+          <div class="hint" id="meter-text">Mínim 8 caràcters, amb majúscules, números i símbols.</div>
+          <div class="error">La contrasenya ha de tenir almenys 8 caràcters.</div>
+        </div>
+        <div class="field"><label for="r-pass2">Repeteix la contrasenya *</label><input id="r-pass2" type="password" required autocomplete="new-password"><div class="error">Les contrasenyes no coincideixen.</div></div>
+        <label class="check"><input type="checkbox" required> Accepto les condicions del servei i la política de privacitat.</label>
+        <div id="reg-msg" class="alert" role="status"></div>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Crear compte</button>
+      </form>
+      <p style="margin-top:20px;color:var(--muted);font-size:.9rem;text-align:center">Ja tens compte? <a href="login.html">Inicia sessió</a></p>
+    </div>
+  </section>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const pass = document.getElementById("r-pass");
+  const meter = document.getElementById("meter");
+  const text = document.getElementById("meter-text");
+  const labels = ["Molt feble", "Feble", "Acceptable", "Bona", "Molt forta"];
+  const colors = ["#f87171", "#fb923c", "#fbbf24", "#34d399", "#22d3ee"];
+  pass.addEventListener("input", () => {
+    const s = ZevixAuth.strength(pass.value);
+    meter.style.width = (s / 4 * 100) + "%";
+    meter.style.background = colors[s];
+    text.textContent = "Robustesa: " + labels[s];
+  });
+  const form = document.getElementById("reg-form");
+  const msg = document.getElementById("reg-msg");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    msg.className = "alert";
+    let ok = validateForm(form);
+    const p2 = document.getElementById("r-pass2");
+    const match = p2.value && p2.value === pass.value;
+    p2.closest(".field").classList.toggle("invalid", !match);
+    if (!ok || !match) return;
+    const res = ZevixAuth.register({
+      name: document.getElementById("r-name").value.trim(),
+      company: document.getElementById("r-company").value.trim(),
+      email: document.getElementById("r-email").value,
+      password: pass.value,
+    });
+    if (!res.ok) { msg.textContent = res.error; msg.className = "alert alert-err show"; return; }
+    msg.innerHTML = "✓ Compte creat correctament. Redirigint a l'inici de sessió...";
+    msg.className = "alert alert-ok show";
+    setTimeout(() => location.href = "login.html", 1600);
+  });
+});
+</script>
+</main>
+
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

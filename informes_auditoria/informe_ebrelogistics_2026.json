@@ -1,0 +1,40 @@
+{
+  "auditoria": "ZVX-AUD-2026-01",
+  "contracte": "ZVX-CONT-2026-01",
+  "client": "EbreLogistics S.L.",
+  "auditor": "Zevix Cybersecurity",
+  "data": "2026-11-28",
+  "abast": "192.168.56.0/24 (LAN, servidors web, FTP, DNS, SSH, SMB i base de dades)",
+  "nota": "Dades d'exemple generades per a la demostració del portal (Sprint 1).",
+  "resum": {
+    "hosts_analitzats": 4,
+    "ports_oberts": 14,
+    "nivell_risc_global": "ALT"
+  },
+  "vulnerabilitats": [
+    {"id": "ZVX-01", "host": "192.168.56.10", "servei": "SSH (22)", "gravetat": "critical", "cvss": 9.8,
+     "titol": "Accés root per SSH permès (PermitRootLogin yes)",
+     "recomanacio": "Establir PermitRootLogin no i PasswordAuthentication no; utilitzar només claus públiques i fail2ban."},
+    {"id": "ZVX-02", "host": "192.168.56.11", "servei": "MySQL (3306)", "gravetat": "critical", "cvss": 9.1,
+     "titol": "MySQL exposat a 0.0.0.0 amb credencials febles",
+     "recomanacio": "Configurar bind-address=127.0.0.1, canviar contrasenyes i restringir l'accés amb tallafocs."},
+    {"id": "ZVX-03", "host": "192.168.56.10", "servei": "FTP (21)", "gravetat": "high", "cvss": 8.2,
+     "titol": "FTP anònim amb permisos d'escriptura",
+     "recomanacio": "Desactivar anonymous_enable i substituir FTP per SFTP."},
+    {"id": "ZVX-04", "host": "192.168.56.11", "servei": "SMB (445)", "gravetat": "high", "cvss": 7.5,
+     "titol": "Recurs compartit Samba accessible sense autenticació",
+     "recomanacio": "Eliminar 'guest ok = yes' i aplicar permisos per usuari i grup."},
+    {"id": "ZVX-05", "host": "192.168.56.10", "servei": "DNS (53)", "gravetat": "medium", "cvss": 5.3,
+     "titol": "Transferència de zona DNS (AXFR) oberta",
+     "recomanacio": "Limitar allow-transfer a les IPs dels servidors DNS secundaris."},
+    {"id": "ZVX-06", "host": "192.168.56.10", "servei": "HTTP (80)", "gravetat": "medium", "cvss": 5.3,
+     "titol": "Pàgines /server-status i /server-info exposades",
+     "recomanacio": "Desactivar mod_status/mod_info o restringir-los a localhost."},
+    {"id": "ZVX-07", "host": "192.168.56.12", "servei": "Telnet (23)", "gravetat": "medium", "cvss": 6.5,
+     "titol": "Servei Telnet actiu (credencials en text pla)",
+     "recomanacio": "Desactivar Telnet i utilitzar exclusivament SSH."},
+    {"id": "ZVX-08", "host": "192.168.56.10", "servei": "HTTP (80)", "gravetat": "low", "cvss": 3.1,
+     "titol": "Absència de capçaleres de seguretat HTTP",
+     "recomanacio": "Afegir HSTS, X-Frame-Options, X-Content-Type-Options i Content-Security-Policy."}
+  ]
+}
