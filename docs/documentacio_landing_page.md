@@ -243,7 +243,7 @@ Tota la portada és un recorregut 3D: en fer scroll, una càmera vola **sense ta
 
 **Decisió:** la tècnica s'inspira en el projecte [scroll-world](https://github.com/oso95/scroll-world), però aquesta genera els vols amb vídeos pre-renderitzats en serveis de pagament (Monid/Higgsfield). Nosaltres renderitzem l'escena en temps real amb WebGL: és gratuït, ocupa uns pocs KB i funciona a GitHub Pages. Si el navegador no té WebGL, tot el contingut es mostra com a seccions estàtiques.
 
-**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=14`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
+**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=15`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
 
 ### 6.3 Justificació de tecnologies
 
@@ -260,7 +260,7 @@ Tota la portada és un recorregut 3D: en fer scroll, una càmera vola **sense ta
 2. **Fase 2:** la plataforma passa a **Django** desplegat en un servidor propi (Proxmox / LAMP) o a AWS, amb contrasenyes amb hash, sessions al servidor, protecció CSRF i informes guardats fora de l'abast públic. La landing page pot continuar a GitHub Pages.
 
 ### 6.4 Tema clar/fosc i idiomes
-- **Tema:** el botó ◐ de la barra de navegació canvia entre el tema fosc (per defecte) i un tema clar. Només redefineix les variables CSS de `:root` (`[data-theme="light"]`), per això no cal tocar cap component. La tria es desa a `localStorage` i s'aplica al `<head>` abans de pintar la pàgina, perquè no faci pampallugues. El món 3D de la portada també té una paleta clara (línies de plànol fosques sobre fons clar); com que Three.js tria els colors en crear l'escena, a la portada el canvi de tema recarrega la pàgina.
+- **Tema:** el botó ◐ de la barra de navegació canvia entre el tema fosc (per defecte) i un tema clar. Només redefineix les variables CSS de `:root` (`[data-theme="light"]`), per això no cal tocar cap component. La tria es desa a `localStorage` i s'aplica al `<head>` abans de pintar la pàgina, perquè no faci pampallugues. Les pàgines porten `<meta name="darkreader-lock">` perquè extensions com Dark Reader no enfosqueixin el tema clar (ho vam detectar provant la web). El món 3D de la portada també té una paleta clara (línies de plànol fosques sobre fons clar); com que Three.js tria els colors en crear l'escena, a la portada el canvi de tema recarrega la pàgina.
 - **Idiomes:** el selector CA · ES · EN fa servir `assets/js/i18n.js`, un diccionari de textos en català amb la traducció al castellà i a l'anglès. L'script recorre els nodes de text de la pàgina i substitueix els que troba. Estan traduïts el menú, el peu, les capçaleres, la portada, les tarifes (amb la calculadora), el contacte i l'inici de sessió; la resta del contingut queda en català.
 
 ### 6.5 Altres decisions
@@ -349,5 +349,5 @@ Les indicacions del projecte permeten fer servir IA sempre que es justifiqui el 
 
 **Portal avançat (`assets/js/portal.js`).** Quan el portal ha carregat l'informe, envia l'esdeveniment `zevix:report`. `portal.js` l'escolta i dibuixa els gràfics en SVG (un donut amb `stroke-dasharray` i barres per host), el pla de millora (l'estat de cada troballa es desa a `localStorage` amb la clau `zevix_pla_<auditoria>`) i la comparació de re-auditoria: dues troballes són la mateixa si coincideixen el host i el títol; les que ja no hi són es marquen com a corregides.
 
-**Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=14` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
+**Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=15` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
 

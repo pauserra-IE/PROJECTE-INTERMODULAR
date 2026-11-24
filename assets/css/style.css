@@ -808,3 +808,4 @@ table.compare td.mono { white-space: nowrap; }
 :root[data-theme="light"] .shot-bar i { background: #B9B9B3; }
 :root[data-theme="light"] .shot { border-color: var(--border); }
 :root[data-theme="light"] ::selection { background: #F5A524; color: #0b0c0d; }
+:root[data-theme="light"] { color-scheme: light; }
