@@ -1,0 +1,52 @@
+{
+  "auditoria": "ZVX-AUD-2027-01",
+  "contracte": "ZVX-CONT-2026-01",
+  "client": "EbreLogistics S.L.",
+  "auditor": "Zevix Cybersecurity",
+  "data": "2027-01-25",
+  "abast": "192.168.56.0/24 (LAN, servidors web, FTP, DNS, SSH, SMB i base de dades)",
+  "nota": "Exemple de re-auditoria després d'aplicar part del pla de millora (dades d'exemple).",
+  "resum": {
+    "hosts_analitzats": 4,
+    "ports_oberts": 9,
+    "nivell_risc_global": "MITJÀ"
+  },
+  "vulnerabilitats": [
+    {
+      "id": "ZVX-04",
+      "host": "192.168.56.11",
+      "servei": "SMB (445)",
+      "gravetat": "high",
+      "cvss": 7.5,
+      "titol": "Recurs compartit Samba accessible sense autenticació",
+      "recomanacio": "Eliminar 'guest ok = yes' i aplicar permisos per usuari i grup."
+    },
+    {
+      "id": "ZVX-06",
+      "host": "192.168.56.10",
+      "servei": "HTTP (80)",
+      "gravetat": "medium",
+      "cvss": 5.3,
+      "titol": "Pàgines /server-status i /server-info exposades",
+      "recomanacio": "Desactivar mod_status/mod_info o restringir-los a localhost."
+    },
+    {
+      "id": "ZVX-08",
+      "host": "192.168.56.10",
+      "servei": "HTTP (80)",
+      "gravetat": "low",
+      "cvss": 3.1,
+      "titol": "Absència de capçaleres de seguretat HTTP",
+      "recomanacio": "Afegir HSTS, X-Frame-Options, X-Content-Type-Options i Content-Security-Policy."
+    },
+    {
+      "id": "ZVX-09",
+      "host": "192.168.56.12",
+      "servei": "HTTP (8080)",
+      "gravetat": "low",
+      "cvss": 3.7,
+      "titol": "Panell d'administració de Proxmox accessible des de la LAN",
+      "recomanacio": "Limitar l'accés al port 8006 a la xarxa d'administració."
+    }
+  ]
+}

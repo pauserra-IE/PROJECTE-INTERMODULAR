@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=10">
+  <link rel="stylesheet" href="assets/css/style.css?v=11">
 </head>
 <body>
 <header class="navbar">
@@ -49,7 +49,9 @@
     <a class="active" href="#resum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg> Resum</a>
     <a href="#informes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg> Informes</a>
     <a href="#vulns"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><rect x="8" y="6" width="8" height="13" rx="4"/><path d="M12 6V3M9 4l1 2M15 4l-1 2M4 10h4M16 10h4M4 15h4M16 15h4"/></svg> Vulnerabilitats</a>
+    <a href="#grafics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg> Gràfics</a>
     <a href="#pla"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg> Pla de millora</a>
+    <a href="#reauditoria"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg> Re-auditoria</a>
     <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="m3 11 9-8 9 8M5 9v11h14V9"/></svg> Tornar a la web</a>
     <a href="#" id="logout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M15 17l5-5-5-5M20 12H9M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7"/></svg> Tancar sessió</a>
   </aside>
@@ -68,6 +70,13 @@
       <h3>Distribució del risc <span style="font-size:.85rem;color:var(--muted);font-weight:500" id="hosts-info"></span></h3>
       <div class="risk-bar" id="risk-bar"></div>
       <div class="legend"><span><i style="background:var(--danger)"></i>Crític</span><span><i style="background:#fb923c"></i>Alt</span><span><i style="background:var(--warn)"></i>Mitjà</span><span><i style="background:var(--ok)"></i>Baix</span></div>
+    </div>
+    <div class="panel" id="grafics">
+      <h3>Gràfics de risc</h3>
+      <div class="charts">
+        <div class="chart-box"><div id="chart-donut"></div><ul class="chart-legend" id="chart-legend"></ul></div>
+        <div class="chart-box"><div class="label mono" style="margin-bottom:12px;color:var(--muted)">Troballes per host</div><div id="chart-hosts"></div></div>
+      </div>
     </div>
     <div class="alert alert-info" id="uploaded-note" style="margin-top:22px"></div>
     <div class="panel" id="informes">
@@ -89,8 +98,21 @@
       </table></div>
     </div>
     <div class="panel" id="pla">
-      <h3>Pla de millora (resum)</h3>
-      <ol id="plan-list" style="padding-left:20px;color:var(--muted);display:grid;gap:8px"></ol>
+      <h3>Pla de millora <span class="mono" id="pla-text" style="font-size:.85rem;color:var(--muted);font-weight:500"></span></h3>
+      <div class="pla-progress"><span id="pla-bar"></span></div>
+      <p class="caption" style="margin:10px 0 16px">Marca l'estat de cada mesura a mesura que la vagis aplicant. Es desa en aquest navegador.</p>
+      <ol id="plan-list" class="pla-list"></ol>
+    </div>
+    <div class="panel" id="reauditoria">
+      <h3>Re-auditoria: abans i després</h3>
+      <p style="color:var(--muted);margin-bottom:14px">Carrega l'informe de la nova auditoria (el JSON que genera l'eina) i et mostrem què s'ha corregit, què encara hi és i què és nou.</p>
+      <form id="cmp-form" class="cmp-form">
+        <input id="cmp-file" type="file" accept=".json,application/json" aria-label="Informe de la re-auditoria">
+        <button class="btn btn-primary" type="submit">Compara</button>
+        <button class="btn btn-outline" type="button" id="cmp-demo">Prova amb l'exemple</button>
+      </form>
+      <div id="cmp-msg" class="alert" role="status"></div>
+      <div id="cmp-result"></div>
     </div>
   </div>
 </div>
@@ -143,12 +165,14 @@ function renderReport(d) {
   const label = { critical: "Crítica", high: "Alta", medium: "Mitjana", low: "Baixa" };
   document.getElementById("vuln-rows").innerHTML = d.vulnerabilitats.map((v) =>
     `<tr><td class="mono">${esc(v.id)}</td><td class="mono">${esc(v.host)}</td><td>${esc(v.servei)}</td><td style="text-align:left">${esc(v.titol)}</td><td><span class="sev ${esc(v.gravetat)}">${label[v.gravetat] || esc(v.gravetat)}</span></td></tr>`).join("") || '<tr><td colspan="5">Cap troballa.</td></tr>';
-  document.getElementById("plan-list").innerHTML = d.vulnerabilitats.map((v) => `<li><strong style="color:var(--text)">${esc(v.id)}</strong>: ${esc(v.recomanacio)}</li>`).join("");
+  // Gràfics, pla de millora interactiu i re-auditoria: assets/js/portal.js
+  window.dispatchEvent(new CustomEvent("zevix:report", { detail: d }));
 }
 </script>
 </main>
 
-<script src="assets/js/auth.js?v=10"></script>
-<script src="assets/js/main.js?v=10"></script>
+<script src="assets/js/auth.js?v=11"></script>
+<script src="assets/js/main.js?v=11"></script>
+<script src="assets/js/portal.js?v=11"></script>
 </body>
 </html>
