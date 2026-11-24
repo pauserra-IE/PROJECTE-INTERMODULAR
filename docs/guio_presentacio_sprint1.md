@@ -98,12 +98,14 @@ Estructura basada en el document del Moodle *Punts bàsics presentació sprint* 
 - Web estàtica (HTML, CSS i JavaScript) publicada a GitHub Pages.
 - Portada amb un recorregut 3D (Three.js): el scroll mou la càmera per les quatre fases de l'auditoria.
 - Login per rols: el **client** consulta i descarrega els seus informes; l'**administrador** gestiona clients i informes.
+- Portal del client: gràfics de risc, pla de millora amb el progrés i **re-auditoria** (botó "Prova amb l'exemple": 5 corregides, 3 presents, 1 nova).
+- Web en català, castellà i anglès, i tema clar o fosc.
 - El login és un prototip; a la fase 2 passarà a Django amb validació al servidor.
 
 ## 13. Problemes i solucions · Valle
 "Hem tingut problemes reals i els hem resolt així:"
 - La clau de l'API de Shodan era dins del codi → ara es llegeix d'una variable d'entorn (versió 2 de l'eina).
-- El navegador mostrava el CSS antic → versionat dels fitxers (`?v=9`).
+- El navegador mostrava el CSS antic → versionat dels fitxers (`?v=12`).
 - Configurar el domini propi va deixar la web sense accés → hem tret el `CNAME` fins que el DNS estigui a punt.
 - Dos membres pujant a GitHub alhora → `git pull` / `rebase` abans de fer `push`.
 - La IA va proposar dades que no eren nostres (rols, eines) → ho vam contrastar amb els nostres documents.

@@ -44,6 +44,16 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(tick, 1000);
   }
 
+  /* ---- Tema clar / fosc ---- */
+  const tema = document.querySelector(".theme-toggle");
+  if (tema) {
+    tema.addEventListener("click", () => {
+      const nou = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+      document.documentElement.dataset.theme = nou;
+      try { localStorage.setItem("zevix_theme", nou); } catch (e) {}
+    });
+  }
+
   /* ---- Reveal on scroll ---- */
   const items = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {

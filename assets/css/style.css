@@ -91,7 +91,7 @@ code, .mono { font-family: var(--mono); }
 .nav-actions { display: flex; gap: 8px; align-items: center; }
 .nav-toggle { display: none; background: none; border: 1px solid var(--border); color: var(--text); border-radius: 8px; padding: 8px 10px; cursor: pointer; }
 
-@media (max-width: 1120px) {
+@media (max-width: 1300px) {
   .nav-toggle { display: block; }
   .nav-menu {
     position: absolute; top: 70px; left: 0; right: 0; background: var(--bg-2);
@@ -102,7 +102,7 @@ code, .mono { font-family: var(--mono); }
   .nav-links { flex-direction: column; }
   .nav-actions { flex-direction: column; align-items: stretch; }
 }
-@media (min-width: 1121px) { .nav-menu { display: flex; align-items: center; gap: 18px; } }
+@media (min-width: 1301px) { .nav-menu { display: flex; align-items: center; gap: 18px; } }
 
 /* ---------- Hero ---------- */
 .hero { position: relative; padding: 110px 0 90px; overflow: hidden; }
@@ -410,7 +410,7 @@ footer.site-footer { border-top: 1px solid var(--border); padding: 60px 0 26px; 
 .back-top.show { opacity: 1; pointer-events: auto; }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 1120px) {
+@media (max-width: 1300px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
   .hero-inner, .split { grid-template-columns: 1fr; gap: 40px; }
@@ -764,3 +764,35 @@ table.compare td.mono { white-space: nowrap; }
 .cmp-form input[type=file] { color: var(--muted); font-size: .88rem; }
 .cmp-stats { margin: 6px 0 10px; }
 @media (max-width: 860px) { .charts { grid-template-columns: 1fr; } .pla-item { flex-direction: column; align-items: stretch; } }
+
+/* ---------- Controls de la navbar: idioma i tema ---------- */
+.nav-inner { gap: 14px; }
+.nav-tools { display: flex; align-items: center; gap: 8px; order: 3; }
+.lang-switch { display: flex; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+.lang-switch button, .theme-toggle {
+  background: transparent; color: var(--muted); border: 0; font-family: var(--mono); font-size: .7rem;
+  padding: 5px 7px; cursor: pointer; letter-spacing: .04em;
+}
+.lang-switch button.active { background: var(--primary); color: #0b0c0d; }
+.theme-toggle { border: 1px solid var(--border); border-radius: 2px; font-size: .9rem; padding: 3px 8px; }
+.lang-switch button:hover, .theme-toggle:hover { color: var(--text); }
+@media (max-width: 1300px) { .nav-tools { margin-left: auto; } }
+
+/* ---------- Tema clar ---------- */
+:root[data-theme="light"] {
+  --bg: #F6F6F4; --bg-2: #EDEDEA; --surface: #FFFFFF; --surface-2: #F1F1EE; --border: #D6D6D1;
+  --text: #16181B; --muted: #5E6269; --primary: #A85F00; --primary-2: #A85F00; --accent: #A85F00;
+  --ok: #15803D; --warn: #A16207; --high: #C2410C; --danger: #C8281C;
+}
+:root[data-theme="light"] .btn-primary,
+:root[data-theme="light"] .lang-switch button.active,
+:root[data-theme="light"] .price-card .ribbon { background: #F5A524; color: #0b0c0d; }
+:root[data-theme="light"] .logo-cursor { background: #F5A524; }
+:root[data-theme="light"] .map-box iframe { filter: none; }
+:root[data-theme="light"] .redacted { background: #16181B; }
+/* La portada 3D i els elements de consola es queden sempre foscos */
+:root[data-theme="light"] .world {
+  --bg: #0b0c0d; --bg-2: #101113; --surface: #141518; --surface-2: #1a1c20; --border: #2a2d32;
+  --text: #e8e6e1; --muted: #8d9096; --primary: #f5a524; color: var(--text); background: var(--bg);
+}
+.nav-toggle { order: 4; }

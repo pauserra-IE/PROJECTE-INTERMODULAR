@@ -44,7 +44,7 @@ Pàgines que inclou:
 | Glossari i FAQ | 17 termes de ciberseguretat amb cercador i preguntes freqüents per a pimes |
 | 404 | Pàgina d'error amb l'estil de la web |
 | Login / Registre | Accés per rols (client / administrador) i alta de nous clients |
-| Portal client | Resum de riscos, llistat de vulnerabilitats, pla de millora i **descàrrega d'informes** |
+| Portal client | Resum de riscos, **gràfics** (gravetat i hosts), llistat de vulnerabilitats, **pla de millora interactiu** (estat de cada mesura i progrés), **re-auditoria** (compara dos informes: corregides, presents i noves) i **descàrrega d'informes** |
 | Portal admin | Gestió de clients, estat dels mòduls de l'eina, pujada d'informes, registre d'activitat i opció d'**accedir com a client** |
 
 ## 2. Tecnologies utilitzades
@@ -243,7 +243,7 @@ Tota la portada és un recorregut 3D: en fer scroll, una càmera vola **sense ta
 
 **Decisió:** la tècnica s'inspira en el projecte [scroll-world](https://github.com/oso95/scroll-world), però aquesta genera els vols amb vídeos pre-renderitzats en serveis de pagament (Monid/Higgsfield). Nosaltres renderitzem l'escena en temps real amb WebGL: és gratuït, ocupa uns pocs KB i funciona a GitHub Pages. Si el navegador no té WebGL, tot el contingut es mostra com a seccions estàtiques.
 
-**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=10`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
+**Problema trobat i solució (memòria cau):** en publicar la nova versió, alguns navegadors continuaven fent servir el CSS antic i el text de les fases sortia sense estil. Per evitar-ho, els fitxers s'enllacen amb un número de versió (ara `?v=12`). Cada vegada que es modifiquin cal augmentar aquest número a tots els HTML.
 
 ### 6.3 Justificació de tecnologies
 
@@ -259,7 +259,11 @@ Tota la portada és un recorregut 3D: en fer scroll, una càmera vola **sense ta
 1. **Fase 1 (actual):** web estàtica a GitHub Pages. El login és un **prototip** en JavaScript que demostra el flux complet per rols. ⚠️ No és segur (les credencials de demostració són al codi i la comprovació es fa al navegador); només serveix per a la demostració del Sprint 1.
 2. **Fase 2:** la plataforma passa a **Django** desplegat en un servidor propi (Proxmox / LAMP) o a AWS, amb contrasenyes amb hash, sessions al servidor, protecció CSRF i informes guardats fora de l'abast públic. La landing page pot continuar a GitHub Pages.
 
-### 6.4 Altres decisions
+### 6.4 Tema clar/fosc i idiomes
+- **Tema:** el botó ◐ de la barra de navegació canvia entre el tema fosc (per defecte) i un tema clar. Només redefineix les variables CSS de `:root` (`[data-theme="light"]`), per això no cal tocar cap component. La tria es desa a `localStorage` i s'aplica al `<head>` abans de pintar la pàgina, perquè no faci pampallugues. La portada 3D es queda sempre fosca.
+- **Idiomes:** el selector CA · ES · EN fa servir `assets/js/i18n.js`, un diccionari de textos en català amb la traducció al castellà i a l'anglès. L'script recorre els nodes de text de la pàgina i substitueix els que troba. Estan traduïts el menú, el peu, les capçaleres, la portada, les tarifes (amb la calculadora), el contacte i l'inici de sessió; la resta del contingut queda en català.
+
+### 6.5 Altres decisions
 - **Informes en JSON:** l'eina Python exportarà els resultats en JSON; la web només ha de llegir aquest fitxer, cosa que desacobla l'eina de la plataforma.
 - **Sense dependències externes de JavaScript:** menys risc de seguretat a la cadena de subministrament i més fàcil de justificar el codi.
 - **Empreses i dades fictícies:** EbreLogistics S.L. és l'empresa auditada del nostre contracte simbòlic; la resta de logos de clients i les dades de l'informe són d'exemple.
@@ -343,5 +347,7 @@ Les indicacions del projecte permeten fer servir IA sempre que es justifiqui el 
 
 **Eina d'auditoria (`auditoria/zevix_audit.py`).** L'explicació pas a pas (validació, fil secundari, cua de missatges, exportació) i la taula de canvis respecte a la v1 són a [auditoria/README.md](../auditoria/README.md).
 
-**Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=10` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
+**Portal avançat (`assets/js/portal.js`).** Quan el portal ha carregat l'informe, envia l'esdeveniment `zevix:report`. `portal.js` l'escolta i dibuixa els gràfics en SVG (un donut amb `stroke-dasharray` i barres per host), el pla de millora (l'estat de cada troballa es desa a `localStorage` amb la clau `zevix_pla_<auditoria>`) i la comparació de re-auditoria: dues troballes són la mateixa si coincideixen el host i el títol; les que ja no hi són es marquen com a corregides.
+
+**Estils (`assets/css/style.css`).** Els colors, les tipografies i les mides es defineixen com a variables a `:root`, de manera que canviar l'aspecte de tota la web només requereix editar unes línies. Els fitxers s'enllacen amb `?v=12` perquè els navegadors no facin servir una versió antiga desada a la memòria cau.
 
